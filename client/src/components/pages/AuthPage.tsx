@@ -37,8 +37,8 @@ export default function AuthPage(): JSX.Element {
           {auth === 'signup' && (
             <TextField
               variant="outlined"
-              name="username"
-              label="Username"
+              name="userName"
+              label="UserName"
               sx={authTextFieldStyle}
             />
           )}
@@ -54,6 +54,12 @@ export default function AuthPage(): JSX.Element {
             name="password"
             label="Password"
             type="password"
+            sx={authTextFieldStyle}
+          />
+          <TextField
+            variant="outlined"
+            name="img"
+            label="Img"
             sx={authTextFieldStyle}
           />
           <Button variant="outlined" type="submit" sx={buttonStyle}>

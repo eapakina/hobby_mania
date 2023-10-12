@@ -6,18 +6,25 @@ type UserSliceType = {
   data: UserType;
   error: Error | null;
   logoutDialogOpened: boolean;
+  token: string | null;
 };
 
 const initialState: UserSliceType = {
   data: { status: 'loading' },
   error: null,
   logoutDialogOpened: false,
+  token: null,
+
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    setToken: (state, action: { payload: string }) => {
+      state.token = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // checkUserThunk
     builder.addCase(checkUserThunk.fulfilled, (state, { payload }) => {
@@ -39,6 +46,7 @@ const userSlice = createSlice({
         ...payload,
         status: 'logged',
       };
+      state.token = payload.token;
     });
     builder.addCase(signUpUserThunk.rejected, (state) => {
       state.data = { status: 'guest' };
@@ -50,6 +58,7 @@ const userSlice = createSlice({
         ...payload,
         status: 'logged',
       };
+      state.token = payload.token;
     });
     builder.addCase(loginUserThunk.rejected, (state) => {
       state.data = { status: 'guest' };
@@ -58,9 +67,12 @@ const userSlice = createSlice({
     // logoutUserThunk
     builder.addCase(logoutUserThunk.fulfilled, (state) => {
       state.data = { status: 'guest' };
+
+      state.token = null;
     });
     builder.addCase(logoutUserThunk.rejected, (state) => state);
   },
 });
 
+export const { setToken } = userSlice.actions;
 export default userSlice.reducer;
