@@ -9,6 +9,7 @@ import { useAppDispatch } from './redux/hooks';
 import { checkUserThunk } from './redux/slices/user/userThunks';
 import AuthErrorDialog from './components/ui/AuthErrorDialog';
 import LogoutConfirmDialog from './components/ui/LogoutConfirmDialog';
+import AuthSchoolPage from './components/pages/AuthSchoolPage';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ function App(): JSX.Element {
         <Route path="/" element={<MainPage />} />
         <Route path="/posts" element={<PostsPage />} />
         <Route path="/:auth" element={<AuthPage />} />
+        <Route path="/school/:authSchool" element={<AuthSchoolPage />} />
       </Routes>
       <AuthErrorDialog />
       <LogoutConfirmDialog />
