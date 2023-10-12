@@ -2,27 +2,27 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      "Categories",
+      'Categories',
       [
-        { category: "Танцы", createdAt: new Date(), updatedAt: new Date() },
-        { category: "Каратэ", createdAt: new Date(), updatedAt: new Date() },
+        { category: 'Танцы', createdAt: new Date(), updatedAt: new Date() },
+        { category: 'Каратэ', createdAt: new Date(), updatedAt: new Date() },
         {
-          category: "Художественная гимнастика",
+          category: 'Художественная гимнастика',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-        { category: "Шахматы", createdAt: new Date(), updatedAt: new Date() },
-        { category: "Рисование", createdAt: new Date(), updatedAt: new Date() },
+        { category: 'Шахматы', createdAt: new Date(), updatedAt: new Date() },
+        { category: 'Рисование', createdAt: new Date(), updatedAt: new Date() },
         {
-          category: "Английский язык",
+          category: 'Английский язык',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-        { category: "Музыка", createdAt: new Date(), updatedAt: new Date() },
-        { category: "Театр", createdAt: new Date(), updatedAt: new Date() },
-        { category: "Футбол", createdAt: new Date(), updatedAt: new Date() },
+        { category: 'Музыка', createdAt: new Date(), updatedAt: new Date() },
+        { category: 'Театр', createdAt: new Date(), updatedAt: new Date() },
+        { category: 'Футбол', createdAt: new Date(), updatedAt: new Date() },
       ],
-      {}
+      {},
     );
   },
 
