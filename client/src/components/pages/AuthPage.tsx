@@ -35,12 +35,20 @@ export default function AuthPage(): JSX.Element {
           onSubmit={submitHandler}
         >
           {auth === 'signup' && (
+            <>
             <TextField
               variant="outlined"
-              name="username"
+              name="userName"
               label="Username"
               sx={authTextFieldStyle}
             />
+            <TextField
+              variant="outlined"
+              name="img"
+              label="Img"
+              sx={authTextFieldStyle}
+            />
+            </>
           )}
           <TextField
             variant="outlined"

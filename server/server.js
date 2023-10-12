@@ -3,9 +3,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-
-const postsRouter = require('./routes/postsRouter');
 const userRouter = require('./routes/userRouter');
+const schoolRouter = require('./routes/schoolRouter');
 
 require('dotenv').config();
 
@@ -31,7 +30,8 @@ app.use(
   }),
 );
 
-app.use('/api/posts', postsRouter);
+
 app.use('/api/user', userRouter);
+app.use('/api/school', schoolRouter);
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));
