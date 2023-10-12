@@ -1,24 +1,24 @@
-// const express = require('express');
-// const { book } = require('../db/models');
+const express = require('express');
+const { Blog } = require('../db/models');
 
-// const router = express.Router();
+const router = express.Router();
 
-// router
-//   .route('/')
-//   .get(async (req, res) => {
-//     const books = await book.findAll();
-//     res.json(books);
-//   })
-//   .post(async (req, res) => {
-//     const newBook = await book.create(req.body);
-//     res.json(newBook);
-//   });
+router
+  .route('/school/:id/')
+  .get(async (req, res) => {
+    const blogEntrys = await Blog.findAll({ where: { schoolId: req.params.id } });
+    res.json(blogEntrys);
+  })
+  .post(async (req, res) => {
+    const newBook = await Blog.create(req.body);
+    res.json(newBook);
+  });
 
 // router
 //   .route('/:id')
 //   .delete(async (req, res) => {
 //     try {
-//       await book.destroy({ where: { id: req.params.id } });
+//       await blog.destroy({ where: { id: req.params.id } });
 //       res.sendStatus(200);
 //     } catch (err) {
 //       console.error(err);
@@ -31,12 +31,12 @@
 //     const { authtor, name, status } = req.body;
 //     console.log('мы тут', req.body);
 //     try {
-//       const [updatedRowCount] = await book.update(
+//       const [updatedRowCount] = await blog.update(
 //         { authtor, name, status },
 //         { where: { id: bookId } },
 //       );
 //       if (updatedRowCount === 1) {
-//         const bookEdit = await book.findByPk(bookId);
+//         const bookEdit = await blog.findByPk(bookId);
 //         console.log('мы тут', bookEdit);
 
 //         // Обновление прошло успешно
@@ -50,4 +50,4 @@
 //     }
 //   });
 
-// module.exports = router;
+module.exports = router;
