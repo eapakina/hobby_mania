@@ -11,9 +11,8 @@ import AuthSchoolPage from './components/pages/AuthSchoolPage';
 import SearchPage from './components/pages/SearchPage';
 import SchoolPage from './components/pages/SchoolPage';
 import ClassForm from './components/pages/ClassForm';
-import AuthSchool from './components/pages/AuthSchool';
-import AuthUser from './components/pages/AuthUser';
 import AuthPage from './components/pages/AuthPage';
+import PostsPage from './components/pages/PostsPage';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
