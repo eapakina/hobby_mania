@@ -26,7 +26,7 @@ module.exports = {
       info: {
         type: Sequelize.TEXT,
       },
-      img: {
+      imgSchool: {
         type: Sequelize.STRING,
       },
       districtId: {

@@ -9,15 +9,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      idUser: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
           key: 'id',
         },
       },
-      idSchool: {
+      schoolId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: 'Schools',
+          key: 'id',
+        },
       },
       title: {
         type: Sequelize.STRING,
