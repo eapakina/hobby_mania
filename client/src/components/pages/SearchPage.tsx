@@ -1,5 +1,7 @@
-import React from "react";
+import React from 'react'
 
-export default function SearchPage() {
-  return <div>SearchPage</div>;
+export default function SearchPage():JSX.Element {
+  return (
+    <div>SearchPage</div>
+  )
 }

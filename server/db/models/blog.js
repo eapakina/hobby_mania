@@ -1,9 +1,9 @@
-const { Model } = require("sequelize");
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Blog extends Model {
     static associate({ School }) {
-      this.belongsTo(School, { foreignKey: "schoolId" });
+      this.belongsTo(School, { foreignKey: 'schoolId' });
     }
   }
   Blog.init(
@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Blog",
-    }
+      modelName: 'Blog',
+    },
   );
   return Blog;
 };
