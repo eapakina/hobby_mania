@@ -37,7 +37,7 @@ export default function Navbar(): JSX.Element {
       >
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Hello, {user.data.status === 'logged' ? user.data.username : 'dear student'}
+            Hello, {user.data.status === 'logged' ? user.data.userName : 'dear student'}
           </Typography>
           {links.map((link) => (
             <Link component={NavLink} key={link.name} to={link.to} sx={linkStyle}>
