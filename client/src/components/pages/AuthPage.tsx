@@ -7,7 +7,8 @@ import { loginUserThunk, signUpUserThunk } from '../../redux/slices/user/userThu
 import { authTextFieldStyle, buttonStyle, postFormGridStyles } from '../styles';
 
 export default function AuthPage(): JSX.Element {
-  const { auth } = useParams();
+  const { authuser } = useParams();
+  console.log(authuser)
   const dispatch = useAppDispatch();
 
   const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
@@ -16,7 +17,7 @@ export default function AuthPage(): JSX.Element {
     const formData = Object.fromEntries(new FormData(e.currentTarget));
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    auth === 'signup'
+    authuser === 'signup'
       ? void dispatch(signUpUserThunk(formData as UserSignUpFormType))
       : void dispatch(loginUserThunk(formData as UserLoginFormType));
   };
@@ -34,7 +35,7 @@ export default function AuthPage(): JSX.Element {
           py={5}
           onSubmit={submitHandler}
         >
-          {auth === 'signup' && (
+          {authuser === 'signup' && (
             <TextField
               variant="outlined"
               name="userName"
@@ -63,7 +64,7 @@ export default function AuthPage(): JSX.Element {
             sx={authTextFieldStyle}
           />
           <Button variant="outlined" type="submit" sx={buttonStyle}>
-            {auth === 'signup' ? 'Sign Up' : 'Login'}
+            {authuser === 'signup' ? 'Sign Up' : 'Login'}
           </Button>
         </Box>
       </Grid>

@@ -12,6 +12,7 @@ import SchoolPage from './components/pages/SchoolPage';
 import ClassForm from './components/pages/ClassForm';
 import AuthSchool from './components/pages/AuthSchool';
 import AuthUser from './components/pages/AuthUser';
+import AuthPage from './components/pages/AuthPage';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -27,8 +28,8 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/:authschool" element={<AuthSchool />} />
-        <Route path="/:authuser" element={<AuthUser />} />
+        {/* <Route path="/:authschool" element={<AuthSchool />} /> */}
+        <Route path="/:authuser" element={<AuthPage />} />
         <Route path="/school/:id" element={<SchoolPage />} />
         <Route path="/school/:id/classform" element={<ClassForm />} />
 

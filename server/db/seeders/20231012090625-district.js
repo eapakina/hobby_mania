@@ -2,65 +2,65 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      "Districts",
+      'Districts',
       [
         {
-          district: "ВАО",
+          district: 'ВАО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          district: "ЗАО",
+          district: 'ЗАО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          district: "ЮАО",
+          district: 'ЮАО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          district: "САО",
+          district: 'САО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          district: "СВАО",
+          district: 'СВАО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          district: "ЦАО",
+          district: 'ЦАО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          district: "ЮЗАО",
+          district: 'ЮЗАО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          district: "ЮВАО",
+          district: 'ЮВАО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          district: "СЗАО",
+          district: 'СЗАО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          district: "НАО",
+          district: 'НАО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          district: "ТАО",
+          district: 'ТАО',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
       ],
-      {}
+      {},
     );
   },
 
