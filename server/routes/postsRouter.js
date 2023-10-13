@@ -8,14 +8,26 @@ router.get("/all", async (req, res) => {
   res.json(classes);
 });
 
+router.get("/all/categorys", async (req, res) => {
+  const categorys = await Category.findAll();
+  res.json(categorys);
+})
+
 router.post("/:id/add", async (req, res) => {
-  const { className, desription, category, day, time, isAvailable, age, schoolId } = req.body;
-  const { id } = req.params;
+  const {
+    className,
+    desription,
+    category,
+    day,
+    time,
+    isAvailable,
+    age,
+    schoolId,
+  } = req.body;
   console.log(req.params);
   const categoryId = await Category.findOne({ where: { category } });
   const dayId = await Day.findOne({ where: { day } });
   const timeId = await Time.findOne({ where: { time } });
-  console.log(timeId.id, dayId.id, categoryId.id, schoolId, desription, age, isAvailable, className);
   const newClass = await Class.create({
     className,
     desription,
@@ -30,9 +42,11 @@ router.post("/:id/add", async (req, res) => {
 });
 
 router
-  .route('/school/:id/')
+  .route("/school/:id/")
   .get(async (req, res) => {
-    const blogEntrys = await Blog.findAll({ where: { schoolId: req.params.id } });
+    const blogEntrys = await Blog.findAll({
+      where: { schoolId: req.params.id },
+    });
     res.json(blogEntrys);
   })
   .post(async (req, res) => {

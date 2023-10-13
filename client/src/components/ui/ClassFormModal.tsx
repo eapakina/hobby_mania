@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,9 +10,11 @@ import MenuItem from '@mui/material/MenuItem';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/hooks';
 import { addClassThunk } from '../../redux/slices/class/classesThunks';
+import axios from 'axios';
 
 export default function ClassFormModal(): JSX.Element {
   const [open, setOpen] = useState(false);
+  const [categorys, setCategorys] = useState([]);
   const [formdata, setFormdata] = useState({
     className: 'Школа',
     desription: 'haha',
@@ -48,12 +50,18 @@ export default function ClassFormModal(): JSX.Element {
     setOpen(false);
   };
 
+  useEffect(() => {
+    void axios.get('/classes/all/categorys').then((res) => {
+      setCategorys(res.data);
+    });
+  }, []);
+
   return (
     <div>
       <Button onClick={handleOpen}>Open Modal</Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Class Form</DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
           <TextField
             label="Classname"
             name="className"
@@ -72,9 +80,12 @@ export default function ClassFormModal(): JSX.Element {
             value={formdata.category}
             onChange={handleChange}
           >
-            <MenuItem value="Танцы">Танцы</MenuItem>
+            {/* <MenuItem value="Танцы">Танцы</MenuItem>
             <MenuItem value="Каратэ">Каратэ</MenuItem>
-            <MenuItem value="Шахматы">Шахматы</MenuItem>
+            <MenuItem value="Шахматы">Шахматы</MenuItem> */}
+            {categorys.map((category) => (
+              <MenuItem key={category.category} value={category.category}>{category.category}</MenuItem>
+            ))}
           </Select>
 
           <Select
