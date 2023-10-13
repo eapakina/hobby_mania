@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../redux/hooks';
 import { loginUserThunk, signUpUserThunk } from '../../redux/slices/user/userThunks';
 import { authTextFieldStyle, buttonStyle, postFormGridStyles } from '../styles';
 
-export default function AuthPage(): JSX.Element {
+export default function AuthUserPage(): JSX.Element {
   const { authuser } = useParams();
   console.log(authuser)
   const dispatch = useAppDispatch();
