@@ -1,7 +1,32 @@
-// const express = require('express');
-// const { book } = require('../db/models');
+const express = require("express");
+const { Class, Day, Time, Category, School } = require("../db/models");
 
-// const router = express.Router();
+const router = express.Router();
+
+router.get("/all", async (req, res) => {
+  const classes = await Class.findAll();
+  res.json(classes);
+});
+
+router.post("/:id/add", async (req, res) => {
+  const { description, category, day, time, isAvailable, age, schoolId } = req.body;
+  const { id } = req.params;
+  console.log(req.params);
+  const categoryId = await Category.findOne({ where: { category } });
+  const dayId = await Day.findOne({ where: { day } });
+  const timeId = await Time.findOne({ where: { time } });
+  console.log(timeId.id, dayId.id, categoryId.id, schoolId, description, age, isAvailable);
+  const newClass = await Class.create({
+    description,
+    categoryId: Number(categoryId.id),
+    dayId: Number(dayId.id),
+    timeId: Number(timeId.id),
+    isAvailable,
+    schoolId: Number(schoolId),
+    age: Number(age),
+  });
+  res.json(newClass);
+});
 
 // router
 //   .route('/')
@@ -50,4 +75,4 @@
 //     }
 //   });
 
-// module.exports = router;
+module.exports = router;
