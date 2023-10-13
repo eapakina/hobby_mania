@@ -13,6 +13,7 @@ export default function Navbar(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.user);
 
+
   const links =
     user.data.status === 'logged'
       ? [
