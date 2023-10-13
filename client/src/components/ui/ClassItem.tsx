@@ -5,6 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 const bull = (
     <Box
@@ -16,22 +17,31 @@ const bull = (
   );
   
 
-export default function ClassItem():JSX.Element {
+export default function ClassItem({school, item}):JSX.Element {
+
   return (
     <Card sx={{ minWidth: 275 }}>
     <CardContent>
       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-Название центра      </Typography>
+{item.School?.schoolName}      </Typography>
       <Typography variant="h5" component="div">
-Название занятия (каратэ)      </Typography>
+{item.Category?.category}     </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
-Расписание      </Typography>
+{item.Day?.day}     </Typography>
       <Typography variant="body2">
-Описание        <br />
+{item.desription}       <br />
       </Typography>
     </CardContent>
     <CardActions>
       <Button size="small">Связаться </Button>
+      {school?.id === item.schoolId ? (
+        <>
+      <Button size="small">Удалить </Button>
+      <Button size="small">Редактировать </Button>
+      </>) : (
+        <div>ghbdtn</div>
+      )
+}
     </CardActions>
   </Card>
   )

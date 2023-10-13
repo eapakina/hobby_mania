@@ -3,8 +3,25 @@ const { Class, Day, Time, Category, School, Blog } = require("../db/models");
 
 const router = express.Router();
 
-router.get("/all", async (req, res) => {
-  const classes = await Class.findAll();
+router.get("/:id/all", async (req, res) => {
+  const { id } = req.params;
+  const classes = await Class.findAll({
+    include: [
+      {
+        model: Day,
+      },
+      {
+        model: Time,
+      },
+      {
+        model: Category,
+      },
+      {
+        model: School,
+      },
+    ],
+    where: { schoolId: id },
+  });
   res.json(classes);
 });
 
@@ -38,7 +55,11 @@ router.post("/:id/add", async (req, res) => {
     schoolId: Number(schoolId),
     age: Number(age),
   });
-  res.json(newClass);
+  const createdClass = await Class.findOne({
+    include: [{ model: Day }, { model: Time }, { model: Category }, { model: School }],
+    where: { id: newClass.id },
+  });
+  res.json(createdClass);
 });
 
 router
