@@ -7,7 +7,7 @@ import type{ SchoolLoginFormtype, SchoolSingUpFormType } from '../../types/schoo
 import { authTextFieldStyle, buttonStyle, postFormGridStyles } from '../styles';
 
 export default function AuthSchoolPage():JSX.Element {
-    const { authSchool } = useParams();
+    const { auth } = useParams();
   const dispatch = useAppDispatch();
 
   const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
@@ -16,10 +16,11 @@ export default function AuthSchoolPage():JSX.Element {
     const formData = Object.fromEntries(new FormData(e.currentTarget));
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    authSchool === 'signup'
+    auth === 'signup'
       ? void dispatch(signUpSchoolThunk(formData as SchoolSingUpFormType))
       : void dispatch(loginSchoolThunk(formData as SchoolLoginFormtype));
   };
+  console.log(auth === 'signup')
   return (
     <Grid container direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh' }}>
       <Grid item xs={3} />
@@ -33,7 +34,7 @@ export default function AuthSchoolPage():JSX.Element {
           py={5}
           onSubmit={submitHandler}
         >
-          {authSchool === 'signup' && (
+          {auth === 'signup' && (
             <>
             <TextField
               variant="outlined"
@@ -84,7 +85,7 @@ export default function AuthSchoolPage():JSX.Element {
           />
 
           <Button variant="outlined" type="submit" sx={buttonStyle}>
-            {authSchool === 'signup' ? 'Sign Up' : 'Login'}
+            {auth === 'signup' ? 'Sign Up' : 'Login'}
           </Button>
         </Box>
       </Grid>

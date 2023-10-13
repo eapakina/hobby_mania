@@ -12,7 +12,7 @@ import { linkStyle } from '../styles';
 export default function Navbar(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.user);
-  const school = useAppSelector((store)=>store.school)
+
 
   const links =
     user.data.status === 'logged'
