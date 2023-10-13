@@ -31,6 +31,7 @@ app.use(
   }),
 );
 
+app.use('/api/classes', postsRouter);
 app.use('/api/user', userRouter);
 
 app.use('/api/school', schoolRouter);
