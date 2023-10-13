@@ -11,6 +11,7 @@ router.post('/signup', async (req, res) => {
   const { userName, email, password, img } = req.body;
   console.log('TTTTTTTTTTTTTTTTTTTT',req.body);
   if (userName && email && password && img) {
+    console.log('111111111111');
     try {
       const [user, created] = await User.findOrCreate({
         where: { email },
