@@ -43,6 +43,7 @@ export default function PostForm(): JSX.Element {
             sx={buttonStyle}
             onClick={() => {
               setInput({ title: '', body: '' });
+              
             }}
           >
             Send

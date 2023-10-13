@@ -1,5 +1,5 @@
 const express = require("express");
-const { Class, Day, Time, Category, School } = require("../db/models");
+const { Class, Day, Time, Category, School, Blog } = require("../db/models");
 
 const router = express.Router();
 
@@ -9,15 +9,16 @@ router.get("/all", async (req, res) => {
 });
 
 router.post("/:id/add", async (req, res) => {
-  const { description, category, day, time, isAvailable, age, schoolId } = req.body;
+  const { className, desription, category, day, time, isAvailable, age, schoolId } = req.body;
   const { id } = req.params;
   console.log(req.params);
   const categoryId = await Category.findOne({ where: { category } });
   const dayId = await Day.findOne({ where: { day } });
   const timeId = await Time.findOne({ where: { time } });
-  console.log(timeId.id, dayId.id, categoryId.id, schoolId, description, age, isAvailable);
+  console.log(timeId.id, dayId.id, categoryId.id, schoolId, desription, age, isAvailable, className);
   const newClass = await Class.create({
-    description,
+    className,
+    desription,
     categoryId: Number(categoryId.id),
     dayId: Number(dayId.id),
     timeId: Number(timeId.id),
@@ -28,22 +29,22 @@ router.post("/:id/add", async (req, res) => {
   res.json(newClass);
 });
 
-// router
-//   .route('/')
-//   .get(async (req, res) => {
-//     const books = await book.findAll();
-//     res.json(books);
-//   })
-//   .post(async (req, res) => {
-//     const newBook = await book.create(req.body);
-//     res.json(newBook);
-//   });
+router
+  .route('/school/:id/')
+  .get(async (req, res) => {
+    const blogEntrys = await Blog.findAll({ where: { schoolId: req.params.id } });
+    res.json(blogEntrys);
+  })
+  .post(async (req, res) => {
+    const newBook = await Blog.create(req.body);
+    res.json(newBook);
+  });
 
 // router
 //   .route('/:id')
 //   .delete(async (req, res) => {
 //     try {
-//       await book.destroy({ where: { id: req.params.id } });
+//       await blog.destroy({ where: { id: req.params.id } });
 //       res.sendStatus(200);
 //     } catch (err) {
 //       console.error(err);
@@ -56,12 +57,12 @@ router.post("/:id/add", async (req, res) => {
 //     const { authtor, name, status } = req.body;
 //     console.log('мы тут', req.body);
 //     try {
-//       const [updatedRowCount] = await book.update(
+//       const [updatedRowCount] = await blog.update(
 //         { authtor, name, status },
 //         { where: { id: bookId } },
 //       );
 //       if (updatedRowCount === 1) {
-//         const bookEdit = await book.findByPk(bookId);
+//         const bookEdit = await blog.findByPk(bookId);
 //         console.log('мы тут', bookEdit);
 
 //         // Обновление прошло успешно

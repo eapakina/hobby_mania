@@ -32,5 +32,6 @@ app.use(
 
 app.use('/api/classes', postsRouter);
 app.use('/api/user', userRouter);
+app.use('/api/blog', postsRouter);
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));

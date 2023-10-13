@@ -14,17 +14,17 @@ import { addClassThunk } from '../../redux/slices/class/classesThunks';
 export default function ClassFormModal(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [formdata, setFormdata] = useState({
-    description: 'haha',
+    className: 'Школа',
+    desription: 'haha',
     category: 'Каратэ',
     time: 'Утро',
-    day: 'Понедельник',
+    day: 'Monday',
     isAvailable: true,
     age: 0,
     schoolId: useParams().id,
   });
 
   const { id } = useParams();
-  console.log(id);
 
   const dispatch = useAppDispatch();
 
@@ -56,8 +56,14 @@ export default function ClassFormModal(): JSX.Element {
         <DialogContent>
           <TextField
             label="Classname"
-            name="description"
-            value={formdata.description}
+            name="className"
+            value={formdata.className}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Description"
+            name="desription"
+            value={formdata.desription}
             onChange={handleChange}
           />
           <Select

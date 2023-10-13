@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Class.init(
     {
+      className: DataTypes.STRING,
       age: DataTypes.INTEGER,
       desription: DataTypes.TEXT,
       isAvailable: DataTypes.BOOLEAN,
