@@ -1,7 +1,33 @@
-const express = require('express');
-const { Blog } = require('../db/models');
+const express = require("express");
+const { Class, Day, Time, Category, School, Blog } = require("../db/models");
 
 const router = express.Router();
+
+router.get("/all", async (req, res) => {
+  const classes = await Class.findAll();
+  res.json(classes);
+});
+
+router.post("/:id/add", async (req, res) => {
+  const { className, desription, category, day, time, isAvailable, age, schoolId } = req.body;
+  const { id } = req.params;
+  console.log(req.params);
+  const categoryId = await Category.findOne({ where: { category } });
+  const dayId = await Day.findOne({ where: { day } });
+  const timeId = await Time.findOne({ where: { time } });
+  console.log(timeId.id, dayId.id, categoryId.id, schoolId, desription, age, isAvailable, className);
+  const newClass = await Class.create({
+    className,
+    desription,
+    categoryId: Number(categoryId.id),
+    dayId: Number(dayId.id),
+    timeId: Number(timeId.id),
+    isAvailable,
+    schoolId: Number(schoolId),
+    age: Number(age),
+  });
+  res.json(newClass);
+});
 
 router
   .route('/school/:id/')
