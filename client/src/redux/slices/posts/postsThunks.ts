@@ -16,13 +16,13 @@ export const addPostThunk = createAsyncThunk<PostType, PostFormType>(
   },
 );
 
-// export const deletePostThunk = createAsyncThunk<PostType['id'], PostType['id']>(
-//   'posts/deletePost',
-//   async (id) => {
-//     await axios.delete(`/posts/${id}`);
-//     return id;
-//   },
-// );
+export const deletePostThunk = createAsyncThunk<PostType['id'], PostType['id']>(
+  'posts/deletePost',
+  async (id) => {
+    await axios.delete(`/posts/${id}`);
+    return id;
+  },
+);
 
 // export const updatePostThunk = createAsyncThunk<PostType, PostType>(
 //   'posts/updatePost',

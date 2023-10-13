@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import type { PostType } from "../../types/postTypes";
 import { cardStyle } from "../styles";
 import { useAppDispatch } from "../../redux/hooks";
+import { deletePostThunk } from "../../redux/slices/posts/postsThunks";
 
 type PostItemProps = {
   post: PostType;
@@ -29,7 +30,10 @@ export default function PostItem({ post }: PostItemProps): JSX.Element {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => console}>
+        <Button
+          size="small"
+          onClick={() => void dispatch(deletePostThunk(post.id))}
+        >
           Delete
         </Button>
       </CardActions>
