@@ -9,13 +9,22 @@ router.get("/all", async (req, res) => {
 });
 
 router.post("/:id/add", async (req, res) => {
-  const { className, desription, category, day, time, isAvailable, age, schoolId } = req.body;
+  const {
+    className,
+    desription,
+    category,
+    day,
+    time,
+    isAvailable,
+    age,
+    schoolId,
+  } = req.body;
   const { id } = req.params;
-  console.log(req.params);
+
   const categoryId = await Category.findOne({ where: { category } });
   const dayId = await Day.findOne({ where: { day } });
   const timeId = await Time.findOne({ where: { time } });
-  console.log(timeId.id, dayId.id, categoryId.id, schoolId, desription, age, isAvailable, className);
+
   const newClass = await Class.create({
     className,
     desription,
@@ -30,9 +39,11 @@ router.post("/:id/add", async (req, res) => {
 });
 
 router
-  .route('/school/:id/')
+  .route("/school/:id/")
   .get(async (req, res) => {
-    const blogEntrys = await Blog.findAll({ where: { schoolId: req.params.id } });
+    const blogEntrys = await Blog.findAll({
+      where: { schoolId: req.params.id },
+    });
     res.json(blogEntrys);
   })
   .post(async (req, res) => {
@@ -40,17 +51,15 @@ router
     res.json(newBook);
   });
 
-// router
-//   .route('/:id')
-//   .delete(async (req, res) => {
-//     try {
-//       await blog.destroy({ where: { id: req.params.id } });
-//       res.sendStatus(200);
-//     } catch (err) {
-//       console.error(err);
-//       res.sendStatus(500);
-//     }
-//   })
+router.route("/:id").delete(async (req, res) => {
+  try {
+    await blog.destroy({ where: { id: req.params.id } });
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+});
 
 //   .patch(async (req, res) => {
 //     const bookId = req.params.id;

@@ -24,7 +24,7 @@ export const deletePostThunk = createAsyncThunk<PostType['id'], PostType['id']>(
   },
 );
 
-// export const updatePostThunk = createAsyncThunk<PostType, PostType>(
-//   'posts/updatePost',
-//   (formData) => axios.patch<PostType>(`/posts/${formData.id}`, formData).then((res) => res.data),
-// );
+export const updatePostThunk = createAsyncThunk<PostType, PostType>(
+  'posts/updatePost',
+  (formData) => axios.patch<PostType>(`/posts/${formData.id}`, formData).then((res) => res.data),
+);
