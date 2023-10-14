@@ -8,20 +8,23 @@ const router = express.Router();
 const jwtSecretKey = 'your-secret-key';
 
 router.post('/signup', async (req, res) => {
-  const { userName, email, password, img } = req.body;
-  console.log('TTTTTTTTTTTTTTTTTTTT',req.body);
+  const {
+    userName, email, password, img,
+  } = req.body;
+  console.log('TTTTTTTTTTTTTTTTTTTT', req.body);
   if (userName && email && password && img) {
+    console.log('111111111111');
     try {
       const [user, created] = await User.findOrCreate({
         where: { email },
         defaults: { userName, img, password: await bcrypt.hash(password, 10) },
       });
       if (!created) return res.sendStatus(401);
-      
+
       req.session.userId = user.id;
-      
+
       const token = jwt.sign({ userName: user.userName }, jwtSecretKey, { expiresIn: '1h' });
-      return res.json({token});
+      return res.json({ token });
     } catch (e) {
       console.log(e);
       return res.sendStatus(500);
@@ -42,10 +45,10 @@ router.post('/login', async (req, res) => {
       }
 
       req.session.userId = user.id;
-      
+
       const token = jwt.sign({ userName: user.userName }, jwtSecretKey, { expiresIn: '1h' });
 
-      return res.json({token});
+      return res.json({ token });
     } catch (e) {
       console.log(e);
       return res.sendStatus(500);
@@ -69,8 +72,6 @@ router.get('/check', (req, res) => {
     return res.json({ userName: decoded.userName });
   });
 });
-
-
 
 // router.get('/logout', (req, res) => {
 //   req.session.destroy();

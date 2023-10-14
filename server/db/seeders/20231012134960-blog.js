@@ -12,6 +12,25 @@ module.exports = {
 
       },
 
+      {
+        title: 'что то -2',
+        body: 'вторая новость',
+        img: '',
+        schoolId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+
+      },
+
+      {
+        title: 'что то -2',
+        body: 'третья новость',
+        img: '',
+        schoolId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+
+      },
     ], {});
   },
 

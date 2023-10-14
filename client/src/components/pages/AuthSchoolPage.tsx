@@ -1,14 +1,13 @@
-import { Box, Button, Grid, TextField } from '@mui/material';
-import React from 'react';
+import React from 'react'
 import { useParams } from 'react-router-dom';
-import type { UserLoginFormType, UserSignUpFormType } from '../../types/userTypes';
+import { Box, Button, Grid, TextField } from '@mui/material';
 import { useAppDispatch } from '../../redux/hooks';
-import { loginUserThunk, signUpUserThunk } from '../../redux/slices/user/userThunks';
+import { loginSchoolThunk, signUpSchoolThunk } from '../../redux/slices/school/schoolThunk';
+import type{ SchoolLoginFormtype, SchoolSingUpFormType } from '../../types/schoolTypes';
 import { authTextFieldStyle, buttonStyle, postFormGridStyles } from '../styles';
 
-export default function AuthPage(): JSX.Element {
-  const { authuser } = useParams();
-  console.log(authuser)
+export default function AuthSchoolPage():JSX.Element {
+    const { authSchool } = useParams();
   const dispatch = useAppDispatch();
 
   const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
@@ -17,11 +16,10 @@ export default function AuthPage(): JSX.Element {
     const formData = Object.fromEntries(new FormData(e.currentTarget));
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    authuser === 'signup'
-      ? void dispatch(signUpUserThunk(formData as UserSignUpFormType))
-      : void dispatch(loginUserThunk(formData as UserLoginFormType));
+    authSchool === 'signup'
+      ? void dispatch(signUpSchoolThunk(formData as SchoolSingUpFormType))
+      : void dispatch(loginSchoolThunk(formData as SchoolLoginFormtype));
   };
-
   return (
     <Grid container direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh' }}>
       <Grid item xs={3} />
@@ -35,13 +33,40 @@ export default function AuthPage(): JSX.Element {
           py={5}
           onSubmit={submitHandler}
         >
-          {authuser === 'signup' && (
+          {authSchool === 'signup' && (
+            <>
             <TextField
               variant="outlined"
-              name="userName"
-              label="UserName"
+              name="schoolName"
+              label="SchoolName"
               sx={authTextFieldStyle}
             />
+
+            <TextField
+              variant="outlined"
+              name="adress"
+              label="Adress"
+              sx={authTextFieldStyle}
+            />
+            <TextField
+              variant="outlined"
+              name="phone"
+              label="Phone"
+              sx={authTextFieldStyle}
+            />
+            <TextField
+              variant="outlined"
+              name="info"
+              label="Info"
+              sx={authTextFieldStyle}
+            />
+            <TextField
+            variant="outlined"
+            name="imgSchool"
+            label="ImgSchool"
+            sx={authTextFieldStyle}
+          />
+          </>
           )}
           <TextField
             variant="outlined"
@@ -57,14 +82,9 @@ export default function AuthPage(): JSX.Element {
             type="password"
             sx={authTextFieldStyle}
           />
-          <TextField
-            variant="outlined"
-            name="img"
-            label="Img"
-            sx={authTextFieldStyle}
-          />
+
           <Button variant="outlined" type="submit" sx={buttonStyle}>
-            {authuser === 'signup' ? 'Sign Up' : 'Login'}
+            {authSchool === 'signup' ? 'Sign Up' : 'Login'}
           </Button>
         </Box>
       </Grid>

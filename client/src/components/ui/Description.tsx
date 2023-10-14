@@ -1,20 +1,39 @@
 import { Box, CardMedia } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Typography from '@mui/material/Typography';
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getSchoolThunk } from "../../redux/slices/school/schoolThunk";
 
 
-export default function Description(): JSX.Element {
+export default function Description({ id }: { id: number }): JSX.Element {
+  const school = useAppSelector((store) => store.school);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    void dispatch(getSchoolThunk(id));
+  }, [])
+  console.log(school.data)
+
   return <Box>
+    
           <CardMedia
         sx={{ height: 400 }}
-        image="//static.tildacdn.com/tild3233-6365-4532-b166-643233396232/10.jpg"
+        image={school.data?.imgSchool}
         title="school photo"
       />
 <Typography>
-Детский центр развития Милград 
+{school.data?.schoolName}
 </Typography>
 <Typography variant="body2" color="text.secondary">
-Дальше подтягивается какое то описание из БД        </Typography>
+Округ:    {school.data?.District?.district}      </Typography>
+<Typography variant="body2" color="text.secondary">
+Адрес:   {school.data?.adress}      </Typography>
+<Typography variant="body2" color="text.secondary">
+Телефон:   {school.data?.phone}      </Typography>
+<Typography variant="body2" color="text.secondary">
+email:   {school.data?.email}        </Typography>
+<Typography variant="body2" color="text.secondary">
+Описание:     {school.data?.info}      </Typography>
 
   </Box>;
 }

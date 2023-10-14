@@ -1,15 +1,19 @@
-const express = require("express");
-const { Class, Day, Time, Category, School, Blog } = require("../db/models");
+const express = require('express');
+const {
+  Class, Day, Time, Category, School, Blog,
+} = require('../db/models');
 
 const router = express.Router();
 
-router.get("/all", async (req, res) => {
+router.get('/all', async (req, res) => {
   const classes = await Class.findAll();
   res.json(classes);
 });
 
-router.post("/:id/add", async (req, res) => {
-  const { className, desription, category, day, time, isAvailable, age, schoolId } = req.body;
+router.post('/:id/add', async (req, res) => {
+  const {
+    className, desription, category, day, time, isAvailable, age, schoolId,
+  } = req.body;
   const { id } = req.params;
   console.log(req.params);
   const categoryId = await Category.findOne({ where: { category } });
