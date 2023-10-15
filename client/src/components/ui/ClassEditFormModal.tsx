@@ -10,10 +10,9 @@ import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
-import { addClassThunk } from "../../redux/slices/class/classesThunks";
+import { editClassThunk } from "../../redux/slices/class/classesThunks";
 
-export default function ClassFormModal(): JSX.Element {
-  const [open, setOpen] = useState(false);
+export default function ClassEditFormModal({ open, setOpen, idClass }): JSX.Element {
   const [categorys, setCategorys] = useState([]);
   const [formdata, setFormdata] = useState({
     className: "Школа",
@@ -24,18 +23,14 @@ export default function ClassFormModal(): JSX.Element {
     isAvailable: true,
     age: 0,
     schoolId: useParams().id,
+    id: idClass,
   });
-
-  const { id } = useParams();
+  console.log(formdata)
 
   const dispatch = useAppDispatch();
 
   const handleClose = (): void => {
     setOpen(false);
-  };
-
-  const handleOpen = (): void => {
-    setOpen(true);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -46,7 +41,7 @@ export default function ClassFormModal(): JSX.Element {
   };
 
   const handleSubmit = (): void => {
-    void dispatch(addClassThunk(formdata));
+    void dispatch(editClassThunk({formdata, idClass}));
     setOpen(false);
   };
 
@@ -58,7 +53,6 @@ export default function ClassFormModal(): JSX.Element {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open Modal</Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Class Form</DialogTitle>
         <DialogContent
