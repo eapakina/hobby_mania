@@ -6,8 +6,14 @@ export type UserModelType = {
   token:string;
 };
 
-export type UserSignUpFormType = Omit<UserModelType, 'id'> & { password: string };
-export type UserLoginFormType = Omit<UserSignUpFormType, 'userName'|'img'>;
+// export type UserSignUpFormType = Omit<UserModelType, 'id'> & { password: string, file:File };
+export type UserSignUpFormType = Omit<UserModelType, 'id' | 'img' | 'token'> & {
+  password: string;
+  file: File;
+};
+
+
+export type UserLoginFormType = Omit<UserSignUpFormType, 'userName'|'file'>;
 
 export type UserType =
   | (UserModelType & { status: 'logged' })

@@ -3,13 +3,22 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useAppDispatch } from '../../redux/hooks';
+import { logoutUserThunk } from '../../redux/slices/user/userThunks';
 
-export default function LogoutConfirmDialog(): JSX.Element {
-  const logoutDialogOpened = false;
-  const handleClose = (): void => {};
+
+type ModalExitType = {
+  open: boolean;
+  setOpen:() =>void;
+};
+export default function LogoutConfirmDialog({open,setOpen}:ModalExitType): JSX.Element {
+  const dispatch = useAppDispatch();
+  const handleClose = (): void => {
+setOpen(false)
+  };
   return (
     <Dialog
-      open={logoutDialogOpened}
+      open={open}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title-logout"
     >
@@ -18,7 +27,9 @@ export default function LogoutConfirmDialog(): JSX.Element {
         <Button onClick={handleClose} autoFocus>
           No
         </Button>
-        <Button onClick={handleClose}>Logout</Button>
+        <Button onClick={()=>{handleClose();
+        void dispatch(logoutUserThunk())
+        }}>Logout</Button>
       </DialogActions>
     </Dialog>
   );

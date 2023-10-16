@@ -23,7 +23,7 @@ export const saveToken = createAsyncThunk<void, string>(
     return data;
   });
 
-  export const signUpSchoolThunk = createAsyncThunk<SchoolType, SchoolSingUpFormType>(
+  export const signUpSchoolThunk = createAsyncThunk<SchoolType, FormData>(
     'school/signup',
     async (formData,{dispatch}) => {
       const { data } = await axios.post<SchoolType>('/school/signup', formData);
@@ -32,7 +32,7 @@ export const saveToken = createAsyncThunk<void, string>(
     },
   );
 
-  export const loginSchoolThunk = createAsyncThunk<SchoolType, SchoolLoginFormtype>(
+  export const loginSchoolThunk = createAsyncThunk<SchoolType, FormData>(
     'school/login',
     async (formData,{dispatch}) => {
       const { data } = await axios.post<SchoolType>('/school/login', formData);

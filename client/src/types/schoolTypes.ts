@@ -10,7 +10,7 @@ export type SchoolType = {
     token:string;
 };
 
-export type SchoolSingUpFormType = Omit<SchoolType, 'id'|'districtId'>&{password:string};
+export type SchoolSingUpFormType = Omit<SchoolType, 'id'|'districtId'|'token'|'imgSchool'>&{password:string,file:File};
 
 export type SchoolLoginFormtype = Omit<SchoolSingUpFormType, 'schoolName'|'adress'
-|'phone'|'info'|'imgSchool'>;
+|'phone'|'info'|'file'>;
