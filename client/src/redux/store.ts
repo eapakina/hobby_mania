@@ -1,12 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
-import postsReducer from './slices/posts/postsSlice';
-import userReducer from './slices/user/userSlice';
-import classesReducer from './slices/class/classesSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import postsReducer from "./slices/posts/postsSlice";
+import userReducer from "./slices/user/userSlice";
+import classesReducer from "./slices/class/classesSlice";
 
-import schoolReducer from './slices/school/schoolSlice';
-
-
-
+import schoolReducer from "./slices/school/schoolSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +11,6 @@ export const store = configureStore({
     user: userReducer,
 
     classes: classesReducer,
-
 
     school: schoolReducer,
   },

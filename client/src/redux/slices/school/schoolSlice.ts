@@ -2,11 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { SchoolType } from "../../../types/schoolTypes";
 import {
   checkSchoolThunk,
-<<<<<<< HEAD
   deleteSchoolThunk,
   editSchoolThunk,
-=======
->>>>>>> dev
   getSchoolThunk,
   loginSchoolThunk,
   logoutSchoolThunk,
@@ -61,7 +58,7 @@ const schoolSlice = createSlice({
       // state.data.filter((el) => el.id !== action.payload)
     });
     builder.addCase(editSchoolThunk.fulfilled, (state, action) => {
-      state.data=action.payload
+      state.data = action.payload;
       // const index = state.findIndex((el) => el.id === action.payload.id);
       // state[index] = action.payload;
     });

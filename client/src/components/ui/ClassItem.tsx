@@ -16,7 +16,13 @@ const bull = (
   </Box>
 );
 
-export default function ClassItem({ school, item, dispatch, setOpen, setIdClass }): JSX.Element {
+export default function ClassItem({
+  school,
+  item,
+  dispatch,
+  setOpen,
+  setIdClass,
+}): JSX.Element {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -35,17 +41,22 @@ export default function ClassItem({ school, item, dispatch, setOpen, setIdClass 
       </CardContent>
       <CardActions>
         <Button size="small">Связаться </Button>
-        <Button size="small" onClick={() => {
-          setIdClass(item.id);
-          setOpen(true);
-        }}>Редактировать </Button>
-        {school?.id === item.schoolId ? (
-          <>
-            <Button size="small" onClick={() => dispatch(deleteClassThunk(item.id))}>Удалить </Button>
-          </>
-        ) : (
-          <div>ghbdtn</div>
-        )}
+        <Button
+          size="small"
+          onClick={() => {
+            setIdClass(item.id);
+            setOpen(true);
+          }}
+        >
+          Редактировать{" "}
+        </Button>
+        <Button
+          size="small"
+          onClick={() => dispatch(deleteClassThunk(item.id))}
+        >
+          Удалить{" "}
+        </Button>
+        {school?.id === item.schoolId ? <></> : <div>ghbdtn</div>}
       </CardActions>
     </Card>
   );
