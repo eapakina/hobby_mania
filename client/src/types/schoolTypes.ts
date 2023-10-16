@@ -17,10 +17,11 @@ export type DistrictType = {
     district:string;
     
 };
-export type SchoolSingUpFormType = Omit<SchoolType, 'id'|'districtId'>&{password:string};
-
-export type SchoolLoginFormtype = Omit<SchoolSingUpFormType, 'schoolName'|'adress'
-|'phone'|'info'|'imgSchool'>;
-
 
 export type SchoolEditFormType = Omit<SchoolType, 'id' | "districtId" | "token" | "District" >;
+
+export type SchoolSingUpFormType = Omit<SchoolType, 'id'|'districtId'|'token'|'imgSchool'>&{password:string,file:File};
+
+export type SchoolLoginFormtype = Omit<SchoolSingUpFormType, 'schoolName'|'adress'
+|'phone'|'info'|'file'>;
+

@@ -1,10 +1,10 @@
-import { Box, Button, Grid, TextField } from '@mui/material';
+import { Box, Button, Grid, Input, InputLabel, TextField } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import type { UserLoginFormType, UserSignUpFormType } from '../../types/userTypes';
 import { useAppDispatch } from '../../redux/hooks';
 import { loginUserThunk, signUpUserThunk } from '../../redux/slices/user/userThunks';
 import { authTextFieldStyle, buttonStyle, postFormGridStyles } from '../styles';
+
 
 export default function AuthUserPage(): JSX.Element {
   const { auth } = useParams();
@@ -14,12 +14,28 @@ export default function AuthUserPage(): JSX.Element {
   const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
-    const formData = Object.fromEntries(new FormData(e.currentTarget));
+    // const formData = Object.fromEntries(new FormData(e.currentTarget));
+    // console.log(formData,'file');
+    // if (!e.target.description.value || !e.target.file.files[0]) return;
+    const formData = new FormData();
+    const target = e.target as typeof e.target & {
+      userName: {value: string},
+      email: {value: string},
+      password: {value: string},
+      file: {files: File[]}
+    }
+    formData.append("userName", target.userName.value);
+    formData.append("file", target.file.files[0]); 
+    formData.append("email", target.email.value);
+    formData.append("password", target.password.value);
+    e.target.reset();
+
+    
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     auth === 'signup'
-      ? void dispatch(signUpUserThunk(formData as UserSignUpFormType))
-      : void dispatch(loginUserThunk(formData as UserLoginFormType));
+      ? void dispatch(signUpUserThunk(formData))
+      : void dispatch(loginUserThunk(formData));
   };
 
   return (
@@ -43,12 +59,13 @@ export default function AuthUserPage(): JSX.Element {
               label="Username"
               sx={authTextFieldStyle}
             />
-            <TextField
-              variant="outlined"
-              name="img"
-              label="Img"
-              sx={authTextFieldStyle}
-            />
+  <InputLabel htmlFor="file">File</InputLabel>
+  <Input
+    type="file"
+    id="file"
+    name="file"
+    sx={authTextFieldStyle}
+  />
             </>
           )}
           <TextField

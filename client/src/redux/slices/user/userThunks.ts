@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import type {
-  UserLoginFormType,
+
   UserModelType,
-  UserSignUpFormType,
+
 } from '../../../types/userTypes';
 
 export const saveToken = createAsyncThunk<void, string>(
@@ -25,16 +25,17 @@ export const checkUserThunk = createAsyncThunk<UserModelType>('user/checkUser', 
   return data;
 });
 
-export const signUpUserThunk = createAsyncThunk<UserModelType, UserSignUpFormType>(
+export const signUpUserThunk = createAsyncThunk<UserModelType, FormData>(
   'user/signup',
   async (formData,{dispatch}) => {
     const { data } = await axios.post<UserModelType>('/user/signup', formData);
+    console.log(formData,'111111111')
     void dispatch(saveToken(data.token))
     return data;
   },
 );
 
-export const loginUserThunk = createAsyncThunk<UserModelType, UserLoginFormType>(
+export const loginUserThunk = createAsyncThunk<UserModelType, FormData>(
   'user/login',
   async (formData,{dispatch}) => {
     const { data } = await axios.post<UserModelType>('/user/login', formData);
@@ -43,4 +44,9 @@ export const loginUserThunk = createAsyncThunk<UserModelType, UserLoginFormType>
   },
 );
 
-export const logoutUserThunk = createAsyncThunk('user/logout', async () => axios('/user/logout'));
+// export const logoutUserThunk = createAsyncThunk('user/logout', async () => axios('/user/logout'));
+
+export const logoutUserThunk = createAsyncThunk('user/logout', async (payload, { dispatch }) => {
+  void dispatch(removeToken());
+  await axios('/user/logout');
+});

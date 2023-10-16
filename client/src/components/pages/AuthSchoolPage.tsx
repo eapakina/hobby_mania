@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
-import { Box, Button, Grid, TextField } from '@mui/material';
+import { Box, Button, Grid, Input, InputLabel, TextField } from '@mui/material';
 import { useAppDispatch } from '../../redux/hooks';
 import { loginSchoolThunk, signUpSchoolThunk } from '../../redux/slices/school/schoolThunk';
 import type{ SchoolLoginFormtype, SchoolSingUpFormType } from '../../types/schoolTypes';
@@ -12,13 +12,30 @@ export default function AuthSchoolPage():JSX.Element {
 
   const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-
-    const formData = Object.fromEntries(new FormData(e.currentTarget));
+// const formData = Object.fromEntries(new FormData(e.currentTarget));
+const formData = new FormData();
+const target = e.target as typeof e.target & {
+  schoolName: {value: string},
+  adress: {value: string},
+  phone: {value: string},
+  info: {value: string},
+  email: {value: string},
+  password: {value: string},
+  file: {files: File[]}
+}
+formData.append("schoolName", target.schoolName.value);
+formData.append("adress", target.adress.value);
+formData.append("phone", target.phone.value);
+formData.append("info", target.info.value);
+formData.append("file", target.file.files[0]); 
+formData.append("email", target.email.value);
+formData.append("password", target.password.value);
+e.target.reset();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     auth === 'signup'
-      ? void dispatch(signUpSchoolThunk(formData as SchoolSingUpFormType))
-      : void dispatch(loginSchoolThunk(formData as SchoolLoginFormtype));
+      ? void dispatch(signUpSchoolThunk(formData))
+      : void dispatch(loginSchoolThunk(formData));
   };
   console.log(auth === 'signup')
   return (
@@ -60,13 +77,14 @@ export default function AuthSchoolPage():JSX.Element {
               name="info"
               label="Info"
               sx={authTextFieldStyle}
-            />
-            <TextField
-            variant="outlined"
-            name="imgSchool"
-            label="ImgSchool"
-            sx={authTextFieldStyle}
-          />
+              />
+              <InputLabel htmlFor="file">File</InputLabel>
+              <Input
+                type="file"
+                id="file"
+                name="file"
+                sx={authTextFieldStyle}
+              />
           </>
           )}
           <TextField
