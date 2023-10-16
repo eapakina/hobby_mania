@@ -7,6 +7,7 @@ import type {
   SchoolType,
 } from "../../../types/schoolTypes";
 
+
 export const saveToken = createAsyncThunk<void, string>(
   "school/saveToken",
   async (token) => localStorage.setItem("token", token)
@@ -41,6 +42,13 @@ export const deleteSchoolThunk = createAsyncThunk<
   return id;
 });
 
+
+  export const logoutSchoolThunk = createAsyncThunk('school/logout', async (payload, { dispatch }) => {
+    void dispatch(removeToken());
+    await axios('/school/logout');
+  });
+  
+
 export const editSchoolThunk = createAsyncThunk<
   SchoolType,
   { id: SchoolType["id"]; formData: SchoolEditFormType }
@@ -48,6 +56,7 @@ export const editSchoolThunk = createAsyncThunk<
   const { data } = await axios.patch<SchoolType>(`/school/${id}`, formData);
   return data;
 });
+
 
 export const checkSchoolThunk = createAsyncThunk<SchoolType>(
   "school/checkSchool",
@@ -57,9 +66,7 @@ export const checkSchoolThunk = createAsyncThunk<SchoolType>(
   }
 );
 
-export const logoutSchoolThunk = createAsyncThunk("school/logout", async () =>
-  axios("/school/logout")
-);
+
 
 export const getSchoolThunk = createAsyncThunk<SchoolType, SchoolType["id"]>(
   "school/getSchool",
@@ -67,5 +74,6 @@ export const getSchoolThunk = createAsyncThunk<SchoolType, SchoolType["id"]>(
     const { data } = await axios<SchoolType>(`/school/${id}`);
     console.log(data);
     return data;
-  }
-);
+
+  });
+
