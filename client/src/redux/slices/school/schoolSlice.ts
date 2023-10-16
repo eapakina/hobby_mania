@@ -62,8 +62,10 @@ const schoolSlice = createSlice({
       // const index = state.findIndex((el) => el.id === action.payload.id);
       // state[index] = action.payload;
     });
+
   },
 });
 
 // export const { setToken } = schoolSlice.actions;
+
 export default schoolSlice.reducer;

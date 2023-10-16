@@ -57,6 +57,7 @@ export default function ClassItem({
           Удалить{" "}
         </Button>
         {school?.id === item.schoolId ? <></> : <div>ghbdtn</div>}
+
       </CardActions>
     </Card>
   );

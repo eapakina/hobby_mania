@@ -129,6 +129,7 @@ router
   .get(async (req, res) => {
     console.log('----------- get ------------');
     const blogEntrys = await Blog.findAll({ where: { schoolId: req.params.id } });
+
     res.json(blogEntrys);
   })
   .post(async (req, res) => {

@@ -28,9 +28,13 @@ function App(): JSX.Element {
       <Navbar />
       <Routes>
         <Route path="/" element={<MainPage />} />
+
         {/* <Route path="/posts" element={<PostsPage />} /> */}
         <Route path="/:auth" element={<AuthUserPage />} />
         <Route path="/school/authSchool" element={<AuthSchoolPage />} />
+
+        <Route path="/:auth/user" element={<AuthUserPage />} />
+        <Route path="/:auth/school" element={<AuthSchoolPage />} />
         <Route path="/search" element={<SearchPage />} />
         {/* <Route path="/:authschool" element={<AuthSchool />} /> */}
         {/* <Route path="/:authuser" element={<AuthPage />} /> */}
