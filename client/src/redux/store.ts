@@ -9,9 +9,7 @@ export const store = configureStore({
   reducer: {
     posts: postsReducer,
     user: userReducer,
-
     classes: classesReducer,
-
     school: schoolReducer,
   },
 });

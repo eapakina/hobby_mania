@@ -161,7 +161,7 @@ router
 
 router.route('/:id').delete(async (req, res) => {
   try {
-    await blog.destroy({ where: { id: req.params.id } });
+    await Blog.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
   } catch (err) {
     console.error(err);
