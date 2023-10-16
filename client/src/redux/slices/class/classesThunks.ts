@@ -22,17 +22,17 @@ export const addClassThunk = createAsyncThunk<ClassType, ClassFormType>(
   }
 );
 
-export const deleteClassThunk = createAsyncThunk<ClassType["id"], ClassType["id"]>(
-  "classes/deleteClass",
-  async (id) => {
-    await axios.delete(`/classes/${id}/delete`);
-    return id;
-  }
-);
+export const deleteClassThunk = createAsyncThunk<
+  ClassType["id"],
+  { id: ClassType["id"] }
+>("classes/deleteClass", async ({ id }) => {
+  await axios.delete(`/classes/${id}/delete`);
+  return id;
+});
 
 export const editClassThunk = createAsyncThunk<ClassType, ClassFormType>(
   "classes/editClass",
-  async ({formdata, idClass}) => {
+  async ({ formdata, idClass }) => {
     console.log(formdata);
     const { data } = await axios.patch<ClassType>(
       `/classes/${idClass}/edit`,
@@ -40,4 +40,12 @@ export const editClassThunk = createAsyncThunk<ClassType, ClassFormType>(
     );
     return data;
   }
-)
+);
+
+export const getRandomClassesThunk = createAsyncThunk<ClassType[]>(
+  "classes/getRandomClasses",
+  async () => {
+    const { data } = await axios<ClassType[]>(`/classes/random`);
+    return data;
+  }
+);

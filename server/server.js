@@ -4,7 +4,9 @@ const morgan = require('morgan');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const userRouter = require('./routes/userRouter');
+
 const schoolRouter = require('./routes/schoolRouter');
+
 const postsRouter = require('./routes/postsRouter');
 
 require('dotenv').config();
@@ -33,6 +35,7 @@ app.use(
 
 app.use('/api/classes', postsRouter);
 app.use('/api/user', userRouter);
+app.use('/api/blog', postsRouter);
 
 app.use('/api/school', schoolRouter);
 

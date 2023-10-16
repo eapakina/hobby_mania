@@ -1,4 +1,3 @@
-'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -7,34 +6,38 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       body: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       img: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       schoolId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Schools',
-          key: 'id'}
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+
       },
+
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Blogs');
-  }
+  },
 };

@@ -5,9 +5,8 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { deleteClassThunk } from "../../redux/slices/class/classesThunks";
-import type { SchoolType } from "../../types/schoolTypes";
 import type { ClassType } from "../../types/classTypes";
+import { deleteClassThunk } from "../../redux/slices/class/classesThunks";
 
 const bull = (
   <Box
@@ -18,21 +17,11 @@ const bull = (
   </Box>
 );
 
-type ClassItemProps = {
-  school: SchoolType;
-  item: ClassType;
-  dispatch: () => void;
-  setOpen: (open: boolean) => void;
-  setIdClass: React.Dispatch<React.SetStateAction<number>>;
-};
-
-export default function ClassItem({
-  school,
+export default function ClassRandomItem({
   item,
-  dispatch,
-  setOpen,
-  setIdClass,
-}: ClassItemProps): JSX.Element {
+}: {
+  item: ClassType;
+}): JSX.Element {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -51,24 +40,6 @@ export default function ClassItem({
       </CardContent>
       <CardActions>
         <Button size="small">Связаться </Button>
-        <Button
-          size="small"
-          onClick={() => {
-            setIdClass(item.id);
-            setOpen(true);
-          }}
-        >
-          Редактировать{" "}
-        </Button>
-        <Button
-          size="small"
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          onClick={() => dispatch(deleteClassThunk({ id: item.id }))}
-        >
-          Удалить{" "}
-        </Button>
-        {school?.id === item.schoolId ? null : <div>ghbdtn</div>}
       </CardActions>
     </Card>
   );
