@@ -67,7 +67,6 @@ const userSlice = createSlice({
     // logoutUserThunk
     builder.addCase(logoutUserThunk.fulfilled, (state) => {
       state.data = { status: 'guest' };
-
       state.token = null;
     });
     builder.addCase(logoutUserThunk.rejected, (state) => state);
