@@ -8,6 +8,7 @@ const userRouter = require('./routes/userRouter');
 const schoolRouter = require('./routes/schoolRouter');
 
 const postsRouter = require('./routes/postsRouter');
+const favoriteRouter = require('./routes/favotiteRouter');
 
 require('dotenv').config();
 
@@ -40,5 +41,7 @@ app.use('/api/blog', postsRouter);
 app.use('/api/school', schoolRouter);
 
 app.use('/api/blog', postsRouter);
+app.use('/api/favorite', favoriteRouter);
+
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));

@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { ClassFormType, ClassType } from "../../../types/classTypes";
+import type { UserModelType } from "../../../types/userTypes";
+import { UserType } from "../../../types/userTypes";
 
 export const getClassesThunk = createAsyncThunk<ClassType[], number>(
   "classes/getClasses",
@@ -49,3 +51,12 @@ export const getRandomClassesThunk = createAsyncThunk<ClassType[]>(
     return data;
   }
 );
+
+export const getFavoriteClassThunk = createAsyncThunk<
+  ClassType[],
+  UserModelType["id"]
+>("classes/getFavorite", async (id) => {
+  const { data } = await axios<ClassType[]>(`/classes/getFavorite/${id}/`);
+  console.log(id);
+  return data;
+});

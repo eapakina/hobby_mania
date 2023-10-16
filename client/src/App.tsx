@@ -6,7 +6,7 @@ import Navbar from './components/ui/Navbar';
 import { useAppDispatch } from './redux/hooks';
 // import { checkUserThunk } from './redux/slices/user/userThunks';
 import AuthErrorDialog from './components/ui/AuthErrorDialog';
-import LogoutConfirmDialog from './components/ui/LogoutConfirmDialog';
+// import LogoutConfirmDialog from './components/ui/LogoutConfirmDialog';
 import AuthSchoolPage from './components/pages/AuthSchoolPage';
 import SearchPage from './components/pages/SearchPage';
 import SchoolPage from './components/pages/SchoolPage';
@@ -14,6 +14,7 @@ import ClassForm from './components/pages/ClassForm';
 // import PostsPage from './components/pages/PostsPage';
 import AuthUserPage from './components/pages/AuthUserPage';
 import RandomPage from './components/pages/RandomPage';
+import Favorite from './components/pages/Favorite';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -37,10 +38,12 @@ function App(): JSX.Element {
         <Route path="/school/:id" element={<SchoolPage />} />
         <Route path="/school/:id/classform" element={<ClassForm />} />
         <Route path="/random" element={<RandomPage />} />
+        <Route path="/favorite" element={<Favorite />} />
+
 
       </Routes>
       <AuthErrorDialog />
-      <LogoutConfirmDialog />
+      {/* <LogoutConfirmDialog /> */}
     </Container>
   );
 }

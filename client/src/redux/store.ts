@@ -4,6 +4,8 @@ import userReducer from "./slices/user/userSlice";
 import classesReducer from "./slices/class/classesSlice";
 
 import schoolReducer from "./slices/school/schoolSlice";
+import favoritesReducer from "./slices/favorites/favoriteSlice";
+
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,7 @@ export const store = configureStore({
     user: userReducer,
     classes: classesReducer,
     school: schoolReducer,
+    favorites: favoritesReducer,
   },
 });
 

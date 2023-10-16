@@ -5,6 +5,9 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { IconButton } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import type { ClassType } from "../../types/classTypes";
 import { deleteClassThunk } from "../../redux/slices/class/classesThunks";
 
@@ -17,16 +20,22 @@ const bull = (
   </Box>
 );
 
-export default function ClassRandomItem({
-  item,
-}: {
+type ClassRandomItemProps = {
+  isLiked: boolean;
+  // setIsLiked: React.Dispatch<React.SetStateAction<boolean>>;
   item: ClassType;
-}): JSX.Element {
+};
+
+export default function ClassRandomItem({
+  isLiked,
+  // setIsLiked,
+  item,
+}: ClassRandomItemProps): JSX.Element {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {item.School?.schoolName}{" "}
+          <a href={`/school/${item.schoolId}`}> {item.School?.schoolName} </a>
         </Typography>
         <Typography variant="h5" component="div">
           {item.Category?.category}{" "}
@@ -39,6 +48,10 @@ export default function ClassRandomItem({
         </Typography>
       </CardContent>
       <CardActions>
+        <IconButton color="secondary" aria-label="add an alarm">
+          {isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </IconButton>
+
         <Button size="small">Связаться </Button>
       </CardActions>
     </Card>

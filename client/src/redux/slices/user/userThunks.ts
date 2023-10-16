@@ -50,3 +50,8 @@ export const logoutUserThunk = createAsyncThunk('user/logout', async (payload, {
   void dispatch(removeToken());
   await axios('/user/logout');
 });
+
+export const getUserId = createAsyncThunk('user/getuser', async () => {
+  const idUser= await axios('/user/getuser');
+  return idUser;
+});

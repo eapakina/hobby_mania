@@ -118,6 +118,11 @@ router.get('/check', (req, res) => {
   });
 });
 
+router.get('/getuser', async (req, res) => {
+  const user = req.session.userId;
+  return res.json(user);
+});
+
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.clearCookie('sid').sendStatus(200);
