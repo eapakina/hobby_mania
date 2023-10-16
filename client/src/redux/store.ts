@@ -13,7 +13,6 @@ export const store = configureStore({
     user: userReducer,
 
     school: schoolReducer,
-
     classes: classesReducer
 
   },
