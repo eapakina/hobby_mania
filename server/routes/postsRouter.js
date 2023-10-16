@@ -133,7 +133,7 @@ router.patch('/:id/edit', async (req, res) => {
       schoolId: Number(schoolId),
       age: Number(age),
     },
-    { where: { id: req.params.id } },
+    { where: { id: req.params.id } }
   );
   const updatedClass = await Class.findOne({
     include: [

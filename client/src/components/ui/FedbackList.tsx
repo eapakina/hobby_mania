@@ -7,9 +7,9 @@ export default function FedbackList() :JSX.Element{
     // const reviews = useAppSelector((store) => store.comments); тут будут тянутся комменты из БД
 
         const reviews = [
-          { id: 1, author: 'Автор 1', title: 'Заголовок 1', body: 'Текст отзыва 1' },
-          { id: 2,author: 'Автор 2', title: 'Заголовок 2', body: 'Текст отзыва 2' },
-          { id: 3 ,author: 'Автор 3', title: 'Заголовок 3', body: 'Текст отзыва 3' },
+          { id: 1, author: 1, title: 'Заголовок 1', body: 'Текст отзыва 1' },
+          { id: 2,author: 2, title: 'Заголовок 2', body: 'Текст отзыва 2' },
+          { id: 3 ,author: 3, title: 'Заголовок 3', body: 'Текст отзыва 3' },
         ];
     
   return (
