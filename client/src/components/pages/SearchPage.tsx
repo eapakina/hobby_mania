@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Theme, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -7,6 +7,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import axios from 'axios';
+import { getAllClassesThunk } from '../../redux/slices/class/classesThunks';
+import Classes from '../ui/Classes';
+import SearchClasses from '../ui/SearchClasses';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -38,8 +43,33 @@ function getStyles(name: string, personName: readonly string[], theme: Theme): R
 
 export default function MultipleSelectChip(): JSX.Element {
   const theme = useTheme();
+  const [categorys, setCategorys] = useState<string[]>([]);
   const [personName, setPersonName] = React.useState<string[]>([]);
+  const [timeOutState, setTimeOutState] = useState(0);
 
+  const dispatch = useAppDispatch();
+  const classes = useAppSelector(state => state.classes);
+
+  useEffect(() => {
+    void axios('/classes/all/categorys').then((res) => {
+      setCategorys(res.data);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  
+  useEffect(() => {
+    if (timeOutState) {
+      clearTimeout(timeOutState)}
+     const idTime = setTimeout(() => {
+      void dispatch(getAllClassesThunk(personName));
+
+      console.log('haha')
+    }, 1000)
+    setTimeOutState(idTime)
+  }, [dispatch, personName]);
+
+  console.log('dadadadad', classes);
   const handleChange = (event: SelectChangeEvent<typeof personName>): void => {
     const {
       target: { value },
@@ -70,17 +100,18 @@ export default function MultipleSelectChip(): JSX.Element {
           )}
           MenuProps={MenuProps}
         >
-          {names.map((name) => (
+          {categorys.map((name) => (
             <MenuItem
-              key={name}
-              value={name}
+              key={name.category}
+              value={name.category}
               style={getStyles(name, personName, theme)}
             >
-              {name}
+              {name.category}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
+      <SearchClasses classes={classes}/>
     </div>
   );
 }

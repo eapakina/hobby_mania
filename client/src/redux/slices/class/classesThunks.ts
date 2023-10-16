@@ -11,6 +11,15 @@ export const getClassesThunk = createAsyncThunk<ClassType[], number>(
   }
 );
 
+export const getAllClassesThunk = createAsyncThunk<ClassType[], string[]>(
+  "classes/getAllClasses",
+  async (personName) => {
+    console.log(personName);
+    const { data } = await axios.post<ClassType[]>(`classes/search/all`, personName);
+    return data;
+  }
+)
+
 export const addClassThunk = createAsyncThunk<ClassType, ClassFormType>(
   "classes/addClass",
   async (formData) => {

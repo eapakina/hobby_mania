@@ -1,11 +1,56 @@
-const express = require('express');
-const {
-  Class, Day, Time, Category, School, Blog,
-} = require('../db/models');
+const express = require("express");
+const { Op } = require("sequelize");
+const { Class, Day, Time, Category, School, Blog } = require("../db/models");
 
 const router = express.Router();
 
-router.get('/:id/all', async (req, res) => {
+router.post("/search/all", async (req, res) => {
+  const personName = req.body;
+  console.log(personName);
+  if (personName.length === 0) {
+    const allClasses = await Class.findAll({
+      include: [
+        {
+          model: Day,
+        },
+        {
+          model: Time,
+        },
+        {
+          model: Category,
+        },
+        {
+          model: School,
+        },
+      ],
+    });
+    return res.json(allClasses);
+  }
+  const classes = await Class.findAll({
+    include: [
+      {
+        model: Day,
+      },
+      {
+        model: Time,
+      },
+      {
+        model: Category,
+        where: {
+          category: {
+            [Op.in]: personName,
+          },
+        },
+      },
+      {
+        model: School,
+      },
+    ],
+  });
+  res.json(classes);
+});
+
+router.get("/:id/all", async (req, res) => {
   const { id } = req.params;
   const classes = await Class.findAll({
     include: [
@@ -27,12 +72,12 @@ router.get('/:id/all', async (req, res) => {
   res.json(classes);
 });
 
-router.get('/all/categorys', async (req, res) => {
+router.get("/all/categorys", async (req, res) => {
   const categorys = await Category.findAll();
   res.json(categorys);
 });
 
-router.post('/:id/add', async (req, res) => {
+router.post("/:id/add", async (req, res) => {
   const {
     className,
     desription,
@@ -70,7 +115,7 @@ router.post('/:id/add', async (req, res) => {
   res.json(createdClass);
 });
 
-router.delete('/:id/delete', async (req, res) => {
+router.delete("/:id/delete", async (req, res) => {
   try {
     await Class.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
@@ -80,7 +125,7 @@ router.delete('/:id/delete', async (req, res) => {
   }
 });
 
-router.patch('/:id/edit', async (req, res) => {
+router.patch("/:id/edit", async (req, res) => {
   const {
     className,
     desription,
@@ -105,7 +150,7 @@ router.patch('/:id/edit', async (req, res) => {
       schoolId: Number(schoolId),
       age: Number(age),
     },
-    { where: { id: req.params.id } },
+    { where: { id: req.params.id } }
   );
   const updatedClass = await Class.findOne({
     include: [
@@ -120,7 +165,7 @@ router.patch('/:id/edit', async (req, res) => {
 });
 
 router
-  .route('/school/:id/')
+  .route("/school/:id/")
   .get(async (req, res) => {
     const blogEntrys = await Blog.findAll({
       where: { schoolId: req.params.id },
@@ -132,7 +177,7 @@ router
     res.json(newBook);
   });
 
-router.route('/:id').delete(async (req, res) => {
+router.route("/:id").delete(async (req, res) => {
   try {
     await blog.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
