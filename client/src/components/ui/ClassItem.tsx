@@ -5,11 +5,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import type { SchoolType } from "../../types/schoolTypes";
-import type { ClassType } from "../../types/classTypes";
-
-import { SchoolSingUpFormType } from "../../types/schoolTypes";
+import { deleteClassThunk } from "../../redux/slices/class/classesThunks";
 
 const bull = (
   <Box
@@ -20,10 +16,7 @@ const bull = (
   </Box>
 );
 
-export default function ClassItem({
-  school,
-  item,
-}): JSX.Element {
+export default function ClassItem({ school, item, dispatch, setOpen, setIdClass }): JSX.Element {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -42,10 +35,13 @@ export default function ClassItem({
       </CardContent>
       <CardActions>
         <Button size="small">Связаться </Button>
+        <Button size="small" onClick={() => {
+          setIdClass(item.id);
+          setOpen(true);
+        }}>Редактировать </Button>
         {school?.id === item.schoolId ? (
           <>
-            <Button size="small">Удалить </Button>
-            <Button size="small">Редактировать </Button>
+            <Button size="small" onClick={() => dispatch(deleteClassThunk(item.id))}>Удалить </Button>
           </>
         ) : (
           <div>ghbdtn</div>

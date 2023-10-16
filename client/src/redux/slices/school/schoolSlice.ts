@@ -2,8 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { SchoolType } from "../../../types/schoolTypes";
 import {
   checkSchoolThunk,
+<<<<<<< HEAD
   deleteSchoolThunk,
   editSchoolThunk,
+=======
+>>>>>>> dev
   getSchoolThunk,
   loginSchoolThunk,
   logoutSchoolThunk,
