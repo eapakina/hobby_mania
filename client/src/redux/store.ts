@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import postsReducer from "./slices/posts/postsSlice";
 import userReducer from "./slices/user/userSlice";
 import classesReducer from "./slices/class/classesSlice";
+import commentsReduser from "./slices/feedback/feedbackSlice";
 
 import schoolReducer from "./slices/school/schoolSlice";
 
@@ -11,6 +12,7 @@ export const store = configureStore({
     user: userReducer,
     classes: classesReducer,
     school: schoolReducer,
+    comments: commentsReduser,
   },
 });
 
