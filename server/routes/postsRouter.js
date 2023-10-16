@@ -6,26 +6,26 @@ const {
 const router = express.Router();
 
 
-  const { id } = req.params;
-  const classes = await Class.findAll({
-    include: [
-      {
-        model: Day,
-      },
-      {
-        model: Time,
-      },
-      {
-        model: Category,
-      },
-      {
-        model: School,
-      },
-    ],
-    where: { schoolId: id },
-  });
-  res.json(classes);
-});
+//   const { id } = req.params;
+//   const classes = await Class.findAll({
+//     include: [
+//       {
+//         model: Day,
+//       },
+//       {
+//         model: Time,
+//       },
+//       {
+//         model: Category,
+//       },
+//       {
+//         model: School,
+//       },
+//     ],
+//     where: { schoolId: id },
+//   });
+//   res.json(classes);
+// });
 
 router.get('/all/categorys', async (req, res) => {
   const categorys = await Category.findAll();

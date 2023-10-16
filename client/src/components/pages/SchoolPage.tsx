@@ -28,7 +28,7 @@ export default function SchoolPage(): JSX.Element {
       </ButtonGroup>
       {choose === "description" && <Description id={+id} />}
       {choose === "classes" && <Classes />}
-      {choose === "feedbacks" && <Feedbacks />}
+      {choose === "feedbacks" && <Feedbacks id={+id}/>}
       {choose === "blog" && <PostsPage id={+id} />}
     </>
   );

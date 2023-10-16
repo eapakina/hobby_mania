@@ -85,29 +85,30 @@ schoolRouter.post('/login', async (req, res) => {
   return res.sendStatus(500);
 });
 
-schoolRouter.get('/check', (req, res) => {
-  const token = req.headers.authorization;
+// schoolRouter.get('/check', (req, res) => {
+//   const token = req.headers.authorization;
 
-  if (!token) {
-    return res.sendStatus(401);
-  }
+//   if (!token) {
+//     return res.sendStatus(401);
+//   }
 
-  jwt.verify(token, jwtSecretKey, (err, decoded) => {
-    if (err) {
-      return res.sendStatus(401);
-    }
-    return res.json({ schoolName: decoded.schoolName });
-  });
-});
+//   jwt.verify(token, jwtSecretKey, (err, decoded) => {
+//     if (err) {
+//       return res.sendStatus(401);
+//     }
+//     return res.json({ schoolName: decoded.schoolName });
+//   });
+// });
 
-schoolRouter.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.clearCookie('sid').sendStatus(200);
-});
+// schoolRouter.get('/logout', (req, res) => {
+//   req.session.destroy();
+//   res.clearCookie('sid').sendStatus(200);
+// });
 
 schoolRouter
   // .route('/:id/')
   .get('/:id/', async (req, res) => {
+    console.log('-------- get ---------');
     const school = await School.findOne({
       where: { id: req.params.id },
       include: District, // Включение модели District должно быть частью объекта options

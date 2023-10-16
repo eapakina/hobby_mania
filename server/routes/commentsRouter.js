@@ -3,10 +3,10 @@ const { Comment } = require("../db/models");
 
 const router = express.Router();
 
-router.get("/school/:id", async (req, res) => {
+router.get("/:id/all", async (req, res) => {
   try {
     const commentEntry = await Comment.findAll({
-      where: { userId: req.session.userId, schoolId: req.params.id },
+      where: {  schoolId: req.params.id },
     });
     res.json(commentEntry);
   } catch (err) {
@@ -15,7 +15,8 @@ router.get("/school/:id", async (req, res) => {
   }
 });
 
-router.post("/school/:id", async (req, res) => {
+router.post("/:id/add", async (req, res) => {
+  console.log('ffewfefwef')
   try {
     const newBook = await Comment.create(req.body);
     res.json(newBook);
@@ -25,7 +26,7 @@ router.post("/school/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id/delete", async (req, res) => {
   try {
     await Comment.destroy({ where: { id: req.session.userId } });
     res.sendStatus(200);

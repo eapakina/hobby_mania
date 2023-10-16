@@ -4,10 +4,10 @@ import { buttonStyle, postFormGridStyles } from "../styles";
 import { useAppDispatch } from "../../redux/hooks";
 import { addFeedbackThunk } from "../../redux/slices/feedback/feedbackThunks";
 
-export default function FeedbackForm(): JSX.Element {
+export default function FeedbackForm({ id }): JSX.Element {
   const [input, setInput] = useState({
-    userId: "",
-    shcoolId: "",
+    userId: 1, // todo
+    schoolId: id,
     title: "",
     body: "",
   });
@@ -57,7 +57,7 @@ export default function FeedbackForm(): JSX.Element {
             sx={buttonStyle}
             onClick={() => {
               void dispatch(addFeedbackThunk(input));
-              setInput({ userId: "", shcoolId: "", title: "", body: "" });
+              setInput({ userId: 1, schoolId: 2, title: "", body: "" });
             }}
           >
             Добавить отзыв
