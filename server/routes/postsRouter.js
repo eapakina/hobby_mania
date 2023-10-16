@@ -1,37 +1,11 @@
-const express = require("express");
-const { Class, Day, Time, Category, School, Blog } = require("../db/models");
+const express = require('express');
+const {
+  Class, Day, Time, Category, School, Blog,
+} = require('../db/models');
 
 const router = express.Router();
 
-router.get("/all", async (req, res) => {
-  const classes = await Class.findAll();
-  res.json(classes);
-});
 
-router.get("/random", async (req, res) => {
-  console.log("----------- get ------------");
-  // Находим уникальные schoolId
-  const uniqueSchoolIds = await Class.findAll({
-    attributes: ["schoolId", "createdAt"],
-    group: ["schoolId", "createdAt"],
-    // order: [['createdAt', 'DESC']],
-    limit: 10,
-    // include: [{ model: School }],
-  });
-  console.log({ uniqueSchoolIds });
-  // Затем для каждого уникального schoolId выбираем соответствующую запись
-  const classes = await Class.findAll({
-    where: {
-      schoolId: uniqueSchoolIds.map((entry) => entry.schoolId),
-    },
-    order: [["createdAt", "DESC"]],
-    include: [{ model: School }],
-  });
-
-  res.json(classes);
-});
-
-router.get("/:id/all", async (req, res) => {
   const { id } = req.params;
   const classes = await Class.findAll({
     include: [
@@ -53,12 +27,12 @@ router.get("/:id/all", async (req, res) => {
   res.json(classes);
 });
 
-router.get("/all/categorys", async (req, res) => {
+router.get('/all/categorys', async (req, res) => {
   const categorys = await Category.findAll();
   res.json(categorys);
 });
 
-router.post("/:id/add", async (req, res) => {
+router.post('/:id/add', async (req, res) => {
   const {
     className,
     desription,
@@ -96,7 +70,7 @@ router.post("/:id/add", async (req, res) => {
   res.json(createdClass);
 });
 
-router.delete("/:id/delete", async (req, res) => {
+router.delete('/:id/delete', async (req, res) => {
   try {
     await Class.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
@@ -106,7 +80,7 @@ router.delete("/:id/delete", async (req, res) => {
   }
 });
 
-router.patch("/:id/edit", async (req, res) => {
+router.patch('/:id/edit', async (req, res) => {
   const {
     className,
     desription,
@@ -146,7 +120,7 @@ router.patch("/:id/edit", async (req, res) => {
 });
 
 router
-  .route("/school/:id/")
+  .route('/school/:id/')
   .get(async (req, res) => {
     console.log("----------- get ------------");
     const blogEntrys = await Blog.findAll({
@@ -159,7 +133,7 @@ router
     res.json(newBook);
   });
 
-router.route("/:id").delete(async (req, res) => {
+router.route('/:id').delete(async (req, res) => {
   try {
     await Blog.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
