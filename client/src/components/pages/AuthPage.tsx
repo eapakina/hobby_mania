@@ -1,74 +1,20 @@
-import { Box, Button, Grid, TextField } from '@mui/material';
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import type { UserLoginFormType, UserSignUpFormType } from '../../types/userTypes';
-import { useAppDispatch } from '../../redux/hooks';
-import { loginUserThunk, signUpUserThunk } from '../../redux/slices/user/userThunks';
-import { authTextFieldStyle, buttonStyle, postFormGridStyles } from '../styles';
+import { Box, Button } from '@mui/material'
+import React, { useState } from 'react'
+import AuthUserPage from './AuthUserPage'
+import AuthSchoolPage from './AuthSchoolPage'
 
-export default function AuthPage(): JSX.Element {
-  const { auth } = useParams();
-  const dispatch = useAppDispatch();
+export default function AuthPage():JSX.Element {
+    const [choose,setChoose]=useState('')
 
-  const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-
-    const formData = Object.fromEntries(new FormData(e.currentTarget));
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    auth === 'signup'
-      ? void dispatch(signUpUserThunk(formData as UserSignUpFormType))
-      : void dispatch(loginUserThunk(formData as UserLoginFormType));
-  };
 
   return (
-    <Grid container direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh' }}>
-      <Grid item xs={3} />
-      <Grid item xs={6}>
-        <Box
-          component="form"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="space-around"
-          py={5}
-          onSubmit={submitHandler}
-        >
-          {auth === 'signup' && (
-            <>
-            <TextField
-              variant="outlined"
-              name="userName"
-              label="Username"
-              sx={authTextFieldStyle}
-            />
-            <TextField
-              variant="outlined"
-              name="img"
-              label="Img"
-              sx={authTextFieldStyle}
-            />
-            </>
-          )}
-          <TextField
-            variant="outlined"
-            name="email"
-            label="Email"
-            type="email"
-            sx={authTextFieldStyle}
-          />
-          <TextField
-            variant="outlined"
-            name="password"
-            label="Password"
-            type="password"
-            sx={authTextFieldStyle}
-          />
-          <Button variant="outlined" type="submit" sx={buttonStyle}>
-            {auth === 'signup' ? 'Sign Up' : 'Login'}
-          </Button>
-        </Box>
-      </Grid>
-    </Grid>
-  );
+<Box>
+    <>
+    <Button onClick={()=>setChoose('user')}>Регистрация для физ. лиц</Button>
+    <Button onClick ={()=>setChoose('school')}>Регистрация для юр. лиц</Button>
+    </>
+    {choose === 'user' && <AuthUserPage/>}
+    {choose === 'school' && <AuthSchoolPage/>}
+</Box>
+  )
 }

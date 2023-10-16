@@ -2,8 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import type { PostFormType, PostType } from '../../../types/postTypes';
 
-export const getPostsThunk = createAsyncThunk<PostType[]>('posts/getPosts', async () => {
-  const { data } = await axios<PostType[]>('/posts');
+export const getPostsThunk = createAsyncThunk<PostType[]>('posts/getPosts', async (id) => {
+  const { data } = await axios<PostType[]>(`/blog/school/${id}`);
+  console.log(data)
   return data;
 });
 

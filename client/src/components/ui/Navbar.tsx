@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,12 +6,18 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link as NavLink } from 'react-router-dom';
 import { Link } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import {  useAppSelector } from '../../redux/hooks';
 import { linkStyle } from '../styles';
+import LogoutConfirmDialog from './LogoutConfirmDialog';
 
 export default function Navbar(): JSX.Element {
-  const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.user);
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = ():void =>{
+    setOpen(true)
+  }
+
 
   const links =
     user.data.status === 'logged'
@@ -44,9 +50,11 @@ export default function Navbar(): JSX.Element {
               {link.name}
             </Link>
           ))}
-          {user.data.status === 'logged' && <Button color="inherit">Logout</Button>}
+          {user.data.status === 'logged' && <Button color="inherit" onClick = {()=>
+          handleOpen()}>Logout</Button>}
         </Toolbar>
       </AppBar>
+      <LogoutConfirmDialog  open={open} setOpen={setOpen}/>
     </Box>
   );
 }

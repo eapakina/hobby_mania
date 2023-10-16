@@ -1,4 +1,4 @@
-export type SchoolModelType = {
+export type SchoolType = {
     id:number;
     schoolName:string;
     adress:string;
@@ -10,12 +10,7 @@ export type SchoolModelType = {
     token:string;
 };
 
-export type SchoolSingUpFormType = Omit<SchoolModelType, 'id'|'districtId'>&{password:string};
+export type SchoolSingUpFormType = Omit<SchoolType, 'id'|'districtId'|'token'|'imgSchool'>&{password:string,file:File};
 
 export type SchoolLoginFormtype = Omit<SchoolSingUpFormType, 'schoolName'|'adress'
-|'phone'|'info'|'imgSchool'>;
-
-export type SchoolType =
-|(SchoolModelType & {status:'logged'})
-|{status:'loading'}
-|{status:'guest'}
+|'phone'|'info'|'file'>;
