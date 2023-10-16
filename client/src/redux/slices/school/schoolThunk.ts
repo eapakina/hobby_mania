@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import type { SchoolLoginFormtype,  SchoolSingUpFormType, SchoolType } from "../../../types/schoolTypes";
+import type {  SchoolType } from "../../../types/schoolTypes";
 
 
 
@@ -41,7 +41,11 @@ export const saveToken = createAsyncThunk<void, string>(
     },
   );
 
-  export const logoutSchoolThunk = createAsyncThunk('school/logout', async () => axios('/school/logout'));
+  export const logoutSchoolThunk = createAsyncThunk('school/logout', async (payload, { dispatch }) => {
+    void dispatch(removeToken());
+    await axios('/school/logout');
+  });
+  
 
   export const getSchoolThunk = createAsyncThunk<SchoolType, SchoolType['id']>('school/getSchool', async (id) => {
     const { data } = await axios<SchoolType>(`/school/${id}`);
