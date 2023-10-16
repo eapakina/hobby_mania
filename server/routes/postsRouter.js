@@ -103,7 +103,7 @@ router.patch("/:id/edit", async (req, res) => {
       schoolId: Number(schoolId),
       age: Number(age),
     },
-    { where: { id: req.params.id } },
+    { where: { id: req.params.id } }
   );
   const updatedClass = await Class.findOne({
     include: [
@@ -132,7 +132,7 @@ router
 
 router.route("/:id").delete(async (req, res) => {
   try {
-    await blog.destroy({ where: { id: req.params.id } });
+    await Blog.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
   } catch (err) {
     console.error(err);
