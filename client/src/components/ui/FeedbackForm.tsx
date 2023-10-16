@@ -50,8 +50,9 @@ export default function FeedbackForm() :JSX.Element{
           variant="outlined"
           sx={buttonStyle}
           onClick={() => {
+            dispatch(addFeedbackThunk(input));
             setInput({ title: '', body: '' });
-            // void dispatch(addPostThunk(input));
+          
           }}
         >
           Добавить отзыв

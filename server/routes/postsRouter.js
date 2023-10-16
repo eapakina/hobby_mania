@@ -41,10 +41,11 @@ router.post("/:id/add", async (req, res) => {
     age,
     schoolId,
   } = req.body;
-  console.log(req.params);
+
   const categoryId = await Category.findOne({ where: { category } });
   const dayId = await Day.findOne({ where: { day } });
   const timeId = await Time.findOne({ where: { time } });
+
   const newClass = await Class.create({
     className,
     desription,
@@ -129,17 +130,15 @@ router
     res.json(newBook);
   });
 
-// router
-//   .route('/:id')
-//   .delete(async (req, res) => {
-//     try {
-//       await blog.destroy({ where: { id: req.params.id } });
-//       res.sendStatus(200);
-//     } catch (err) {
-//       console.error(err);
-//       res.sendStatus(500);
-//     }
-//   })
+router.route("/:id").delete(async (req, res) => {
+  try {
+    await blog.destroy({ where: { id: req.params.id } });
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+});
 
 //   .patch(async (req, res) => {
 //     const bookId = req.params.id;
