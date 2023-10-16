@@ -187,10 +187,6 @@ router.route('/:id').delete(async (req, res) => {
 //       }
 //       // Нет записи для обновления или произошла другая ошибка
 //       return res.sendStatus(403); // Например, можно отправить статус 404, если запись не найдена
-//     } catch (error) {
-//       console.error('Error editing book', error);
-//       return res.sendStatus(500); // Ошибка сервера
-//     }
-//   });
+
 
 module.exports = router;
