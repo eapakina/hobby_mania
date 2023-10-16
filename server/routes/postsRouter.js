@@ -6,10 +6,6 @@ const Favorite = require('../db/models');
 
 const router = express.Router();
 
-router.get('/all', async (req, res) => {
-  const classes = await Class.findAll();
-  res.json(classes);
-});
 
 router.get('/random', async (req, res) => {
   console.log('----------- get ------------');
@@ -136,7 +132,7 @@ router.patch('/:id/edit', async (req, res) => {
       schoolId: Number(schoolId),
       age: Number(age),
     },
-    { where: { id: req.params.id } },
+    { where: { id: req.params.id } }
   );
   const updatedClass = await Class.findOne({
     include: [
@@ -153,8 +149,10 @@ router.patch('/:id/edit', async (req, res) => {
 router
   .route('/school/:id/')
   .get(async (req, res) => {
-    console.log('----------- get ------------');
-    const blogEntrys = await Blog.findAll({ where: { schoolId: req.params.id } });
+    console.log("----------- get ------------");
+    const blogEntrys = await Blog.findAll({
+      where: { schoolId: req.params.id },
+    });
     res.json(blogEntrys);
   })
   .post(async (req, res) => {

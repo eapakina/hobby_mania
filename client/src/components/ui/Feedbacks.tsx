@@ -2,13 +2,13 @@ import React from "react";
 import FeedbackForm from "./FeedbackForm";
 import FedbackList from "./FedbackList";
 
-export default function Feedbacks(): JSX.Element {
+export default function Feedbacks({id}): JSX.Element {
     
   return (
 
     <>
-    <FeedbackForm />
-    <FedbackList />
+    <FeedbackForm id={+id}/>
+    <FedbackList id={+id} />
   </>
   );
 }

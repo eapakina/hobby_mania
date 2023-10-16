@@ -7,8 +7,8 @@ import type {
 
 export const getFeedbackThunk = createAsyncThunk<FeedbackType[]>(
   "Feedback/getFeedback",
-  async () => {
-    const { data } = await axios.get<FeedbackType[]>("/Feedback/all");
+  async (id) => {
+    const { data } = await axios.get<FeedbackType[]>(`/comments/${id}/all`);
     return data;
   }
 );
@@ -18,7 +18,7 @@ export const addFeedbackThunk = createAsyncThunk<
   FeedbackFormType
 >("Feedback/addFeedback", async (formData) => {
   const { data } = await axios.post<FeedbackType>(
-    `/Feedback/${formData.schoolId}/add`,
+    `/comments/${formData.schoolId}/add`,
     formData
   );
   return data;
