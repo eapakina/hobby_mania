@@ -5,35 +5,7 @@ const {
 
 const router = express.Router();
 
-router.get('/all', async (req, res) => {
-  const classes = await Class.findAll();
-  res.json(classes);
-});
 
-router.get('/random', async (req, res) => {
-  console.log('----------- get ------------');
-  // Находим уникальные schoolId
-  const uniqueSchoolIds = await Class.findAll({
-    attributes: ['schoolId', 'createdAt'],
-    group: ['schoolId', 'createdAt'],
-    // order: [['createdAt', 'DESC']],
-    limit: 10,
-    // include: [{ model: School }],
-  });
-  console.log({ uniqueSchoolIds });
-  // Затем для каждого уникального schoolId выбираем соответствующую запись
-  const classes = await Class.findAll({
-    where: {
-      schoolId: uniqueSchoolIds.map((entry) => entry.schoolId),
-    },
-    order: [['createdAt', 'DESC']],
-    include: [{ model: School }],
-  });
-
-  res.json(classes);
-});
-
-router.get('/:id/all', async (req, res) => {
   const { id } = req.params;
   const classes = await Class.findAll({
     include: [
@@ -150,8 +122,10 @@ router.patch('/:id/edit', async (req, res) => {
 router
   .route('/school/:id/')
   .get(async (req, res) => {
-    console.log('----------- get ------------');
-    const blogEntrys = await Blog.findAll({ where: { schoolId: req.params.id } });
+    console.log("----------- get ------------");
+    const blogEntrys = await Blog.findAll({
+      where: { schoolId: req.params.id },
+    });
     res.json(blogEntrys);
   })
   .post(async (req, res) => {
@@ -168,29 +142,5 @@ router.route('/:id').delete(async (req, res) => {
     res.sendStatus(500);
   }
 });
-
-//   .patch(async (req, res) => {
-//     const bookId = req.params.id;
-//     const { authtor, name, status } = req.body;
-//     console.log('мы тут', req.body);
-//     try {
-//       const [updatedRowCount] = await blog.update(
-//         { authtor, name, status },
-//         { where: { id: bookId } },
-//       );
-//       if (updatedRowCount === 1) {
-//         const bookEdit = await blog.findByPk(bookId);
-//         console.log('мы тут', bookEdit);
-
-//         // Обновление прошло успешно
-//         return res.json(bookEdit);
-//       }
-//       // Нет записи для обновления или произошла другая ошибка
-//       return res.sendStatus(403); // Например, можно отправить статус 404, если запись не найдена
-//     } catch (error) {
-//       console.error('Error editing book', error);
-//       return res.sendStatus(500); // Ошибка сервера
-//     }
-//   });
 
 module.exports = router;
