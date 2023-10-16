@@ -23,7 +23,14 @@ export default function Classes(): JSX.Element {
   return (
     <Box display="flex" flexWrap="wrap">
       {classes?.map((item) => (
-        <ClassItem key={item.id} item={item} school={school} dispatch={dispatch} setOpen={setOpen} setIdClass={setIdClass} />
+        <ClassItem
+          key={item.id}
+          item={item}
+          school={school}
+          dispatch={dispatch}
+          setOpen={setOpen}
+          setIdClass={setIdClass}
+        />
       ))}
       <ClassFormModal />
       <ClassEditFormModal open={open} setOpen={setOpen} idClass={idClass} />
