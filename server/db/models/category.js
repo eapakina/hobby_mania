@@ -1,9 +1,9 @@
-const { Model } = require("sequelize");
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Category extends Model {
     static associate({ Class }) {
-      this.hasMany(Class, { foreignKey: "categoryId" });
+      this.hasMany(Class, { foreignKey: 'categoryId' });
     }
   }
   Category.init(
@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Category",
-    }
+      modelName: 'Category',
+    },
   );
   return Category;
 };

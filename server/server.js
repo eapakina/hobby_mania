@@ -1,3 +1,4 @@
+
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -9,6 +10,7 @@ const postsRouter = require("./routes/postsRouter");
 const commentsRouter = require("./routes/commentsRouter");
 
 require("dotenv").config();
+
 
 const app = express();
 
@@ -32,8 +34,7 @@ app.use(
   })
 );
 
-app.use("/api/classes", postsRouter);
-app.use("/api/user", userRouter);
+
 
 app.use("/api/school", schoolRouter);
 
