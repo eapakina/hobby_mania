@@ -8,7 +8,12 @@ const schoolRouter = require("./routes/schoolRouter");
 const postsRouter = require("./routes/postsRouter");
 const commentsRouter = require("./routes/commentsRouter");
 
-require("dotenv").config();
+const schoolRouter = require('./routes/schoolRouter');
+
+const postsRouter = require('./routes/postsRouter');
+const favoriteRouter = require('./routes/favotiteRouter');
+
+require('dotenv').config();
 
 const app = express();
 
@@ -35,7 +40,9 @@ app.use(
 app.use("/api/user", userRouter);
 app.use("/api/school", schoolRouter);
 
-app.use("/api/blog", postsRouter);
+app.use('/api/blog', postsRouter);
+app.use('/api/favorite', favoriteRouter);
+
 app.use("/api/comments", commentsRouter);
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));

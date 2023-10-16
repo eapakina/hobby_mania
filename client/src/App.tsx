@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import MainPage from "./components/pages/MainPage";
 import Navbar from "./components/ui/Navbar";
 import { useAppDispatch } from "./redux/hooks";
+import Favorite from './components/pages/Favorite';
 import { checkUserThunk } from "./redux/slices/user/userThunks";
 import AuthErrorDialog from "./components/ui/AuthErrorDialog";
 import LogoutConfirmDialog from "./components/ui/LogoutConfirmDialog";
@@ -37,9 +38,12 @@ function App(): JSX.Element {
         <Route path="/school/:id" element={<SchoolPage />} />
         <Route path="/school/:id/classform" element={<ClassForm />} />
         <Route path="/random" element={<RandomPage />} />
+        <Route path="/favorite" element={<Favorite />} />
+
+
       </Routes>
       <AuthErrorDialog />
-      <LogoutConfirmDialog />
+      {/* <LogoutConfirmDialog /> */}
     </Container>
   );
 }

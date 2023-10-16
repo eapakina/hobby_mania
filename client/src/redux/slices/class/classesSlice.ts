@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { ClassFormType, ClassType } from '../../../types/classTypes';
-import { addClassThunk, deleteClassThunk, editClassThunk, getClassesThunk, getRandomClassesThunk } from './classesThunks';
+import { addClassThunk, deleteClassThunk, editClassThunk, getClassesThunk, getFavoriteClassThunk, getRandomClassesThunk } from './classesThunks';
 
 const initialState: ClassType[] = [];
 
@@ -20,6 +20,7 @@ export const classesSlice = createSlice({
             state[index] = action.payload;
         })
         builder.addCase(getRandomClassesThunk.fulfilled, (state, action) => action.payload);
+        builder.addCase(getFavoriteClassThunk.fulfilled, (state, action) => action.payload);
 
         }
 })

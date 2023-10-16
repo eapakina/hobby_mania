@@ -37,7 +37,7 @@ export default function ClassItem({
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {item.School?.schoolName}{" "}
+         <a href= {`/school/${item.schoolId}`}> {item.School?.schoolName}{" "}</a>
         </Typography>
         <Typography variant="h5" component="div">
           {item.Category?.category}{" "}
