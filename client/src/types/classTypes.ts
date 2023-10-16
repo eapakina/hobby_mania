@@ -1,6 +1,6 @@
 export type ClassType = {
     id: number;
-    description: string;
+    desription: string;
     age: number;
     isAvailable: boolean;
     categoryId: number;

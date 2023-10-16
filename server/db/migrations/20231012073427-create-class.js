@@ -1,7 +1,7 @@
 /** @type {import(\'sequelize-cli\').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Classes", {
+    await queryInterface.createTable('Classes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -23,32 +23,34 @@ module.exports = {
       schoolId: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Schools",
-          key: "id",
+          model: 'Schools',
+          key: 'id',
         },
+        onDelete: 'CASCADE',
+
       },
       categoryId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Categories",
-          key: "id",
+          model: 'Categories',
+          key: 'id',
         },
       },
       dayId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Days",
-          key: "id",
+          model: 'Days',
+          key: 'id',
         },
       },
       timeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Times",
-          key: "id",
+          model: 'Times',
+          key: 'id',
         },
       },
       createdAt: {
@@ -62,6 +64,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Classes");
+    await queryInterface.dropTable('Classes');
   },
 };

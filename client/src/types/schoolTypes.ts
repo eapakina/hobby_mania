@@ -23,3 +23,4 @@ export type SchoolLoginFormtype = Omit<SchoolSingUpFormType, 'schoolName'|'adres
 |'phone'|'info'|'imgSchool'>;
 
 
+export type SchoolEditFormType = Omit<SchoolType, 'id' | "districtId" | "token" | "District" >;

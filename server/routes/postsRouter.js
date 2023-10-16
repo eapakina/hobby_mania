@@ -36,6 +36,7 @@ router.post('/:id/add', async (req, res) => {
 router
   .route('/school/:id/')
   .get(async (req, res) => {
+    console.log('----------- get ------------');
     const blogEntrys = await Blog.findAll({ where: { schoolId: req.params.id } });
     res.json(blogEntrys);
   })

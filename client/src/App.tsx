@@ -11,8 +11,9 @@ import AuthSchoolPage from './components/pages/AuthSchoolPage';
 import SearchPage from './components/pages/SearchPage';
 import SchoolPage from './components/pages/SchoolPage';
 import ClassForm from './components/pages/ClassForm';
-import PostsPage from './components/pages/PostsPage';
+// import PostsPage from './components/pages/PostsPage';
 import AuthUserPage from './components/pages/AuthUserPage';
+import RandomPage from './components/pages/RandomPage';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -35,6 +36,8 @@ function App(): JSX.Element {
         {/* <Route path="/:authuser" element={<AuthPage />} /> */}
         <Route path="/school/:id" element={<SchoolPage />} />
         <Route path="/school/:id/classform" element={<ClassForm />} />
+        <Route path="/random" element={<RandomPage />} />
+
       </Routes>
       <AuthErrorDialog />
       <LogoutConfirmDialog />
