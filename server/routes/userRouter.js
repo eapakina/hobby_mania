@@ -109,6 +109,7 @@ userRouter.post('/login', async (req, res) => {
 //   return res.sendStatus(500);
 // });
 
+// Работает
 userRouter.get('/check', (req, res) => {
   const token = req.headers.authorization?.replace('Bearer ', '');
 
@@ -128,8 +129,12 @@ userRouter.get('/check', (req, res) => {
   });
 });
 
+// Работает
 userRouter.get('/getuser', async (req, res) => {
   const user = req.session.userId;
+  if (!user) {
+    return res.sendStatus(401);
+  }
   return res.json(user);
 });
 
