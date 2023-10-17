@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(Day, { foreignKey: 'dayId' });
       this.belongsTo(Time, { foreignKey: 'timeId' });
       this.hasMany(Schedule, { foreignKey: 'classId' });
-      this.hasMany(Favorite, { foreignKey: 'userId' });
+      this.hasMany(Favorite, { foreignKey: 'classId' });
+      
     }
   }
 

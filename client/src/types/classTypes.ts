@@ -34,5 +34,5 @@ export type FavoriteClassType = {
   id: number;
   userId: number;
   classId: number;
-  Class: ClassType;
+  Class?: ClassType;
 };

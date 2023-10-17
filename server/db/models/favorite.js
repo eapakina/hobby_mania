@@ -8,10 +8,6 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(User, { foreignKey: 'userId' });
       this.belongsTo(Class, { foreignKey: 'classId' });
     }
-
-    static associate(models) {
-      // define association here
-    }
   }
   Favorite.init({
     userId: DataTypes.INTEGER,
