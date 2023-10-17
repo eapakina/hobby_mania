@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Button, Grid, Input, InputLabel, TextField } from '@mui/material';
+import { Box, Button, Grid, Input, InputLabel, TextField, Typography } from '@mui/material';
 import { useAppDispatch } from '../../../../redux/hooks';
 import { loginSchoolThunk, signUpSchoolThunk } from '../../../../redux/slices/school/schoolThunk';
 import type { SchoolLoginFormtype, SchoolSingUpFormType } from '../../../../types/schoolTypes';
@@ -37,8 +37,10 @@ export function SignupPage(): JSX.Element {
   };
 
   return (
-    <Grid container direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh' }}>
-      <Grid item xs={3} />
+    <Grid container direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh', justifyContent: 'center' }}>
+      <Typography variant="h2" textAlign="center">
+        Регистрация школы
+      </Typography>
       <Grid item xs={6}>
         <Box
           component="form"
@@ -64,6 +66,7 @@ export function SignupPage(): JSX.Element {
             Зарегистрироваться
           </Button>
         </Box>
+        TT
       </Grid>
     </Grid>
   );

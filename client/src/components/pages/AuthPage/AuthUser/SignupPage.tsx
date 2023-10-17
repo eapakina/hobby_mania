@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Input, InputLabel, TextField } from '@mui/material';
+import { Box, Button, Grid, Input, InputLabel, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../../redux/hooks';
@@ -35,8 +35,10 @@ export function SignupPage(): JSX.Element {
   };
 
   return (
-    <Grid container direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh' }}>
-      <Grid item xs={3} />
+    <Grid container direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh', justifyContent: 'center' }}>
+      <Typography variant="h2" textAlign="center">
+        Регистрация
+      </Typography>
       <Grid item xs={6}>
         <Box
           component="form"
