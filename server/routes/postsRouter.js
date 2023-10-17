@@ -1,38 +1,14 @@
-const express = require('express');
-const {
-  Class, Day, Time, Category, School, Blog,
-} = require('../db/models');
+const express = require("express");
+const { Class, Day, Time, Category, School, Blog } = require("../db/models");
 
 const router = express.Router();
 
-
-//   const { id } = req.params;
-//   const classes = await Class.findAll({
-//     include: [
-//       {
-//         model: Day,
-//       },
-//       {
-//         model: Time,
-//       },
-//       {
-//         model: Category,
-//       },
-//       {
-//         model: School,
-//       },
-//     ],
-//     where: { schoolId: id },
-//   });
-//   res.json(classes);
-// });
-
-router.get('/all/categorys', async (req, res) => {
+router.get("/all/categorys", async (req, res) => {
   const categorys = await Category.findAll();
   res.json(categorys);
 });
 
-router.post('/:id/add', async (req, res) => {
+router.post("/:id/add", async (req, res) => {
   const {
     className,
     desription,
@@ -70,7 +46,7 @@ router.post('/:id/add', async (req, res) => {
   res.json(createdClass);
 });
 
-router.delete('/:id/delete', async (req, res) => {
+router.delete("/:id/delete", async (req, res) => {
   try {
     await Class.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
@@ -80,7 +56,7 @@ router.delete('/:id/delete', async (req, res) => {
   }
 });
 
-router.patch('/:id/edit', async (req, res) => {
+router.patch("/:id/edit", async (req, res) => {
   const {
     className,
     desription,
@@ -120,26 +96,38 @@ router.patch('/:id/edit', async (req, res) => {
 });
 
 router
-  .route('/school/:id/')
+  .route("/school/:id/")
   .get(async (req, res) => {
     console.log("----------- get ------------");
-    const blogEntrys = await Blog.findAll({
+    const posts = await Blog.findAll({
       where: { schoolId: req.params.id },
     });
-    res.json(blogEntrys);
+    res.json(posts);
   })
   .post(async (req, res) => {
     const newBook = await Blog.create(req.body);
     res.json(newBook);
   });
 
-router.route('/:id').delete(async (req, res) => {
+router.route("/:id").delete(async (req, res) => {
   try {
     await Blog.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
+  }
+});
+
+router.patch(async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Blog.update({ ...req.body }, { where: { id } });
+    const updatedPost = await Blog.findOne({ where: { id } });
+    return res.json(updatedPost);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
   }
 });
 

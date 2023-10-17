@@ -16,7 +16,7 @@ router.get("/:id/all", async (req, res) => {
 });
 
 router.post("/:id/add", async (req, res) => {
-  console.log('ffewfefwef')
+ 
   try {
     const newBook = await Comment.create(req.body);
     res.json(newBook);

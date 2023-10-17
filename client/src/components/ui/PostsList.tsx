@@ -7,7 +7,7 @@ import { getPostsThunk } from '../../redux/slices/posts/postsThunks';
 
 export default function PostsList({ id }: { id: number }): JSX.Element {
   const posts = useAppSelector((store) => store.posts);
-  console.log(posts);
+  
   const dispatch = useAppDispatch();
 
   useEffect(() => {

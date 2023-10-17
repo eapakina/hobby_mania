@@ -19,7 +19,7 @@ export const addPostThunk = createAsyncThunk<PostType, PostFormType>(
 export const deletePostThunk = createAsyncThunk<PostType['id'], PostType['id']>(
   'posts/deletePost',
   async (id) => {
-    await axios.delete(`/posts/${id}`);
+    await axios.delete(`/school/${id}`);
     return id;
   },
 );
