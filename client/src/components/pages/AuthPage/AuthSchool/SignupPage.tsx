@@ -66,7 +66,6 @@ export function SignupPage(): JSX.Element {
             Зарегистрироваться
           </Button>
         </Box>
-        TT
       </Grid>
     </Grid>
   );
