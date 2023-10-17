@@ -154,4 +154,4 @@ schoolRouter
     }
   });
 
-module.exports = schoolRouter;
+export default schoolRouter;

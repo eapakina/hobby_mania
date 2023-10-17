@@ -5,13 +5,13 @@ const session = require("express-session");
 const FileStore = require("session-file-store")(session);
 const userRouter = require("./routes/userRouter");
 const schoolRouter = require("./routes/schoolRouter");
+const newsRouter = require("./routes/newsRouter");
+const classesRouter = require("./routes/classesRouter");
+const favoriteRouter = require("./routes/favoriteRouter");
 const commentsRouter = require("./routes/commentsRouter");
+const randomRouter = require("./routes/randomRouter");
 
-
-const postsRouter = require('./routes/postsRouter');
-const favoriteRouter = require('./routes/favotiteRouter');
-
-require('dotenv').config();
+require("dotenv").config();
 
 const app = express();
 
@@ -38,11 +38,12 @@ app.use(
 app.use("/api/user", userRouter);
 app.use("/api/school", schoolRouter);
 
-app.use('/api/blog', postsRouter);
-app.use('/api/classes', postsRouter);
+app.use("/api/news", newsRouter);
+app.use("/api/classes", classesRouter);
 
-app.use('/api/favorite', favoriteRouter);
+app.use("/api/favorite", favoriteRouter);
 
 app.use("/api/comments", commentsRouter);
+app.use("/api/random", randomRouter);
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));

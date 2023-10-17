@@ -6,11 +6,11 @@ const fs = require("fs/promises");
 const { User } = require("../db/models");
 const upload = require("../middleware/multer");
 
-const router = express.Router();
+const userRouter = express.Router();
 
 const jwtSecretKey = "your-secret-key";
 
-router.post("/signup", upload.single("file"), async (req, res) => {
+userRouter.post("/signup", upload.single("file"), async (req, res) => {
   console.log("1111111", req.body);
   console.log(req.file, "qqqqqqqqqqqqqqq");
   try {
@@ -60,7 +60,6 @@ router.post("/signup", upload.single("file"), async (req, res) => {
   }
 });
 
-// router.post('/signup', async (req, res) => {
 //   const { userName, email, password, img } = req.body;
 //   console.log('TTTTTTTTTTTTTTTTTTTT',req.body);
 //   if (userName && email && password && img) {
@@ -84,7 +83,7 @@ router.post("/signup", upload.single("file"), async (req, res) => {
 //   return res.sendStatus(500);
 // });
 
-router.post("/login", async (req, res) => {
+userRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
     try {
@@ -110,7 +109,7 @@ router.post("/login", async (req, res) => {
   return res.sendStatus(500);
 });
 
-router.get("/check", (req, res) => {
+userRouter.get("/check", (req, res) => {
   const token = req.headers.authorization?.replace("Bearer ", "");
 
   console.log(token);
@@ -129,14 +128,14 @@ router.get("/check", (req, res) => {
   });
 });
 
-router.get('/getuser', async (req, res) => {
+userRouter.get("/getuser", async (req, res) => {
   const user = req.session.userId;
   return res.json(user);
 });
 
-router.get('/logout', (req, res) => {
+userRouter.get("/logout", (req, res) => {
   req.session.destroy();
   res.clearCookie("sid").sendStatus(200);
 });
 
-module.exports = router;
+module.exports = userRouter;
