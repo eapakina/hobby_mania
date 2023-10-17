@@ -11,7 +11,7 @@ export const getPostsThunk = createAsyncThunk<PostType, PostType['id']>('posts/g
 export const addPostThunk = createAsyncThunk<PostType, PostFormType>(
   'posts/addPost',
   async (formData) => {
-    const { data } = await axios.post<PostType>('/posts', formData);
+    const { data } = await axios.post<PostType>('/blog/school/${id}', formData);
     return data;
   },
 );
@@ -19,7 +19,7 @@ export const addPostThunk = createAsyncThunk<PostType, PostFormType>(
 export const deletePostThunk = createAsyncThunk<PostType['id'], PostType['id']>(
   'posts/deletePost',
   async (id) => {
-    await axios.delete(`/posts/${id}`);
+    await axios.delete(`/blog/school/${id}`);
     return id;
   },
 );
@@ -27,4 +27,5 @@ export const deletePostThunk = createAsyncThunk<PostType['id'], PostType['id']>(
 export const updatePostThunk = createAsyncThunk<PostType, PostType>(
   'posts/updatePost',
   (formData) => axios.patch<PostType>(`/posts/${formData.id}`, formData).then((res) => res.data),
+
 );

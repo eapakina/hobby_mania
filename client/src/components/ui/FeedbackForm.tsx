@@ -6,7 +6,7 @@ import { addFeedbackThunk } from "../../redux/slices/feedback/feedbackThunks";
 
 export default function FeedbackForm({ id }): JSX.Element {
   const [input, setInput] = useState({
-    userId: 1, // todo
+    userId: id, // todo
     schoolId: id,
     title: "",
     body: "",

@@ -10,7 +10,7 @@ export default function PostsPage({ id }: { id: number }): JSX.Element {
   return (
     <>
       (сделать доступы только для школы)
-      <PostForm />
+      <PostForm id={id}/>
       <PostsList id={id} />
     </>
   );

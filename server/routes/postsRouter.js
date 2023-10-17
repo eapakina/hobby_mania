@@ -264,10 +264,10 @@ router
   .route("/school/:id/")
   .get(async (req, res) => {
     console.log("----------- get ------------");
-    const blogEntrys = await Blog.findAll({
+    const posts = await Blog.findAll({
       where: { schoolId: req.params.id },
     });
-    res.json(blogEntrys);
+    res.json(posts);
   })
   .post(async (req, res) => {
     const newBook = await Blog.create(req.body);
@@ -276,6 +276,7 @@ router
 
 router.route("/:id").delete(async (req, res) => {
   try {
+    console.log("----------- delete ------------");
     await Blog.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
   } catch (err) {

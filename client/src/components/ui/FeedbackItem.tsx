@@ -1,15 +1,36 @@
-import { ListItem, ListItemText, Typography } from "@mui/material";
+import { ListItem, ListItemText, Typography, Button } from "@mui/material";
+import { useDispatch } from "react-redux";
 import React from "react";
+import {
+  deleteFeedbackThunk,
+  updateFeedbackThunk,
+} from "../../redux/slices/feedback/feedbackThunks";
 
 type FeedbackItemProps = {
-  review: { id: number; author: number; title: string; body: string };
+  review: {
+    id: number;
+    title: string;
+    body: string;
+    userId: number;
+    schoolId: number;
+  };
 };
 
 function FeedbackItem({ review }: FeedbackItemProps): JSX.Element {
+  const dispatch = useDispatch();
+
+  const handleUpdate = () => {
+   void dispatch(updateFeedbackThunk({ id: review.id }));
+  };
+
+  const handleDelete = () => {
+    void dispatch(deleteFeedbackThunk({ id: review.id }));
+  };
+
   return (
-    <ListItem key={review.id}>
+    <ListItem>
       <ListItemText
-        primary={review.author}
+        primary={review.userId}
         secondary={
           <>
             <Typography variant="subtitle1">{review.title}</Typography>
@@ -17,6 +38,12 @@ function FeedbackItem({ review }: FeedbackItemProps): JSX.Element {
           </>
         }
       />
+      <Button size="small" onClick={handleUpdate}>
+        Редактировать
+      </Button>
+      <Button size="small" onClick={handleDelete}>
+        Удалить
+      </Button>
     </ListItem>
   );
 }

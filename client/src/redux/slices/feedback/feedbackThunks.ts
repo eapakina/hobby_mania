@@ -23,3 +23,19 @@ export const addFeedbackThunk = createAsyncThunk<
   );
   return data;
 });
+
+export const deleteFeedbackThunk = createAsyncThunk<
+  FeedbackType["id"],
+  FeedbackType["id"]
+>("Feedback/deleteFeedback", async (id) => {
+  await axios.delete(`/school/${id}`);
+  return id;
+});
+
+export const updateFeedbackThunk = createAsyncThunk<FeedbackType, FeedbackType>(
+  "Feedback/updateFeedback",
+  (formData) =>
+    axios
+      .patch<FeedbackType>(`/comments/${formData.id}`, formData)
+      .then((res) => res.data)
+);

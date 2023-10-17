@@ -4,8 +4,9 @@ import { buttonStyle, postFormGridStyles, textFieldStyle } from "../styles";
 import { addPostThunk } from "../../redux/slices/posts/postsThunks";
 import { useAppDispatch } from "../../redux/hooks";
 
-export default function PostForm(): JSX.Element {
+export default function PostForm({ id }): JSX.Element {
   const [input, setInput] = useState({
+    schoolId: id,
     title: "",
     body: "",
     img: "",
@@ -61,7 +62,7 @@ export default function PostForm(): JSX.Element {
             sx={buttonStyle}
             onClick={() => {
               void dispatch(addPostThunk(input));
-              setInput({ title: "", body: "", img: "" });
+              setInput({ schoolId: id, title: "", body: "", img: "" });
             }}
           >
             Send

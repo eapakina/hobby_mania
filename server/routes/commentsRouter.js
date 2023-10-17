@@ -5,10 +5,10 @@ const router = express.Router();
 
 router.get("/:id/all", async (req, res) => {
   try {
-    const commentEntry = await Comment.findAll({
-      where: {  schoolId: req.params.id },
+    const reviews = await Comment.findAll({
+      where: { userId: req.session.userId },
     });
-    res.json(commentEntry);
+    res.json(reviews);
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
@@ -16,7 +16,6 @@ router.get("/:id/all", async (req, res) => {
 });
 
 router.post("/:id/add", async (req, res) => {
-  console.log('ffewfefwef')
   try {
     const newBook = await Comment.create(req.body);
     res.json(newBook);
