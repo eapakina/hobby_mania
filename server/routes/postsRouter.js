@@ -1,10 +1,114 @@
-const express = require('express');
+const express = require("express");
+const { Op } = require("sequelize");
 const {
-  Class, Day, Time, Category, School, Blog, Sequelize,
-} = require('../db/models');
+  Class,
+  Day,
+  Time,
+  Category,
+  School,
+  Blog,
+  District,
+} = require("../db/models");
 const Favorite = require('../db/models');
 
 const router = express.Router();
+
+router.post("/search/all", async (req, res) => {
+  const { personName, timeName, districtName } = req.body;
+  console.log(personName);
+  const where = [
+    {
+      model: School,
+    },
+  ];
+  if (
+    personName.length === 0 &&
+    timeName.length === 0 &&
+    districtName.length === 0
+  ) {
+    const allClasses = await Class.findAll({
+      include: [
+        {
+          model: Day,
+        },
+        {
+          model: Time,
+        },
+        {
+          model: Category,
+        },
+        {
+          model: School,
+        },
+      ],
+    });
+    return res.json(allClasses);
+  }
+  if (personName.length > 0) {
+    where.push(
+      {
+        model: Category,
+        where: {
+          category: {
+            [Op.in]: personName,
+          },
+        },
+      },
+      {
+        model: Time,
+      }
+    );
+  }
+
+  if (timeName.length > 0) {
+    where.push(
+      {
+        model: Time,
+        where: {
+          time: {
+            [Op.in]: timeName,
+          },
+        },
+      },
+      {
+        model: Category,
+      }
+    );
+  }
+
+  if (districtName.length > 0) {
+    where[0] = {
+      model: School,
+      required: true,
+      include: [
+        {
+          model: District,
+          where: {
+            district: {
+              [Op.in]: districtName,
+            },
+          },
+        },
+      ],
+    };
+    where.push({
+      model: Category,
+    });
+  }
+  console.log(where);
+  const classes = await Class.findAll({
+    include: [
+      {
+        model: Day,
+      },
+      ...where,
+    ],
+  });
+  res.json(classes);
+});
+
+
+
 
 
 router.get('/random', async (req, res) => {
@@ -54,12 +158,22 @@ router.get('/:id/all', async (req, res) => {
   res.json(classes);
 });
 
-router.get('/all/categorys', async (req, res) => {
+router.get("/all/time", async (req, res) => {
+  const time = await Time.findAll();
+  res.json(time);
+});
+
+router.get("/all/district", async (req, res) => {
+  const district = await District.findAll();
+  res.json(district);
+});
+
+router.get("/all/categorys", async (req, res) => {
   const categorys = await Category.findAll();
   res.json(categorys);
 });
 
-router.post('/:id/add', async (req, res) => {
+router.post("/:id/add", async (req, res) => {
   const {
     className,
     desription,
@@ -97,7 +211,7 @@ router.post('/:id/add', async (req, res) => {
   res.json(createdClass);
 });
 
-router.delete('/:id/delete', async (req, res) => {
+router.delete("/:id/delete", async (req, res) => {
   try {
     await Class.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
@@ -107,7 +221,7 @@ router.delete('/:id/delete', async (req, res) => {
   }
 });
 
-router.patch('/:id/edit', async (req, res) => {
+router.patch("/:id/edit", async (req, res) => {
   const {
     className,
     desription,
@@ -147,7 +261,7 @@ router.patch('/:id/edit', async (req, res) => {
 });
 
 router
-  .route('/school/:id/')
+  .route("/school/:id/")
   .get(async (req, res) => {
     console.log("----------- get ------------");
     const blogEntrys = await Blog.findAll({
@@ -160,7 +274,7 @@ router
     res.json(newBook);
   });
 
-router.route('/:id').delete(async (req, res) => {
+router.route("/:id").delete(async (req, res) => {
   try {
     await Blog.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
