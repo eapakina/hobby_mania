@@ -5,11 +5,7 @@ const session = require("express-session");
 const FileStore = require("session-file-store")(session);
 const userRouter = require("./routes/userRouter");
 const schoolRouter = require("./routes/schoolRouter");
-const postsRouter = require("./routes/postsRouter");
 const commentsRouter = require("./routes/commentsRouter");
-
-const schoolRouter = require('./routes/schoolRouter');
-
 const postsRouter = require('./routes/postsRouter');
 const favoriteRouter = require('./routes/favotiteRouter');
 
@@ -41,6 +37,7 @@ app.use("/api/user", userRouter);
 app.use("/api/school", schoolRouter);
 
 app.use('/api/blog', postsRouter);
+app.use('/api/classes', postsRouter);
 app.use('/api/favorite', favoriteRouter);
 
 app.use("/api/comments", commentsRouter);
