@@ -55,7 +55,7 @@ router.post("/search/all", async (req, res) => {
       },
       {
         model: Time,
-      },
+      }
     );
   }
 
@@ -78,6 +78,7 @@ router.post("/search/all", async (req, res) => {
   if (districtName.length > 0) {
     where[0] = {
       model: School,
+      required: true,
       include: [
         {
           model: District,
@@ -89,6 +90,9 @@ router.post("/search/all", async (req, res) => {
         },
       ],
     };
+    where.push({
+      model: Category,
+    });
   }
   console.log(where);
   const classes = await Class.findAll({
