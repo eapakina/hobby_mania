@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import type { CommentFormType, CommentType } from "../../../types/CommentTypes";
+import type { CommentFormType, CommentType } from "../../../types/commentTypes";
 
 export const getCommentThunks = createAsyncThunk<CommentType[]>(
   "Comment/getComment",

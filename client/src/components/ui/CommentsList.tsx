@@ -2,9 +2,9 @@ import { List, ListItem, ListItemText, Paper, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import CommentItem from "./CommentItem";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { getCommentThunks } from "../../redux/slices/Comment/commentThunkss";
+import { getCommentThunks } from "../../redux/slices/comments/commentThunks";
 
-export default function FedbackList({ id }): JSX.Element {
+export default function CommentsList({ id }): JSX.Element {
   const reviews = useAppSelector((store) => store.comments);
   const dispatch = useAppDispatch();
   useEffect(() => {

@@ -1,6 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { NewsType } from "../../../types/NewsTypes";
+import type { NewsType } from "../../../types/newsTypes";
 import { deleteNewsThunk, getNewsThunk, addNewsThunk } from "./newsThunks";
 
 const initialState: NewsType[] = [];

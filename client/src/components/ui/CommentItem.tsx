@@ -4,7 +4,7 @@ import React from "react";
 import {
   deleteCommentThunks,
   updateCommentThunks,
-} from "../../redux/slices/Comment/commentThunkss";
+} from "../../redux/slices/comments/commentThunks";
 
 type CommentItemProps = {
   review: {
