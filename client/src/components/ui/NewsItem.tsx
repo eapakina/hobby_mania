@@ -5,41 +5,41 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import type { PostType } from "../../types/postTypes";
+import type { NewsType } from "../../types/newsTypes";
 import { cardStyle } from "../styles";
 import { useAppDispatch } from "../../redux/hooks";
-import { deletePostThunk } from "../../redux/slices/posts/postsThunks";
+import { deleteNewsThunk } from "../../redux/slices/news/newsThunks";
 
-type PostItemProps = {
-  post: PostType;
+type newItemProps = {
+  new: NewsType;
 };
 
-export default function PostItem({ post }: PostItemProps): JSX.Element {
+export default function newItem({ new }: newItemProps): JSX.Element {
   const dispatch = useAppDispatch();
   // todo
   return (
     <Card sx={cardStyle}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Post of the Day
+          new of the Day
         </Typography>
         <Typography variant="h5" component="div">
-          {post.title.slice(0, 40)}...
+          {new.title.slice(0, 40)}...
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {post.body.slice(0, 120)}...
+          {new.body.slice(0, 120)}...
         </Typography>
         <CardMedia
           component="img"
           height="194"
-          image={post.img}
-          alt={post.title}
+          image={new.img}
+          alt={new.title}
         />
       </CardContent>
       <CardActions>
         <Button
           size="small"
-          onClick={() => void dispatch(deletePostThunk(post.id))}
+          onClick={() => void dispatch(deleteNewsThunk(new.id))}
         >
           Delete
         </Button>

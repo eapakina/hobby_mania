@@ -263,10 +263,10 @@
 //   .route("/school/:id/")
 //   .get(async (req, res) => {
 //     console.log("----------- get ------------");
-//     const posts = await Blog.findAll({
+//     const news = await Blog.findAll({
 //       where: { schoolId: req.params.id },
 //     });
-//     res.json(posts);
+//     res.json(News);
 //   })
 //   .post(async (req, res) => {
 //     const newBook = await Blog.create(req.body);

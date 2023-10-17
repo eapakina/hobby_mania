@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 // import { useAppDispatch } from "../../redux/hooks";
 import Description from "../ui/Description";
 import Classes from "../ui/Classes";
-import Feedbacks from "../ui/Feedbacks";
-import PostsPage from "./PostsPage";
+import Comments from "../ui/Comments";
+import NewsPage from "./NewsPage";
 
 export default function SchoolPage(): JSX.Element {
   // const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ export default function SchoolPage(): JSX.Element {
   const { id = 1 } = useParams();
   console.log({ id });
   //   useEffect(() => {
-  //     void dispatch(getPostsThunk());
+  //     void dispatch(getNewsThunk());
   //     // eslint-disable-next-line react-hooks/exhaustive-deps
   //   }, []);
 
@@ -23,13 +23,13 @@ export default function SchoolPage(): JSX.Element {
       <ButtonGroup variant="text" aria-label="text button group">
         <Button onClick={() => setChoose("description")}>Описание</Button>
         <Button onClick={() => setChoose("classes")}>Занятия</Button>
-        <Button onClick={() => setChoose("feedbacks")}>Отзывы</Button>
+        <Button onClick={() => setChoose("Comments)}>Отзывы</Button>
         <Button onClick={() => setChoose("blog")}>Новости</Button>
       </ButtonGroup>
       {choose === "description" && <Description id={+id} />}
       {choose === "classes" && <Classes />}
-      {choose === "feedbacks" && <Feedbacks id={+id}/>}
-      {choose === "blog" && <PostsPage id={+id} />}
+      {choose === "Comments && <CCommentsd={+id}/>}
+      {choose === "blog" && <NewsPage id={+id} />}
     </>
   );
 }

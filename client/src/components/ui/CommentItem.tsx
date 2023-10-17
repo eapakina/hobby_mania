@@ -2,11 +2,11 @@ import { ListItem, ListItemText, Typography, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import React from "react";
 import {
-  deleteFeedbackThunk,
-  updateFeedbackThunk,
-} from "../../redux/slices/feedback/feedbackThunks";
+  deleteCommentThunks,
+  updateCommentThunks,
+} from "../../redux/slices/Comment/commentThunkss";
 
-type FeedbackItemProps = {
+type CommentItemProps = {
   review: {
     id: number;
     title: string;
@@ -16,15 +16,15 @@ type FeedbackItemProps = {
   };
 };
 
-function FeedbackItem({ review }: FeedbackItemProps): JSX.Element {
+function CommentItem({ review }: CommentItemProps): JSX.Element {
   const dispatch = useDispatch();
 
   const handleUpdate = () => {
-   void dispatch(updateFeedbackThunk({ id: review.id }));
+    void dispatch(updateCommentThunks({ id: review.id }));
   };
 
   const handleDelete = () => {
-    void dispatch(deleteFeedbackThunk({ id: review.id }));
+    void dispatch(deleteCommentThunks({ id: review.id }));
   };
 
   return (
@@ -47,4 +47,4 @@ function FeedbackItem({ review }: FeedbackItemProps): JSX.Element {
     </ListItem>
   );
 }
-export default React.memo(FeedbackItem);
+export default React.memo(CommentItem);

@@ -1,23 +1,26 @@
 import { Box, Button, Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { buttonStyle, postFormGridStyles, textFieldStyle } from "../styles";
-import { addPostThunk } from "../../redux/slices/posts/postsThunks";
+import { buttonStyle, postFormGridStyles } from "../styles";
 import { useAppDispatch } from "../../redux/hooks";
+import { addCommentThunks } from "../../redux/slices/Comment/commentThunkss";
 
-export default function PostForm({ id }): JSX.Element {
+export default function CommentForm({ id }): JSX.Element {
   const [input, setInput] = useState({
+    userId: id, // todo
     schoolId: id,
     title: "",
     body: "",
-    img: "",
   });
-
+  const dispatch = useAppDispatch();
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (
     e
   ): void => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const dispatch = useAppDispatch();
+  const textFieldStyle = {
+    marginBottom: "10px",
+  };
+
   return (
     <Grid container direction="row" sx={postFormGridStyles}>
       <Grid item xs={3} />
@@ -25,8 +28,8 @@ export default function PostForm({ id }): JSX.Element {
         <Box
           py={5}
           display="flex"
-          flexDirection="row"
-          alignItems="center"
+          flexDirection="column"
+          alignItems="left"
           justifyContent="space-around"
         >
           <TextField
@@ -39,33 +42,25 @@ export default function PostForm({ id }): JSX.Element {
             sx={textFieldStyle}
           />
           <TextField
-            size="small"
+            size="medium"
             variant="outlined"
             name="body"
-            label="Body"
+            label="body"
+            multiline
+            rows={4}
             value={input.body}
             onChange={changeHandler}
             sx={textFieldStyle}
           />
-          <TextField
-            size="small"
-            variant="outlined"
-            name="img"
-            label="Image URL"
-            value={input.img}
-            onChange={changeHandler}
-            sx={textFieldStyle}
-          />
-
           <Button
             variant="outlined"
             sx={buttonStyle}
             onClick={() => {
-              void dispatch(addPostThunk(input));
-              setInput({ schoolId: id, title: "", body: "", img: "" });
+              void dispatch(addCommentThunks(input));
+              setInput({ userId: 1, schoolId: 2, title: "", body: "" });
             }}
           >
-            Send
+            Добавить отзыв
           </Button>
         </Box>
       </Grid>

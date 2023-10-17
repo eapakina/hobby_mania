@@ -1,5 +1,5 @@
 const express = require("express");
-const { Op, Sequelize } = require("sequelize");
+// const { Op, Sequelize } = require("sequelize");
 const { Blog } = require("../db/models");
 
 const newsRouter = express.Router();
@@ -8,10 +8,10 @@ newsRouter
   .route("/school/:id/")
   .get(async (req, res) => {
     try {
-      const posts = await Blog.findAll({
+      const news = await Blog.findAll({
         where: { schoolId: req.params.id },
       });
-      res.json(posts);
+      res.json(News);
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Произошла ошибка при получении постов." });

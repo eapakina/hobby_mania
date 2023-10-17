@@ -1,4 +1,4 @@
-export type FeedbackType = {
+export type CommentType = {
   id: number;
   title: string;
   body: string;
@@ -6,4 +6,4 @@ export type FeedbackType = {
   schoolId: number;
 };
 
-export type FeedbackFormType = Omit<FeedbackType, "id">;
+export type CommentFormType = Omit<CommentType, "id">;

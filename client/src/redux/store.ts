@@ -1,16 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import postsReducer from "./slices/posts/postsSlice";
+import NewsReducer from "./slices/news/newsSlice";
 import userReducer from "./slices/user/userSlice";
 import classesReducer from "./slices/class/classesSlice";
-import commentsReduser from "./slices/feedback/feedbackSlice";
+import commentsReduser from "./slices/Comment/CommentSlice";
 
 import schoolReducer from "./slices/school/schoolSlice";
 import favoritesReducer from "./slices/favorites/favoriteSlice";
 
-
 export const store = configureStore({
   reducer: {
-    posts: postsReducer,
+    News: NewsReducer,
     user: userReducer,
     classes: classesReducer,
     school: schoolReducer,
@@ -21,5 +20,5 @@ export const store = configureStore({
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+// Inferred type: {News: NewsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
