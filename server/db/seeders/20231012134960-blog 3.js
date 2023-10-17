@@ -6,7 +6,7 @@ module.exports = {
         title: 'что то',
         body: 'первая новость',
         img: '',
-        schoolId: 2,
+        schoolId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
 

@@ -3,6 +3,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
+import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import type { PostType } from "../../types/postTypes";
 import { cardStyle } from "../styles";
@@ -15,7 +16,7 @@ type PostItemProps = {
 
 export default function PostItem({ post }: PostItemProps): JSX.Element {
   const dispatch = useAppDispatch();
-
+  // todo
   return (
     <Card sx={cardStyle}>
       <CardContent>
@@ -28,6 +29,12 @@ export default function PostItem({ post }: PostItemProps): JSX.Element {
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {post.body.slice(0, 120)}...
         </Typography>
+        <CardMedia
+          component="img"
+          height="194"
+          image={post.img}
+          alt={post.title}
+        />
       </CardContent>
       <CardActions>
         <Button

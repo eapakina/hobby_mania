@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/:id/all", async (req, res) => {
   try {
     const reviews = await Comment.findAll({
-      where: { schoolId: req.params.id },
+      where: { userId: req.session.userId },
     });
     res.json(reviews);
   } catch (err) {

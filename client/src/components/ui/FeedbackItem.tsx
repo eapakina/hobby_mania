@@ -20,11 +20,11 @@ function FeedbackItem({ review }: FeedbackItemProps): JSX.Element {
   const dispatch = useDispatch();
 
   const handleUpdate = () => {
-    dispatch(updateFeedbackThunk({ id: review.id }));
+   void dispatch(updateFeedbackThunk({ id: review.id }));
   };
 
   const handleDelete = () => {
-    dispatch(deleteFeedbackThunk({ id: review.id }));
+    void dispatch(deleteFeedbackThunk({ id: review.id }));
   };
 
   return (

@@ -109,8 +109,9 @@ router
     res.json(newBook);
   });
 
-router.route("/:id").delete(async (req, res) => {
+router.route("/school/:id").delete(async (req, res) => {
   try {
+    console.log("----------- delete ------------");
     await Blog.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
   } catch (err) {

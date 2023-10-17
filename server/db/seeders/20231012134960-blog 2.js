@@ -1,18 +1,20 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Blogs', [
-      {
-        title: 'что то',
-        body: 'первая новость',
-        img: '',
-        schoolId: 2,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-
-      },
-
-    ], {});
+    await queryInterface.bulkInsert(
+      "Blogs",
+      [
+        {
+          title: "что то",
+          body: "первая новость",
+          img: "",
+          schoolId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      {}
+    );
   },
 
   async down(queryInterface, Sequelize) {

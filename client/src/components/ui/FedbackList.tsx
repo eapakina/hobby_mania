@@ -24,8 +24,4 @@ export default function FedbackList({id}): JSX.Element {
   );
 }
 
-// const reviews = [
-//   { id: 1, author: 1, title: 'Заголовок 1', body: 'Текст отзыва 1' },
-//   { id: 2,author: 2, title: 'Заголовок 2', body: 'Текст отзыва 2' },
-//   { id: 3 ,author: 3, title: 'Заголовок 3', body: 'Текст отзыва 3' },
-// ];
+
