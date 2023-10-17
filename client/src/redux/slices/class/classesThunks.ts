@@ -13,9 +13,9 @@ export const getClassesThunk = createAsyncThunk<ClassType[], number>(
 
 export const getAllClassesThunk = createAsyncThunk<ClassType[], string[]>(
   "classes/getAllClasses",
-  async (personName) => {
+  async ({personName, timeName, districtName}) => {
     console.log(personName);
-    const { data } = await axios.post<ClassType[]>(`classes/search/all`, personName);
+    const { data } = await axios.post<ClassType[]>(`classes/search/all`, {personName, timeName, districtName});
     return data;
   }
 )

@@ -1,13 +1,30 @@
 const express = require("express");
 const { Op } = require("sequelize");
-const { Class, Day, Time, Category, School, Blog } = require("../db/models");
+const {
+  Class,
+  Day,
+  Time,
+  Category,
+  School,
+  Blog,
+  District,
+} = require("../db/models");
 
 const router = express.Router();
 
 router.post("/search/all", async (req, res) => {
-  const personName = req.body;
+  const { personName, timeName, districtName } = req.body;
   console.log(personName);
-  if (personName.length === 0) {
+  const where = [
+    {
+      model: School,
+    },
+  ];
+  if (
+    personName.length === 0 &&
+    timeName.length === 0 &&
+    districtName.length === 0
+  ) {
     const allClasses = await Class.findAll({
       include: [
         {
@@ -26,14 +43,8 @@ router.post("/search/all", async (req, res) => {
     });
     return res.json(allClasses);
   }
-  const classes = await Class.findAll({
-    include: [
-      {
-        model: Day,
-      },
-      {
-        model: Time,
-      },
+  if (personName.length > 0) {
+    where.push(
       {
         model: Category,
         where: {
@@ -43,8 +54,65 @@ router.post("/search/all", async (req, res) => {
         },
       },
       {
-        model: School,
+        model: Time,
       },
+    );
+  }
+
+  if (timeName.length > 0) {
+    where.push(
+      {
+        model: Time,
+        where: {
+          time: {
+            [Op.in]: timeName,
+          },
+        },
+      },
+      {
+        model: Category,
+      }
+    );
+  }
+
+  if (districtName.length > 0) {
+    where[0] = {
+      model: School,
+      include: [
+        {
+          model: District,
+          where: {
+            district: {
+              [Op.in]: districtName,
+            },
+          },
+        },
+      ],
+    };
+  }
+  console.log(where);
+  const classes = await Class.findAll({
+    include: [
+      {
+        model: Day,
+      },
+      // {
+      //   model: Time,
+      //   where: {
+      //     time: {
+      //       [Op.in]: timeName,
+      //     },
+      //   },
+      // },
+      // {
+      //   model: Category,
+      //   where: {
+      //     category: {
+      //       [Op.in]: personName,
+      //     },
+      //   },
+      // },
+      ...where,
     ],
   });
   res.json(classes);
@@ -70,6 +138,16 @@ router.get("/:id/all", async (req, res) => {
     where: { schoolId: id },
   });
   res.json(classes);
+});
+
+router.get("/all/time", async (req, res) => {
+  const time = await Time.findAll();
+  res.json(time);
+});
+
+router.get("/all/district", async (req, res) => {
+  const district = await District.findAll();
+  res.json(district);
 });
 
 router.get("/all/categorys", async (req, res) => {
