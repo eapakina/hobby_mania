@@ -6,6 +6,8 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { deleteClassThunk } from "../../redux/slices/class/classesThunks";
+import type { SchoolType } from "../../types/schoolTypes";
+import type { ClassType } from "../../types/classTypes";
 
 const bull = (
   <Box
@@ -16,12 +18,26 @@ const bull = (
   </Box>
 );
 
-export default function ClassItem({ school, item, dispatch, setOpen, setIdClass }): JSX.Element {
+type ClassItemProps = {
+  school: SchoolType;
+  item: ClassType;
+  dispatch: () => void;
+  setOpen: (open: boolean) => void;
+  setIdClass: React.Dispatch<React.SetStateAction<number>>;
+};
+
+export default function ClassItem({
+  school,
+  item,
+  dispatch,
+  setOpen,
+  setIdClass,
+}: ClassItemProps): JSX.Element {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {item.School?.schoolName}{" "}
+         <a href= {`/school/${item.schoolId}`}> {item.School?.schoolName}{" "}</a>
         </Typography>
         <Typography variant="h5" component="div">
           {item.Category?.category}{" "}
@@ -35,17 +51,24 @@ export default function ClassItem({ school, item, dispatch, setOpen, setIdClass 
       </CardContent>
       <CardActions>
         <Button size="small">Связаться </Button>
-        <Button size="small" onClick={() => {
-          setIdClass(item.id);
-          setOpen(true);
-        }}>Редактировать </Button>
-        {school?.id === item.schoolId ? (
-          <>
-            <Button size="small" onClick={() => dispatch(deleteClassThunk(item.id))}>Удалить </Button>
-          </>
-        ) : (
-          <div>ghbdtn</div>
-        )}
+        <Button
+          size="small"
+          onClick={() => {
+            setIdClass(item.id);
+            setOpen(true);
+          }}
+        >
+          Редактировать{" "}
+        </Button>
+        <Button
+          size="small"
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          onClick={() => dispatch(deleteClassThunk({ id: item.id }))}
+        >
+          Удалить{" "}
+        </Button>
+        {school?.id === item.schoolId ? null : <div>ghbdtn</div>}
       </CardActions>
     </Card>
   );

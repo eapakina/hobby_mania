@@ -1,20 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit';
-import postsReducer from './slices/posts/postsSlice';
-import userReducer from './slices/user/userSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import postsReducer from "./slices/posts/postsSlice";
+import userReducer from "./slices/user/userSlice";
+import classesReducer from "./slices/class/classesSlice";
+import commentsReduser from "./slices/feedback/feedbackSlice";
 
-import schoolReducer from './slices/school/schoolSlice';
-
-import classesReducer from './slices/class/classesSlice';
+import schoolReducer from "./slices/school/schoolSlice";
+import favoritesReducer from "./slices/favorites/favoriteSlice";
 
 
 export const store = configureStore({
   reducer: {
     posts: postsReducer,
     user: userReducer,
-
+    classes: classesReducer,
     school: schoolReducer,
-    classes: classesReducer
-
+    favorites: favoritesReducer,
+    comments: commentsReduser,
   },
 });
 

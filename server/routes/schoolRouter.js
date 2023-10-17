@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const sharp = require('sharp');
 const fs = require('fs/promises');
-const { School } = require('../db/models');
+const { School, District } = require('../db/models');
+
 const upload = require('../middleware/multer');
 
 const schoolRouter = express.Router();
@@ -84,25 +85,73 @@ schoolRouter.post('/login', async (req, res) => {
   return res.sendStatus(500);
 });
 
-schoolRouter.get('/check', (req, res) => {
-  const token = req.headers.authorization;
+// schoolRouter.get('/check', (req, res) => {
+//   const token = req.headers.authorization;
 
-  if (!token) {
-    return res.sendStatus(401);
-  }
+//   if (!token) {
+//     return res.sendStatus(401);
+//   }
 
-  jwt.verify(token, jwtSecretKey, (err, decoded) => {
-    if (err) {
-      return res.sendStatus(401);
-    }
+//   jwt.verify(token, jwtSecretKey, (err, decoded) => {
+//     if (err) {
+//       return res.sendStatus(401);
+//     }
+//     return res.json({ schoolName: decoded.schoolName });
+//   });
+// });
 
-    return res.json({ schoolName: decoded.schoolName });
+// schoolRouter.get('/logout', (req, res) => {
+//   req.session.destroy();
+//   res.clearCookie('sid').sendStatus(200);
+// });
+
+schoolRouter
+  // .route('/:id/')
+  .get('/:id/', async (req, res) => {
+    console.log('-------- get ---------');
+    const school = await School.findOne({
+      where: { id: req.params.id },
+      include: District, // Включение модели District должно быть частью объекта options
+    }); res.json(school);
   });
-});
 
-schoolRouter.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.clearCookie('sid').sendStatus(200);
-});
+schoolRouter
+  .delete('/:id/', async (req, res) => {
+    console.log('-------- delete ---------');
+    try {
+      // await School.destroy({ where: { id: req.params.id } });
+      await School.destroy({ where: { id: req.params.id } });
+      res.sendStatus(200);
+    } catch (err) {
+      console.error(err);
+      res.sendStatus(500);
+    }
+  })
+  .patch('/:id/', async (req, res) => {
+    const schoolId = req.params.id;
+    const {
+      schoolName, adress, phone, email, info, imgSchool,
+    } = req.body;
+    console.log('мы тут', req.body);
+    try {
+      const [updatedRowCount] = await School.update(
+        {
+          schoolName, adress, phone, email, info, imgSchool,
+        },
+        { where: { id: schoolId } },
+      );
+      if (updatedRowCount === 1) {
+        const schoolEdit = await School.findByPk(schoolId);
+
+        // Обновление прошло успешно
+        return res.json(schoolEdit);
+      }
+      // Нет записи для обновления или произошла другая ошибка
+      return res.sendStatus(403); // Например, можно отправить статус 404, если запись не найдена
+    } catch (error) {
+      console.error('Error editing school', error);
+      return res.sendStatus(500); // Ошибка сервера
+    }
+  });
 
 module.exports = schoolRouter;

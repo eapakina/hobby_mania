@@ -9,6 +9,7 @@ const {
   Blog,
   District,
 } = require("../db/models");
+const Favorite = require('../db/models');
 
 const router = express.Router();
 
@@ -100,29 +101,42 @@ router.post("/search/all", async (req, res) => {
       {
         model: Day,
       },
-      // {
-      //   model: Time,
-      //   where: {
-      //     time: {
-      //       [Op.in]: timeName,
-      //     },
-      //   },
-      // },
-      // {
-      //   model: Category,
-      //   where: {
-      //     category: {
-      //       [Op.in]: personName,
-      //     },
-      //   },
-      // },
       ...where,
     ],
   });
   res.json(classes);
 });
 
-router.get("/:id/all", async (req, res) => {
+
+
+
+
+router.get('/random', async (req, res) => {
+  console.log('----------- get ------------');
+  // Находим уникальные schoolId
+  const classes = await Class.findAll({
+    // group: ['schoolId', 'createdAt'],
+    order: [[Sequelize.fn('RANDOM')]],
+    limit: 10,
+    include: [{ model: School }, { model: Day },
+      { model: Time },
+      { model: Category }],
+  });
+  // Затем для каждого уникального schoolId выбираем соответствующую запись
+  // const classes = await Class.findAll({
+  //   where: {
+  //     schoolId: uniqueSchoolIds.map((entry) => entry.schoolId),
+  //   },
+  //   order: [['createdAt', 'DESC']],
+  //   include: [{ model: School }, { model: Day },
+  //     { model: Time },
+  //     { model: Category }],
+  // });
+
+  res.json(classes);
+});
+
+router.get('/:id/all', async (req, res) => {
   const { id } = req.params;
   const classes = await Class.findAll({
     include: [
@@ -249,6 +263,7 @@ router.patch("/:id/edit", async (req, res) => {
 router
   .route("/school/:id/")
   .get(async (req, res) => {
+    console.log("----------- get ------------");
     const blogEntrys = await Blog.findAll({
       where: { schoolId: req.params.id },
     });
@@ -261,7 +276,7 @@ router
 
 router.route("/:id").delete(async (req, res) => {
   try {
-    await blog.destroy({ where: { id: req.params.id } });
+    await Blog.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
   } catch (err) {
     console.error(err);
@@ -269,28 +284,14 @@ router.route("/:id").delete(async (req, res) => {
   }
 });
 
-//   .patch(async (req, res) => {
-//     const bookId = req.params.id;
-//     const { authtor, name, status } = req.body;
-//     console.log('мы тут', req.body);
-//     try {
-//       const [updatedRowCount] = await blog.update(
-//         { authtor, name, status },
-//         { where: { id: bookId } },
-//       );
-//       if (updatedRowCount === 1) {
-//         const bookEdit = await blog.findByPk(bookId);
-//         console.log('мы тут', bookEdit);
+// router.get('/getFavorite/:id', async (req, res) => {
+//   const classes = await Class.findAll({ where: { userId: req.params.id } });
+//   res.json(classes);
+// });
 
-//         // Обновление прошло успешно
-//         return res.json(bookEdit);
-//       }
-//       // Нет записи для обновления или произошла другая ошибка
-//       return res.sendStatus(403); // Например, можно отправить статус 404, если запись не найдена
-//     } catch (error) {
-//       console.error('Error editing book', error);
-//       return res.sendStatus(500); // Ошибка сервера
-//     }
-//   });
+// router.get('/addFavorite/:id', async (req, res) => {
+//   const classes = await Favorite.Create({ userId: req.session?.user?.id, classId: req.params.id });
+//   res.json(classes);
+// });
 
 module.exports = router;
