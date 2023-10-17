@@ -1,12 +1,12 @@
-import { Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { getRandomClassesThunk } from "../../redux/slices/class/classesThunks";
-import ClassRandomItem from "../ui/ClassRandomItem";
-import { getFavoriteClassThunk } from "../../redux/slices/favorites/favoriteThunks";
-import { getUserId } from "../../redux/slices/user/userThunks";
+import { Box } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { getRandomClassesThunk } from '../../../redux/slices/class/classesThunks';
+import ClassRandomItem from '../../ui/ClassRandomItem';
+import { getFavoriteClassThunk } from '../../../redux/slices/favorites/favoriteThunks';
+import { getUserId } from '../../../redux/slices/user/userThunks';
 
-export default function RandomPage(): JSX.Element {
+export function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const school = useAppSelector((store) => store.school);
   const classes = useAppSelector((store) => store.classes);
@@ -23,25 +23,21 @@ export default function RandomPage(): JSX.Element {
 
   useEffect(() => {
     void dispatch(getRandomClassesThunk());
-    console.log("userStatus", user);
-    if (user.status === "logged") {
-      console.log(user.id)
+    console.log('userStatus', user);
+    if (user.status === 'logged') {
+      console.log(user.id);
       void dispatch(getFavoriteClassThunk());
     }
   }, [user]);
 
   // console.log(classes);
-  console.log("userFavorites", userFavorites);
+  console.log('userFavorites', userFavorites);
   // console.log(classes[0]?.id === userFavorites[0]);
   return (
     <Box display="flex" flexWrap="wrap">
-      {classes?.map((item) => (
-        <ClassRandomItem
-          key={item.id}
-          isLiked={userFavorites.includes(item.id)}
-          item={item}
-        />
-      ))}
+      {classes?.map((item) => <ClassRandomItem key={item.id} isLiked={userFavorites.includes(item.id)} item={item} />)}
     </Box>
   );
 }
+
+export default MainPage;

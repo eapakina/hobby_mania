@@ -1,17 +1,33 @@
-const express = require("express");
-const { Op, Sequelize } = require("sequelize");
-const {
-  Class,
-  Day,
-  Time,
-  Category,
-  School,
-  District,
-} = require("../db/models");
+const express = require('express');
+const { Op, Sequelize } = require('sequelize');
+const { Class, Day, Time, Category, School, District } = require('../db/models');
 
 const randomRouter = express.Router();
 
-randomRouter.post("/search/all", async (req, res) => {
+randomRouter.get('/', async (req, res) => {
+  console.log('----------- get ------------');
+  // Находим уникальные schoolId
+  const classes = await Class.findAll({
+    // group: ['schoolId', 'createdAt'],
+    order: [[Sequelize.fn('RANDOM')]],
+    limit: 10,
+    include: [{ model: School }, { model: Day }, { model: Time }, { model: Category }],
+  });
+  // Затем для каждого уникального schoolId выбираем соответствующую запись
+  // const classes = await Class.findAll({
+  //   where: {
+  //     schoolId: uniqueSchoolIds.map((entry) => entry.schoolId),
+  //   },
+  //   order: [['createdAt', 'DESC']],
+  //   include: [{ model: School }, { model: Day },
+  //     { model: Time },
+  //     { model: Category }],
+  // });
+
+  res.json(classes);
+});
+
+randomRouter.post('/search/all', async (req, res) => {
   const { personName, timeName, districtName } = req.body;
   console.log(personName);
   const where = [
@@ -19,11 +35,7 @@ randomRouter.post("/search/all", async (req, res) => {
       model: School,
     },
   ];
-  if (
-    personName.length === 0 &&
-    timeName.length === 0 &&
-    districtName.length === 0
-  ) {
+  if (personName.length === 0 && timeName.length === 0 && districtName.length === 0) {
     const allClasses = await Class.findAll({
       include: [
         {
@@ -102,34 +114,6 @@ randomRouter.post("/search/all", async (req, res) => {
       ...where,
     ],
   });
-  res.json(classes);
-});
-
-randomRouter.get("/random", async (req, res) => {
-  console.log("----------- get ------------");
-  // Находим уникальные schoolId
-  const classes = await Class.findAll({
-    // group: ['schoolId', 'createdAt'],
-    order: [[Sequelize.fn("RANDOM")]],
-    limit: 10,
-    include: [
-      { model: School },
-      { model: Day },
-      { model: Time },
-      { model: Category },
-    ],
-  });
-  // Затем для каждого уникального schoolId выбираем соответствующую запись
-  // const classes = await Class.findAll({
-  //   where: {
-  //     schoolId: uniqueSchoolIds.map((entry) => entry.schoolId),
-  //   },
-  //   order: [['createdAt', 'DESC']],
-  //   include: [{ model: School }, { model: Day },
-  //     { model: Time },
-  //     { model: Category }],
-  // });
-
   res.json(classes);
 });
 

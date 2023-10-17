@@ -1,21 +1,22 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const sharp = require("sharp");
-const fs = require("fs/promises");
-const { User } = require("../db/models");
-const upload = require("../middleware/multer");
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const sharp = require('sharp');
+const fs = require('fs/promises');
+const { User } = require('../db/models');
+const upload = require('../middleware/multer');
 
 const userRouter = express.Router();
 
-const jwtSecretKey = "your-secret-key";
+const jwtSecretKey = 'your-secret-key';
 
-userRouter.post("/signup", upload.single("file"), async (req, res) => {
-  console.log("1111111", req.body);
-  console.log(req.file, "qqqqqqqqqqqqqqq");
+// Работает
+userRouter.post('/signup', upload.single('file'), async (req, res) => {
+  console.log('1111111', req.body);
+  console.log(req.file, 'qqqqqqqqqqqqqqq');
   try {
     if (!req.file) {
-      return res.status(400).json({ message: "File not found" });
+      return res.status(400).json({ message: 'File not found' });
     }
 
     const name = `${Date.now()}.webp`;
@@ -44,7 +45,7 @@ userRouter.post("/signup", upload.single("file"), async (req, res) => {
         req.session.userId = user.id;
 
         const token = jwt.sign({ userName: user.userName }, jwtSecretKey, {
-          expiresIn: "1h",
+          expiresIn: '1h',
         });
         return res.json({ token });
       } catch (e) {
@@ -58,6 +59,31 @@ userRouter.post("/signup", upload.single("file"), async (req, res) => {
     console.error(error);
     return res.sendStatus(500);
   }
+});
+
+// Работает
+userRouter.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  if (email && password) {
+    try {
+      const user = await User.findOne({
+        where: { email },
+      });
+      if (!(await bcrypt.compare(password, user.password))) {
+        return res.sendStatus(401);
+      }
+      req.session.userId = user.id;
+      const token = jwt.sign({ userName: user.userName }, jwtSecretKey, {
+        expiresIn: '1h',
+      });
+
+      return res.json({ token });
+    } catch (e) {
+      console.log(e);
+      return res.sendStatus(500);
+    }
+  }
+  return res.sendStatus(500);
 });
 
 //   const { userName, email, password, img } = req.body;
@@ -83,44 +109,18 @@ userRouter.post("/signup", upload.single("file"), async (req, res) => {
 //   return res.sendStatus(500);
 // });
 
-userRouter.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  if (email && password) {
-    try {
-      const user = await User.findOne({
-        where: { email },
-      });
-      if (!(await bcrypt.compare(password, user.password))) {
-        return res.sendStatus(401);
-      }
-
-      req.session.userId = user.id;
-
-      const token = jwt.sign({ userName: user.userName }, jwtSecretKey, {
-        expiresIn: "1h",
-      });
-
-      return res.json({ token });
-    } catch (e) {
-      console.log(e);
-      return res.sendStatus(500);
-    }
-  }
-  return res.sendStatus(500);
-});
-
-userRouter.get("/check", (req, res) => {
-  const token = req.headers.authorization?.replace("Bearer ", "");
+userRouter.get('/check', (req, res) => {
+  const token = req.headers.authorization?.replace('Bearer ', '');
 
   console.log(token);
   if (!token) {
-    console.log("token");
+    console.log('token');
     return res.sendStatus(401);
   }
 
   jwt.verify(token, jwtSecretKey, (err, decoded) => {
     if (err) {
-      console.log("jwt.verify");
+      console.log('jwt.verify');
       return res.sendStatus(401);
     }
 
@@ -128,14 +128,14 @@ userRouter.get("/check", (req, res) => {
   });
 });
 
-userRouter.get("/getuser", async (req, res) => {
+userRouter.get('/getuser', async (req, res) => {
   const user = req.session.userId;
   return res.json(user);
 });
 
-userRouter.get("/logout", (req, res) => {
+userRouter.get('/logout', (req, res) => {
   req.session.destroy();
-  res.clearCookie("sid").sendStatus(200);
+  res.clearCookie('sid').sendStatus(200);
 });
 
 module.exports = userRouter;

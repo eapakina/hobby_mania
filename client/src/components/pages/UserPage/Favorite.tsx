@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { Box } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { getUserId } from "../../redux/slices/user/userThunks";
+import React, { useEffect } from 'react';
+import { Box } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { getUserId } from '../../../redux/slices/user/userThunks';
 
-import { getFavoriteUserClassThunk } from "../../redux/slices/favorites/favoriteThunks";
-import ClassRandomItem from "../ui/ClassRandomItem";
+import { getFavoriteUserClassThunk } from '../../../redux/slices/favorites/favoriteThunks';
+import ClassRandomItem from '../../ui/ClassRandomItem';
 
 export default function Favorite(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ export default function Favorite(): JSX.Element {
     void dispatch(getUserId());
   }, []);
   useEffect(() => {
-    if (user.status === "logged") {
+    if (user.status === 'logged') {
       // console.log(user.id)
       void dispatch(getFavoriteUserClassThunk());
     }
@@ -26,9 +26,7 @@ export default function Favorite(): JSX.Element {
 
   return (
     <Box display="flex" flexWrap="wrap">
-      {userFavorites?.map((item) => (
-        <ClassRandomItem key={item.id} isLiked item={item} />
-      ))}
+      {userFavorites?.map((item) => <ClassRandomItem key={item.id} isLiked item={item} />)}
     </Box>
   );
 }
