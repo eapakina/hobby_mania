@@ -1,30 +1,37 @@
 const express = require('express');
 const {
-  Class, Favorite,
+  Class, Favorite, Day, Time, Category, School
 } = require('../db/models');
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  // console.log(typeof req.session?.user?.id, "12321332");
+console.log("мы тут")
   try {
+    console.log(req.session.userId)
+
     const allLikedClasses = await Favorite.findAll({
-      where: { userId: req.session?.user?.id },
       include: [
         {
           model: Class,
         },
       ],
+      where: { userId: req.session?.userId },
     });
+    console.log(allLikedClasses)
+
     res.json(allLikedClasses);
   } catch (err) {
+    console.log(err)
     res.sendStatus(500);
+    
   }
 });
 
 router.post('/:id', async (req, res) => {
   try {
-    const userId = req.session?.user?.id;
+    const userId = req.session?.userId;
+    console.log(req.session)
     // Проверяю, есть ли уже лайк от этого пользователя на этот класс
     const existingLike = await Favorite.findOne({
       where: {
@@ -54,7 +61,7 @@ router.delete('/:id', async (req, res) => {
     const existingLike = await Favorite.findOne({
       where: {
         classId: req.params.id,
-        userId: req.session?.user?.id,
+        userId: req.session?.userId,
       },
     });
 
@@ -72,4 +79,38 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.get('/aa/user', async (req, res) => {
+    try {
+      console.log(req.session.userId)
+  
+      const allLikedClasses = await Favorite.findAll({
+        where: { userId: req.session?.userId },
+        include: [
+          {
+            model: Class, include: [
+              {
+                model: Day,
+              },
+              {
+                model: Time,
+              },
+              {
+                model: Category,
+              },
+              {
+                model: School,
+              },]
+          },
+
+        ],
+      });
+      console.log(allLikedClasses)
+  
+      res.json(allLikedClasses);
+    } catch (err) {
+      console.log(err)
+
+      res.sendStatus(500);
+    }
+  });
 module.exports = router;

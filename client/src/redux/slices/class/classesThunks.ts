@@ -47,7 +47,7 @@ export const editClassThunk = createAsyncThunk<ClassType, ClassFormType>(
 export const getRandomClassesThunk = createAsyncThunk<ClassType[]>(
   "classes/getRandomClasses",
   async () => {
-    const { data } = await axios<ClassType[]>(`/classes/random`);
+    const { data } = await axios<ClassType[]>(`/blog/random`);
     return data;
   }
 );
@@ -57,6 +57,6 @@ export const getFavoriteClassThunk = createAsyncThunk<
   UserModelType["id"]
 >("classes/getFavorite", async (id) => {
   const { data } = await axios<ClassType[]>(`/classes/getFavorite/${id}/`);
-  console.log(id);
+  console.log(data);
   return data;
 });
