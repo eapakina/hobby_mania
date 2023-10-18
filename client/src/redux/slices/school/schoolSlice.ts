@@ -73,7 +73,10 @@ const schoolSlice = createSlice({
     });
 
   },
+
 });
+
+
 
 // export const { setToken } = schoolSlice.actions;
 export default schoolSlice.reducer;

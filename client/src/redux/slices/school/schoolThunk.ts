@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type {
+  DistrictType,
   SchoolEditFormType,
   SchoolLoginFormtype,
   SchoolSingUpFormType,

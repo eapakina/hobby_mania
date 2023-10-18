@@ -3,7 +3,7 @@ import NewsReducer from './slices/news/newsSlice';
 import userReducer from './slices/user/userSlice';
 import classesReducer from './slices/class/classesSlice';
 import commentsReduser from './slices/comments/commentsSlice';
-
+import distrReduser from './slices/district/districtsClice'
 import schoolReducer from './slices/school/schoolSlice';
 import favoritesReducer from './slices/favorites/favoriteSlice';
 
@@ -15,6 +15,7 @@ export const store = configureStore({
     school: schoolReducer,
     favorites: favoritesReducer,
     comments: commentsReduser,
+    districts: distrReduser,
   },
 });
 

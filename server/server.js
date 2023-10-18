@@ -34,7 +34,7 @@ app.use(
     },
   })
 );
-
+app.use(express.static('public')) //для доступа к 'public'
 //Пользователь
 app.use('/api/user', userRouter);
 // Школа

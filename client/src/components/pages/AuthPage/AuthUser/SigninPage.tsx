@@ -16,15 +16,6 @@ export function SigninPage(): JSX.Element {
     e.preventDefault();
 
     const formData = Object.fromEntries(new FormData(e.currentTarget));
-    // console.log(formData,'file');
-    // if (!e.target.description.value || !e.target.file.files[0]) return;
-    // const formData = new FormData();
-    // const target = e.target as typeof e.target & {
-    //   email: { value: string };
-    //   password: { value: string };
-    // };
-    // formData.append('email', target.email.value);
-    // formData.append('password', target.password.value);
     e.target.reset();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions

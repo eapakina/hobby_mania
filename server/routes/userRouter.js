@@ -25,8 +25,9 @@ userRouter.post('/signup', upload.single('file'), async (req, res) => {
 
     await fs.writeFile(`./public/imgUser/${name}`, outputBuffer);
 
-    const { userName, email, password } = req.body;
+    const { userName, email, password, district } = req.body;
 
+  
     if (userName && email && password) {
       try {
         const [user, created] = await User.findOrCreate({
@@ -47,7 +48,7 @@ userRouter.post('/signup', upload.single('file'), async (req, res) => {
         const token = jwt.sign({ userName: user.userName }, jwtSecretKey, {
           expiresIn: '1h',
         });
-        return res.json({ token });
+        return res.json({ img: name, token, userName });
       } catch (e) {
         console.log(e);
         return res.sendStatus(500);
