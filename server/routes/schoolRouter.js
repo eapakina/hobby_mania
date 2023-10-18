@@ -11,6 +11,17 @@ const schoolRouter = express.Router();
 
 const jwtSecretKey = 'your-secret-key';
 
+
+schoolRouter.get('/get', async (req, res) => {
+  try {
+    const allSchools = req.session.schoolId;
+    res.json(allSchools);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+})
+
 schoolRouter.post('/signup', upload.single('file'), async (req, res) => {
   console.log('2222222', req.body);
   console.log(req.file, 'wwwwwwwwwwwww');
@@ -61,6 +72,7 @@ schoolRouter.post('/signup', upload.single('file'), async (req, res) => {
 
 schoolRouter.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password);
   if (email && password) {
     try {
       const school = await School.findOne({
@@ -70,9 +82,9 @@ schoolRouter.post('/login', async (req, res) => {
         return res.sendStatus(401);
       }
 
-      req.session.userId = school.id;
+      req.session.schoolId = school.id;
 
-      const token = jwt.sign({ schoolName: school.schoolName }, jwtSecretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ schoolName: school.schoolName, schoolId: school.id }, jwtSecretKey, { expiresIn: '1h' });
 
       return res.json({ token });
     } catch (e) {
@@ -83,20 +95,24 @@ schoolRouter.post('/login', async (req, res) => {
   return res.sendStatus(500);
 });
 
-// schoolRouter.get('/check', (req, res) => {
-//   const token = req.headers.authorization;
+schoolRouter.get('/check', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
 
-//   if (!token) {
-//     return res.sendStatus(401);
-//   }
+  console.log('------------', token)
 
-//   jwt.verify(token, jwtSecretKey, (err, decoded) => {
-//     if (err) {
-//       return res.sendStatus(401);
-//     }
-//     return res.json({ schoolName: decoded.schoolName });
-//   });
-// });
+  if (!token) {
+    return res.sendStatus(401);
+  }
+
+  jwt.verify(token, jwtSecretKey, (err, decoded) => {
+    if (err) {
+      return res.sendStatus(401);
+    }
+    console.log(decoded)
+
+    return res.json({ schoolName: decoded.schoolName, schoolId: decoded.schoolId });
+  });
+});
 
 // schoolRouter.get('/logout', (req, res) => {
 //   req.session.destroy();

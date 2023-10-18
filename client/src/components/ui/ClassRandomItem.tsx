@@ -17,15 +17,6 @@ import {
   removeFavoriteThunk,
 } from "../../redux/slices/favorites/favoriteThunks";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
-
 type ClassRandomItemProps = {
   isLiked: boolean;
   // setIsLiked: React.Dispatch<React.SetStateAction<boolean>>;

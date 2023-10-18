@@ -1,14 +1,16 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Box, Button, Grid, Input, InputLabel, TextField, Typography } from '@mui/material';
 import { useAppDispatch } from '../../../../redux/hooks';
 import { loginSchoolThunk, signUpSchoolThunk } from '../../../../redux/slices/school/schoolThunk';
 import type { SchoolLoginFormtype, SchoolSingUpFormType } from '../../../../types/schoolTypes';
 import { authTextFieldStyle, buttonStyle, postFormGridStyles } from '../../../styles';
+import { ThemeContext } from '@emotion/react';
 
 export function SigninPage(): JSX.Element {
   const { auth } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -33,7 +35,7 @@ export function SigninPage(): JSX.Element {
     e.target.reset();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    void dispatch(loginSchoolThunk(formData));
+    void dispatch(loginSchoolThunk(formData)).then(() => navigate('/'));
   };
   return (
     <Grid container direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh', justifyContent: 'center' }}>

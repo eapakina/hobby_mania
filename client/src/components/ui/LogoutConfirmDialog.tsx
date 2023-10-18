@@ -5,6 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useAppDispatch } from '../../redux/hooks';
 import { logoutUserThunk } from '../../redux/slices/user/userThunks';
+import { logoutSchoolThunk } from '../../redux/slices/school/schoolThunk';
 
 type ModalExitType = {
   open: boolean;
@@ -26,6 +27,7 @@ export default function LogoutConfirmDialog({ open, setOpen }: ModalExitType): J
           onClick={() => {
             handleClose();
             void dispatch(logoutUserThunk());
+            void dispatch(logoutSchoolThunk());
           }}
         >
           Logout

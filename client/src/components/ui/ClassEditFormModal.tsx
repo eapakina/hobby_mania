@@ -8,7 +8,6 @@ import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
 import { editClassThunk } from "../../redux/slices/class/classesThunks";
 
@@ -16,21 +15,16 @@ export default function ClassEditFormModal({
   open,
   setOpen,
   idClass,
+  inputs,
 }): JSX.Element {
   const [categorys, setCategorys] = useState([]);
-  const [formdata, setFormdata] = useState({
-    className: "Школа",
-    description: "haha",
-    category: "Каратэ",
-    time: "Утро",
-    day: "Monday",
-    isAvailable: true,
-    age: 0,
-    schoolId: useParams().id,
-    id: idClass,
-  });
-  console.log(formdata);
+  const [formdata, setFormdata] = useState({});
 
+  useEffect(() => {
+    setFormdata((prev) => inputs);
+  }, [inputs]);
+
+  console.log("imputs in modal", formdata);
   const dispatch = useAppDispatch();
 
   const handleClose = (): void => {
@@ -45,7 +39,19 @@ export default function ClassEditFormModal({
   };
 
   const handleSubmit = (): void => {
-    void dispatch(editClassThunk({ formdata, idClass }));
+
+    console.log(formdata);
+    const saveData = {
+      className: formdata.className,
+      desription: formdata.desription,
+      category: formdata.Category?.category,
+      time: formdata.Time?.time,
+      day: formdata.Day?.day,
+      isAvailable: formdata.isAvailable,
+      age: formdata.age,
+      schoolId: idClass,
+    }
+    void dispatch(editClassThunk({ saveData, idClass }));
     setOpen(false);
   };
 
@@ -81,14 +87,17 @@ export default function ClassEditFormModal({
           <Select
             label="Category"
             name="category"
-            value={formdata.category}
+            value={formdata.Category?.category}
             onChange={handleChange}
           >
             {/* <MenuItem value="Танцы">Танцы</MenuItem>
             <MenuItem value="Каратэ">Каратэ</MenuItem>
             <MenuItem value="Шахматы">Шахматы</MenuItem> */}
             {categorys.map((category) => (
-              <MenuItem key={category.category} value={category.category}>
+              <MenuItem
+                key={category.category}
+                value={category.category}
+              >
                 {category.category}
               </MenuItem>
             ))}
@@ -97,7 +106,7 @@ export default function ClassEditFormModal({
           <Select
             label="Time"
             name="time"
-            value={formdata.time}
+            value={formdata.Time?.time}
             onChange={handleChange}
           >
             <MenuItem value="Утро">Утро</MenuItem>
@@ -146,7 +155,7 @@ export default function ClassEditFormModal({
           <Select
             label="Day"
             name="day"
-            value={formdata.day}
+            value={formdata.Day?.day}
             onChange={handleChange}
           >
             <MenuItem value="Monday">Понедельник</MenuItem>

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import type { Theme } from '@mui/material/styles';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import type { SelectChangeEvent } from '@mui/material/Select';
-import Select from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
-import axios from 'axios';
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { getAllClassesThunk } from '../../../../redux/slices/class/classesThunks';
-import SearchClasses from '../../../ui/SearchClasses';
+import React, { useEffect, useState } from "react";
+import type { Theme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import type { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
+import Chip from "@mui/material/Chip";
+import axios from "axios";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { getAllClassesThunk } from "../../../../redux/slices/class/classesThunks";
+import SearchClasses from "../../../ui/SearchClasses";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -25,10 +25,16 @@ const MenuProps = {
   },
 };
 
-function getStyles(name: string, personName: readonly string[], theme: Theme): Record<string, string> {
+function getStyles(
+  name: string,
+  personName: readonly string[],
+  theme: Theme
+): Record<string, string> {
   return {
     fontWeight:
-      personName.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
   };
 }
 
@@ -46,23 +52,16 @@ export default function MultipleSelectChip(): JSX.Element {
   const classes = useAppSelector((state) => state.classes);
 
   useEffect(() => {
-    void axios('/classes/all/categorys').then((res) => {
+    void axios("/classes/all/categorys").then((res) => {
       setCategorys(res.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    void axios('/classes/all/time').then((res) => {
+    void axios("/classes/all/time").then((res) => {
       setTime(res.data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    void axios('/classes/all/district').then((res) => {
+    void axios("/classes/all/district").then((res) => {
       setDistrict(res.data);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -72,7 +71,7 @@ export default function MultipleSelectChip(): JSX.Element {
     const idTime = setTimeout(() => {
       void dispatch(getAllClassesThunk({ personName, timeName, districtName }));
 
-      console.log('haha');
+      console.log("haha");
     }, 1000);
     setTimeOutState(idTime);
   }, [dispatch, personName, timeName, districtName]);
@@ -83,27 +82,31 @@ export default function MultipleSelectChip(): JSX.Element {
     } = event;
     setPersonName(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
+      typeof value === "string" ? value.split(",") : value
     );
   };
 
-  const handleChangeTime = (event: SelectChangeEvent<typeof personName>): void => {
+  const handleChangeTime = (
+    event: SelectChangeEvent<typeof personName>
+  ): void => {
     const {
       target: { value },
     } = event;
     setTimeName(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
+      typeof value === "string" ? value.split(",") : value
     );
   };
 
-  const handleChangeDistrict = (event: SelectChangeEvent<typeof personName>): void => {
+  const handleChangeDistrict = (
+    event: SelectChangeEvent<typeof personName>
+  ): void => {
     const {
       target: { value },
     } = event;
     setDistrictName(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
+      typeof value === "string" ? value.split(",") : value
     );
   };
 
@@ -121,7 +124,7 @@ export default function MultipleSelectChip(): JSX.Element {
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
                 <Chip key={value} label={value} />
               ))}
@@ -130,7 +133,11 @@ export default function MultipleSelectChip(): JSX.Element {
           MenuProps={MenuProps}
         >
           {categorys.map((name) => (
-            <MenuItem key={name.category} value={name.category} style={getStyles(name, personName, theme)}>
+            <MenuItem
+              key={name.category}
+              value={name.category}
+              style={getStyles(name, personName, theme)}
+            >
               {name.category}
             </MenuItem>
           ))}
@@ -146,7 +153,7 @@ export default function MultipleSelectChip(): JSX.Element {
           onChange={handleChangeTime}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
                 <Chip key={value} label={value} />
               ))}
@@ -155,7 +162,11 @@ export default function MultipleSelectChip(): JSX.Element {
           MenuProps={MenuProps}
         >
           {time.map((name) => (
-            <MenuItem key={name.time} value={name.time} style={getStyles(name, personName, theme)}>
+            <MenuItem
+              key={name.time}
+              value={name.time}
+              style={getStyles(name, personName, theme)}
+            >
               {name.time}
             </MenuItem>
           ))}
@@ -171,7 +182,7 @@ export default function MultipleSelectChip(): JSX.Element {
           onChange={handleChangeDistrict}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
                 <Chip key={value} label={value} />
               ))}
@@ -180,7 +191,11 @@ export default function MultipleSelectChip(): JSX.Element {
           MenuProps={MenuProps}
         >
           {district.map((name) => (
-            <MenuItem key={name.district} value={name.district} style={getStyles(name, personName, theme)}>
+            <MenuItem
+              key={name.district}
+              value={name.district}
+              style={getStyles(name, personName, theme)}
+            >
               {name.district}
             </MenuItem>
           ))}
