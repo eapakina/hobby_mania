@@ -26,7 +26,7 @@ module.exports = {
           password: "123",
           info: "Мы - очень классный центр",
           imgSchool:
-            "//static.tildacdn.com/tild3233-6365-4532-b166-643233396232/10.jpg",
+            "https://s0.bloknot-volgodonsk.ru/thumb/850x0xcut/upload/iblock/164/7piw0ihg3d2fhkpx55navkfff7zwlayf/qqPuhtDJCsU.jpg",
           districtId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),

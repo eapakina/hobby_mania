@@ -1,7 +1,10 @@
-import { ListItem, ListItemText, Typography, Button } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import React from 'react';
-import { deleteCommentThunks, updateCommentThunks } from '../../../../../redux/slices/comments/commentThunks';
+import { ListItem, ListItemText, Typography, Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import React from "react";
+import {
+  deleteCommentThunks,
+  updateCommentThunks,
+} from "../../../../../redux/slices/comments/commentThunks";
 
 type CommentItemProps = {
   review: {
