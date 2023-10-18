@@ -1,22 +1,30 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { getClassesThunk } from "../../redux/slices/class/classesThunks";
-import ClassSearchItem from "./ClassSearchItem";
+import ClassRandomItem from "./ClassRandomItem";
+import { getUserId } from "../../redux/slices/user/userThunks";
+import { getFavoriteClassThunk } from '../../redux/slices/favorites/favoriteThunks';
 
 export default function SearchClasses({ classes }): JSX.Element {
-  const [open, setOpen] = useState(false);
-  const [idClass, setIdClass] = useState(0);
-  console.log(idClass);
-  const school = useAppSelector((store) => store.school);
-  const { id } = useParams();
+  const user = useAppSelector((store) => store.user.data);
+  const userFavorites = useAppSelector((store) => store.favorites);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    void dispatch(getUserId());
+  }, []);
+
+  useEffect(() => {
+    if (user.status === 'logged') {
+      void dispatch(getFavoriteClassThunk());
+    }
+  }, [user]);
 
   console.log(classes);
   return (
     <Box display="flex" flexWrap="wrap">
       {classes?.map((item) => (
-        <ClassSearchItem key={item.id} item={item} school={school} setOpen={setOpen} setIdClass={setIdClass} />
+        <ClassRandomItem key={item.id} item={item} isLiked={userFavorites.includes(item.id)} />
       ))}
     </Box>
   );
