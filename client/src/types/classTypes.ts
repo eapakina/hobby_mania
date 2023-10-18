@@ -2,7 +2,7 @@ import type { SchoolType } from "./schoolTypes";
 
 export type ClassType = {
   id: number;
-  desription: string;
+  description: string;
   age: number;
   isAvailable: boolean;
   categoryId: number;

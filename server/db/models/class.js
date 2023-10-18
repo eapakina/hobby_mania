@@ -1,17 +1,22 @@
-const { Model } = require('sequelize');
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class Class extends Model {
     static associate({
-      School, Category, Day, Time, Schedule, User, Favorite
+      School,
+      Category,
+      Day,
+      Time,
+      Schedule,
+      User,
+      Favorite,
     }) {
-      this.belongsTo(School, { foreignKey: 'schoolId' });
-      this.belongsTo(Category, { foreignKey: 'categoryId' });
-      this.belongsTo(Day, { foreignKey: 'dayId' });
-      this.belongsTo(Time, { foreignKey: 'timeId' });
-      this.hasMany(Schedule, { foreignKey: 'classId' });
-      this.hasMany(Favorite, { foreignKey: 'classId' });
-      
+      this.belongsTo(School, { foreignKey: "schoolId" });
+      this.belongsTo(Category, { foreignKey: "categoryId" });
+      this.belongsTo(Day, { foreignKey: "dayId" });
+      this.belongsTo(Time, { foreignKey: "timeId" });
+      this.hasMany(Schedule, { foreignKey: "classId" });
+      this.hasMany(Favorite, { foreignKey: "classId" });
     }
   }
 
@@ -19,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       className: DataTypes.STRING,
       age: DataTypes.INTEGER,
-      desription: DataTypes.TEXT,
+      description: DataTypes.TEXT,
       isAvailable: DataTypes.BOOLEAN,
       schoolId: DataTypes.INTEGER,
       categoryId: DataTypes.INTEGER,
@@ -28,8 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Class',
-    },
+      modelName: "Class",
+    }
   );
   return Class;
 };

@@ -12,11 +12,15 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
 import { editClassThunk } from "../../redux/slices/class/classesThunks";
 
-export default function ClassEditFormModal({ open, setOpen, idClass }): JSX.Element {
+export default function ClassEditFormModal({
+  open,
+  setOpen,
+  idClass,
+}): JSX.Element {
   const [categorys, setCategorys] = useState([]);
   const [formdata, setFormdata] = useState({
     className: "Школа",
-    desription: "haha",
+    description: "haha",
     category: "Каратэ",
     time: "Утро",
     day: "Monday",
@@ -25,7 +29,7 @@ export default function ClassEditFormModal({ open, setOpen, idClass }): JSX.Elem
     schoolId: useParams().id,
     id: idClass,
   });
-  console.log(formdata)
+  console.log(formdata);
 
   const dispatch = useAppDispatch();
 
@@ -41,7 +45,7 @@ export default function ClassEditFormModal({ open, setOpen, idClass }): JSX.Elem
   };
 
   const handleSubmit = (): void => {
-    void dispatch(editClassThunk({formdata, idClass}));
+    void dispatch(editClassThunk({ formdata, idClass }));
     setOpen(false);
   };
 
@@ -70,8 +74,8 @@ export default function ClassEditFormModal({ open, setOpen, idClass }): JSX.Elem
           />
           <TextField
             label="Description"
-            name="desription"
-            value={formdata.desription}
+            name="description"
+            value={formdata.description}
             onChange={handleChange}
           />
           <Select

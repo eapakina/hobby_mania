@@ -56,13 +56,13 @@ export default function ClassRandomItem({
           <a href={`/school/${item.schoolId}`}> {item.School?.schoolName} </a>
         </Typography>
         <Typography variant="h5" component="div">
-        {item.className}{" "}
+          {item.className}{" "}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {item.Day?.day}{" "}
         </Typography>
         <Typography variant="body2">
-          {item.desription} <br />
+          {item.description} <br />
         </Typography>
       </CardContent>
       <CardActions>

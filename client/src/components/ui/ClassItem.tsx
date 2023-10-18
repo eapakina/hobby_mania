@@ -12,7 +12,10 @@ import { IconButton } from "@mui/material";
 import { deleteClassThunk } from "../../redux/slices/class/classesThunks";
 import type { SchoolType } from "../../types/schoolTypes";
 import type { ClassType } from "../../types/classTypes";
-import { addFavoriteThunk, removeFavoriteThunk } from "../../redux/slices/favorites/favoriteThunks";
+import {
+  addFavoriteThunk,
+  removeFavoriteThunk,
+} from "../../redux/slices/favorites/favoriteThunks";
 import { useAppDispatch } from "../../redux/hooks";
 
 const bull = (
@@ -41,18 +44,20 @@ export default function ClassItem({
   setIdClass,
   isLiked,
 }: ClassItemProps): JSX.Element {
-  const dispatch=useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const [liked, setLiked] = useState(isLiked);
   const clickHandler = (): void => {
     setLiked(!liked);
-    if (liked) {void dispatch(removeFavoriteThunk(item.id))}
-    else {void dispatch(addFavoriteThunk(item.id))}
+    if (liked) {
+      void dispatch(removeFavoriteThunk(item.id));
+    } else {
+      void dispatch(addFavoriteThunk(item.id));
+    }
   };
   useEffect(() => {
     setLiked(isLiked);
   }, [isLiked]);
-
 
   return (
     <Card sx={{ minWidth: 275 }}>
@@ -67,11 +72,11 @@ export default function ClassItem({
           {item.Day?.day}{" "}
         </Typography>
         <Typography variant="body2">
-          {item.desription} <br />
+          {item.description} <br />
         </Typography>
       </CardContent>
       <CardActions>
-      <IconButton
+        <IconButton
           color="secondary"
           aria-label="add an alarm"
           onClick={clickHandler}

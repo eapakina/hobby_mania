@@ -17,7 +17,7 @@ export default function ClassFormModal(): JSX.Element {
   const [categorys, setCategorys] = useState([]);
   const [formdata, setFormdata] = useState({
     className: "Школа",
-    desription: "haha",
+    description: "haha",
     category: "Каратэ",
     time: "Утро",
     day: "Monday",
@@ -76,8 +76,8 @@ export default function ClassFormModal(): JSX.Element {
           />
           <TextField
             label="Description"
-            name="desription"
-            value={formdata.desription}
+            name="description"
+            value={formdata.description}
             onChange={handleChange}
           />
           <Select
