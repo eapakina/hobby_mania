@@ -18,6 +18,8 @@ export function Navbar(): JSX.Element {
       ? [
           { to: '/', name: 'Главная' },
           { to: '/favorite', name: 'Избранное' },
+          { to: '/search', name: 'Поиск' },
+
         ]
       : [
           { to: '/', name: 'Главная' },
