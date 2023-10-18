@@ -19,6 +19,8 @@ export function Navbar(): JSX.Element {
           { to: '/', name: 'Главная' },
           { to: '/favorite', name: 'Избранное' },
           { to: '/search', name: 'Поиск' },
+          { to: '/allschools', name: 'Центры' },
+
 
         ]
       : [
@@ -31,7 +33,7 @@ export function Navbar(): JSX.Element {
       <AppBar
         position="static"
         sx={{
-          background: '#2E3B55',
+          background: '#EAB595',
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
         }}
