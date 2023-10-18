@@ -5,10 +5,13 @@ import { getRandomClassesThunk } from '../../../redux/slices/class/classesThunks
 import ClassRandomItem from '../../ui/ClassRandomItem';
 import { getFavoriteClassThunk } from '../../../redux/slices/favorites/favoriteThunks';
 import { getUserId } from '../../../redux/slices/user/userThunks';
+import { getSchoolThunk } from '../../../redux/slices/school/schoolThunk';
+import axios from 'axios';
 
 export function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const school = useAppSelector((store) => store.school);
+  const [schoolAcc, setSchoolAcc] = useState({});
   const classes = useAppSelector((store) => store.classes);
   const user = useAppSelector((store) => store.user.data);
   const userFavorites = useAppSelector((store) => store.favorites);
@@ -18,9 +21,10 @@ export function MainPage(): JSX.Element {
   // const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    void dispatch(getUserId());
+    void dispatch(getUserId())
   }, []);
 
+  console.log(schoolAcc);
   useEffect(() => {
     void dispatch(getRandomClassesThunk());
     console.log('userStatus', user);

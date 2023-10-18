@@ -10,7 +10,7 @@ import type {
 
 export const saveToken = createAsyncThunk<void, string>(
   "school/saveToken",
-  async (token) => localStorage.setItem("token", token)
+  async (token) => localStorage.setItem("schoolToken", token)
 );
 
 export const signUpSchoolThunk = createAsyncThunk<SchoolType, FormData>(
@@ -23,11 +23,12 @@ export const signUpSchoolThunk = createAsyncThunk<SchoolType, FormData>(
 );
 
 export const removeToken = createAsyncThunk<void>("school/removeToken", () => {
-  localStorage.removeItem("token");
+  localStorage.removeItem("schoolToken");
 });
 export const loginSchoolThunk = createAsyncThunk<SchoolType, FormData>(
   "school/login",
   async (formData, { dispatch }) => {
+    console.log(formData);
     const { data } = await axios.post<SchoolType>("/school/login", formData);
     void dispatch(saveToken(data.token));
     return data;
@@ -45,7 +46,7 @@ export const deleteSchoolThunk = createAsyncThunk<
 
   export const logoutSchoolThunk = createAsyncThunk('school/logout', async (payload, { dispatch }) => {
     void dispatch(removeToken());
-    await axios('/school/logout');
+    // await axios('/school/logout');
   });
   
 
@@ -61,7 +62,13 @@ export const editSchoolThunk = createAsyncThunk<
 export const checkSchoolThunk = createAsyncThunk<SchoolType>(
   "school/checkSchool",
   async () => {
-    const { data } = await axios<SchoolType>("/school/check");
+    const token = localStorage.getItem("schoolToken");
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios<SchoolType>("/school/check", axiosConfig);
     return data;
   }
 );
