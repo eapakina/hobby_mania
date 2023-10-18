@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addCommentThunks, getCommentThunks } from "./commentThunks";
+import {
+  addCommentThunks,
+  getCommentThunks,
+  deleteCommentThunks,
+} from "./commentThunks";
 import type { CommentType } from "../../../types/commentTypes";
 
 const initialState: CommentType[] = [];
@@ -17,6 +21,9 @@ export const CommentSlice = createSlice({
     builder.addCase(addCommentThunks.fulfilled, (state, action) => {
       state.push(action.payload);
     });
+    builder.addCase(deleteCommentThunks.fulfilled, (state, action) =>
+      state.filter((el) => el.id !== action.payload)
+    );
   },
 });
 
