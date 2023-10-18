@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import NewsForm from '../../ui/NewsForm';
-import NewsList from '../../ui/NewsList';
+import { NewsForm } from './Form';
+import { NewsList } from './List';
 
-export default function NewsPage({ id }: { id: number }): JSX.Element {
+export function NewsPage({ id }: { id: number }): JSX.Element {
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
@@ -13,3 +13,5 @@ export default function NewsPage({ id }: { id: number }): JSX.Element {
     </>
   );
 }
+
+export default NewsPage;

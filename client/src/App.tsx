@@ -8,6 +8,8 @@ import AuthErrorDialog from './components/ui/AuthErrorDialog';
 
 import { MainPage } from './components/pages/MainPage';
 import { AuthPage } from './components/pages/AuthPage';
+import { NotFoundPage } from './components/pages/NotFoundPage';
+import { SchoolPage } from './components/pages/SchoolPage';
 
 // import Favorite from './components/pages/UserPage/Favorite';
 // import LogoutConfirmDialog from "./components/ui/LogoutConfirmDialog";
@@ -33,6 +35,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/school/:id" element={<SchoolPage />} />
 
         {/* <Route path="/News" element={<NewsPage />} /> */}
         {/* <Route path="/:auth" element={<AuthUserPage />} /> */}
@@ -40,10 +43,12 @@ function App(): JSX.Element {
         {/* <Route path="/search" element={<SearchPage />} /> */}
         {/* <Route path="/:authschool" element={<AuthSchool />} /> */}
         {/* <Route path="/:authuser" element={<AuthPage />} /> */}
-        {/* <Route path="/school/:id" element={<SchoolPage />} /> */}
+
         {/* <Route path="/school/:id/classform" element={<ClassForm />} /> */}
         {/* <Route path="/random" element={<RandomPage />} /> */}
         {/* <Route path="/favorite" element={<Favorite />} /> */}
+
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <AuthErrorDialog />
       {/* <LogoutConfirmDialog /> */}

@@ -3,6 +3,7 @@ export type NewsType = {
   title: string;
   body: string;
   schoolId: number;
+  img: string;
 };
 
-export type NewsFormType = Omit<NewsType, "id">;
+export type NewsFormType = Omit<NewsType, 'id'>;

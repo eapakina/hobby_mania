@@ -1,9 +1,9 @@
-const express = require("express");
-const { Comment } = require("../db/models");
+const express = require('express');
+const { Comment } = require('../db/models');
 
 const commentsRouter = express.Router();
 
-commentsRouter.get("/:id/all", async (req, res) => {
+commentsRouter.get('/:id/all', async (req, res) => {
   try {
     const reviews = await Comment.findAll({
       where: { userId: req.params.id },
@@ -15,11 +15,11 @@ commentsRouter.get("/:id/all", async (req, res) => {
   }
 });
 
-commentsRouter.post("/:id/add", async (req, res) => {
+commentsRouter.post('/:id/add', async (req, res) => {
   try {
     const newComment = await Comment.create({
       ...req.body,
-      userId: req.params.id,
+      userId: req.session.id,
     });
     res.json(newComment);
   } catch (err) {
@@ -28,7 +28,7 @@ commentsRouter.post("/:id/add", async (req, res) => {
   }
 });
 
-commentsRouter.delete("/:id/delete", async (req, res) => {
+commentsRouter.delete('/:id/delete', async (req, res) => {
   try {
     await Comment.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);

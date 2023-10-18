@@ -1,29 +1,26 @@
 import { Box, Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import { buttonStyle, postFormGridStyles } from '../styles';
-import { useAppDispatch } from '../../redux/hooks';
-import { addCommentThunks } from '../../redux/slices/comments/commentThunks';
+import { buttonStyle, postFormGridStyles, textFieldStyle } from '../../../../styles';
+import { addNewsThunk } from '../../../../../redux/slices/news/newsThunks';
+import { useAppDispatch } from '../../../../../redux/hooks';
 
-export default function CommentForm({ id }): JSX.Element {
+export function NewsForm({ id }): JSX.Element {
   const [input, setInput] = useState({
-    userId: id, // todo
     schoolId: id,
     title: '',
     body: '',
+    img: '',
   });
-  const dispatch = useAppDispatch();
+
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e): void => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const textFieldStyle = {
-    marginBottom: '10px',
-  };
-
+  const dispatch = useAppDispatch();
   return (
     <Grid container direction="row" sx={postFormGridStyles}>
       <Grid item xs={3} />
       <Grid item xs={6}>
-        <Box py={5} display="flex" flexDirection="column" alignItems="left" justifyContent="space-around">
+        <Box py={5} display="flex" flexDirection="row" alignItems="center" justifyContent="space-around">
           <TextField
             size="small"
             variant="outlined"
@@ -34,28 +31,38 @@ export default function CommentForm({ id }): JSX.Element {
             sx={textFieldStyle}
           />
           <TextField
-            size="medium"
+            size="small"
             variant="outlined"
             name="body"
-            label="body"
-            multiline
-            rows={4}
+            label="Body"
             value={input.body}
             onChange={changeHandler}
             sx={textFieldStyle}
           />
+          <TextField
+            size="small"
+            variant="outlined"
+            name="img"
+            label="Image URL"
+            value={input.img}
+            onChange={changeHandler}
+            sx={textFieldStyle}
+          />
+
           <Button
             variant="outlined"
             sx={buttonStyle}
             onClick={() => {
-              void dispatch(addCommentThunks(input));
-              setInput({ userId: 1, schoolId: 2, title: '', body: '' });
+              void dispatch(addNewsThunk(input));
+              setInput({ schoolId: id, title: '', body: '', img: '' });
             }}
           >
-            Добавить отзыв
+            Send
           </Button>
         </Box>
       </Grid>
     </Grid>
   );
 }
+
+export default NewsForm;
