@@ -29,7 +29,7 @@ export default function ClassSearchItem({ school, item }): JSX.Element {
           {item.Day?.day}{" "}
         </Typography>
         <Typography variant="body2">
-          {item.desription} <br />
+          {item.description} <br />
         </Typography>
       </CardContent>
       <CardActions>

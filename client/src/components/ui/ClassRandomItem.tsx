@@ -64,7 +64,7 @@ export default function ClassRandomItem({
           {item.Day?.day}{" "}
         </Typography>
         <Typography variant="body2">
-          {item.desription} <br />
+          {item.description} <br />
         </Typography>
       </CardContent>
       <CardActions>
