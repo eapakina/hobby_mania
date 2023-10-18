@@ -4,11 +4,15 @@ import { buttonStyle, postFormGridStyles, textFieldStyle } from '../../../../sty
 import { addNewsThunk } from '../../../../../redux/slices/news/newsThunks';
 import { useAppDispatch } from '../../../../../redux/hooks';
 
-export function NewsForm({ id }): JSX.Element {
+type NewsFormProps = {
+  id: number;
+};
+
+export function NewsForm({ id }: NewsFormProps): JSX.Element {
   const [input, setInput] = useState({
     schoolId: id,
     title: '',
-    body: '',
+    content: '',
     img: '',
   });
 
@@ -33,9 +37,9 @@ export function NewsForm({ id }): JSX.Element {
           <TextField
             size="small"
             variant="outlined"
-            name="body"
+            name="content"
             label="Body"
-            value={input.body}
+            value={input.content}
             onChange={changeHandler}
             sx={textFieldStyle}
           />
@@ -54,7 +58,7 @@ export function NewsForm({ id }): JSX.Element {
             sx={buttonStyle}
             onClick={() => {
               void dispatch(addNewsThunk(input));
-              setInput({ schoolId: id, title: '', body: '', img: '' });
+              setInput({ schoolId: id, title: '', content: '', img: '' });
             }}
           >
             Send
