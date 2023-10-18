@@ -58,7 +58,7 @@ export default function ClassFormModal(): JSX.Element {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open Modal</Button>
+      <Button variant="contained" onClick={handleOpen}>Добавить занятие</Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Class Form</DialogTitle>
         <DialogContent

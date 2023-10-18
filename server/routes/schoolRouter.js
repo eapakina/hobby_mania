@@ -154,4 +154,14 @@ schoolRouter
     }
   });
 
+  schoolRouter
+  // .route('/:id/')
+  .get('/get/all/', async (req, res) => {
+    console.log('-------- get all---------');
+    const schools = await School.findAll({
+      include: District, // Включение модели District должно быть частью объекта options
+    }); res.json(schools);
+  });
+
+
 module.exports = schoolRouter;
