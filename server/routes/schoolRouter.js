@@ -25,9 +25,7 @@ schoolRouter.post('/signup', upload.single('file'), async (req, res) => {
 
     await fs.writeFile(`./public/imgUser/${name}`, outputBuffer);
 
-    const {
-      schoolName, adress, phone, info, email, password,
-    } = req.body;
+    const { schoolName, adress, phone, info, email, password } = req.body;
 
     if (schoolName && adress && phone && info && email && password) {
       try {
@@ -54,7 +52,7 @@ schoolRouter.post('/signup', upload.single('file'), async (req, res) => {
         return res.sendStatus(500);
       }
     }
-  // return res.sendStatus(500);
+    // return res.sendStatus(500);
   } catch (error) {
     console.error(error);
     return res.sendStatus(500);
@@ -105,15 +103,14 @@ schoolRouter.post('/login', async (req, res) => {
 //   res.clearCookie('sid').sendStatus(200);
 // });
 
-schoolRouter
-  // .route('/:id/')
-  .get('/:id/', async (req, res) => {
-    console.log('-------- get ---------');
-    const school = await School.findOne({
-      where: { id: req.params.id },
-      include: District, // Включение модели District должно быть частью объекта options
-    }); res.json(school);
+schoolRouter.get('/:id/', async (req, res) => {
+  console.log('-------- get ---------');
+  const school = await School.findOne({
+    where: { id: req.params.id },
+    include: District, // Включение модели District должно быть частью объекта options
   });
+  res.json(school);
+});
 
 schoolRouter
   .delete('/:id/', async (req, res) => {
@@ -129,16 +126,19 @@ schoolRouter
   })
   .patch('/:id/', async (req, res) => {
     const schoolId = req.params.id;
-    const {
-      schoolName, adress, phone, email, info, imgSchool,
-    } = req.body;
+    const { schoolName, adress, phone, email, info, imgSchool } = req.body;
     console.log('мы тут', req.body);
     try {
       const [updatedRowCount] = await School.update(
         {
-          schoolName, adress, phone, email, info, imgSchool,
+          schoolName,
+          adress,
+          phone,
+          email,
+          info,
+          imgSchool,
         },
-        { where: { id: schoolId } },
+        { where: { id: schoolId } }
       );
       if (updatedRowCount === 1) {
         const schoolEdit = await School.findByPk(schoolId);
