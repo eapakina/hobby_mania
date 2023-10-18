@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, List } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { getRandomClassesThunk } from '../../../redux/slices/class/classesThunks';
@@ -38,9 +38,15 @@ export function MainPage(): JSX.Element {
   console.log('userFavorites', userFavorites);
   // console.log(classes[0]?.id === userFavorites[0]);
   return (
+    <List>
     <Box display="flex" flexWrap="wrap">
-      {classes?.map((item) => <ClassRandomItem key={item.id} isLiked={userFavorites.includes(item.id)} item={item} />)}
+      {classes?.map((item) =>
+          <div style={{ margin: "10px" }}>
+
+      <ClassRandomItem key={item.id} isLiked={userFavorites.includes(item.id)} item={item} />
+      </div>)}
     </Box>
+    </List>
   );
 }
 

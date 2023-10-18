@@ -80,8 +80,8 @@ export default function ClassEditFormModal({
           />
           <TextField
             label="Description"
-            name="desription"
-            value={formdata.desription}
+            name="description"
+            value={formdata.description}
             onChange={handleChange}
           />
           <Select

@@ -33,6 +33,8 @@ export default function Classes(): JSX.Element {
   return (
     <Box display="flex" flexWrap="wrap">
       {classes?.map((item) => (
+                  <div style={{ margin: "10px" }}>
+
         <ClassItem
           key={item.id}
           item={item}
@@ -41,7 +43,9 @@ export default function Classes(): JSX.Element {
           setOpen={setOpen}
           setIdClass={setIdClass}
           isLiked={userFavorites.includes(item.id)}
+        
         />
+        </div>
       ))}
       <ClassFormModal />
       <ClassEditFormModal open={open} setOpen={setOpen} idClass={idClass} />

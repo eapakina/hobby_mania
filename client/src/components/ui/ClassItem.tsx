@@ -7,12 +7,19 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { IconButton } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EmailIcon from "@mui/icons-material/Email";
+
 
 import { deleteClassThunk } from "../../redux/slices/class/classesThunks";
 import type { SchoolType } from "../../types/schoolTypes";
 import type { ClassType } from "../../types/classTypes";
-import { addFavoriteThunk, removeFavoriteThunk } from "../../redux/slices/favorites/favoriteThunks";
+import {
+  addFavoriteThunk,
+  removeFavoriteThunk,
+} from "../../redux/slices/favorites/favoriteThunks";
 import { useAppDispatch } from "../../redux/hooks";
 
 const bull = (
@@ -41,18 +48,20 @@ export default function ClassItem({
   setIdClass,
   isLiked,
 }: ClassItemProps): JSX.Element {
-  const dispatch=useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const [liked, setLiked] = useState(isLiked);
   const clickHandler = (): void => {
     setLiked(!liked);
-    if (liked) {void dispatch(removeFavoriteThunk(item.id))}
-    else {void dispatch(addFavoriteThunk(item.id))}
+    if (liked) {
+      void dispatch(removeFavoriteThunk(item.id));
+    } else {
+      void dispatch(addFavoriteThunk(item.id));
+    }
   };
   useEffect(() => {
     setLiked(isLiked);
   }, [isLiked]);
-
 
   return (
     <Card sx={{ minWidth: 275 }}>
@@ -67,36 +76,54 @@ export default function ClassItem({
           {item.Day?.day}{" "}
         </Typography>
         <Typography variant="body2">
-          {item.desription} <br />
+          {item.description} <br />
         </Typography>
       </CardContent>
       <CardActions>
-      <IconButton
+        <IconButton
           color="secondary"
           aria-label="add an alarm"
           onClick={clickHandler}
         >
           {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
-        <Button size="small">Связаться </Button>
-        <Button
-          size="small"
-          onClick={() => {
-            setIdClass(item.id);
-            setOpen(true);
-          }}
+        <a href={`mailto:${item.School?.email}`}>
+        <IconButton
+          color="secondary"
+          aria-label="add an alarm"
+          onClick={clickHandler}
         >
-          Редактировать{" "}
-        </Button>
-        <Button
+          <EmailIcon />
+          </IconButton>
+
+        </a>
+        <IconButton
+        color="secondary"
+        onClick={() => {
+          setIdClass(item.id);
+          setOpen(true);
+        }}
+        >
+          <ModeEditIcon/>
+        </IconButton>
+        <IconButton
+                  size="small"
+                  color="secondary"
+
+                  onClick={() => dispatch(deleteClassThunk({ id: item.id }))}
+        
+        >
+          <DeleteIcon/>
+        </IconButton>
+     
+        {/* <Button
           size="small"
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+       
           onClick={() => dispatch(deleteClassThunk({ id: item.id }))}
         >
           Удалить{" "}
-        </Button>
-        {school?.id === item.schoolId ? null : <div>ghbdtn</div>}
+        </Button> */}
+        {/* {school?.id === item.schoolId ? null : <div>ghbdtn</div>} */}
       </CardActions>
     </Card>
   );

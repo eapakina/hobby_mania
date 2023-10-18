@@ -175,7 +175,7 @@
 // router.post("/:id/add", async (req, res) => {
 //   const {
 //     className,
-//     desription,
+//     description,
 //     category,
 //     day,
 //     time,
@@ -190,7 +190,7 @@
 
 //   const newClass = await Class.create({
 //     className,
-//     desription,
+//     description,
 //     categoryId: Number(categoryId.id),
 //     dayId: Number(dayId.id),
 //     timeId: Number(timeId.id),
@@ -223,7 +223,7 @@
 // router.patch("/:id/edit", async (req, res) => {
 //   const {
 //     className,
-//     desription,
+//     description,
 //     category,
 //     day,
 //     time,
@@ -237,7 +237,7 @@
 //   const newClass = await Class.update(
 //     {
 //       className,
-//       desription,
+//       description,
 //       categoryId: Number(categoryId.id),
 //       dayId: Number(dayId.id),
 //       timeId: Number(timeId.id),

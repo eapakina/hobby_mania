@@ -26,7 +26,12 @@ export default function Favorite(): JSX.Element {
 
   return (
     <Box display="flex" flexWrap="wrap">
-      {userFavorites?.map((item) => <ClassRandomItem key={item.id} isLiked item={item} />)}
+      {userFavorites?.map((item) => (
+                  <div style={{ margin: "10px" }}>
+
+      <ClassRandomItem key={item.id} isLiked item={item} />
+      </div>
+      ))}
     </Box>
   );
 }

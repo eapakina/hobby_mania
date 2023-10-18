@@ -15,7 +15,6 @@ export function SigninPage(): JSX.Element {
   const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.currentTarget));
-    console.log(formData)
     // const formData = new FormData();
     // const target = e.target as typeof e.target & {
     //   schoolName: { value: string };
