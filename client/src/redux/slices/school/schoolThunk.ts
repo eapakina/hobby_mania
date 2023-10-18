@@ -76,4 +76,12 @@ export const getSchoolThunk = createAsyncThunk<SchoolType, SchoolType["id"]>(
     return data;
 
   });
-
+  
+  export const getAllSchoolsThunk = createAsyncThunk<SchoolType>(
+    "school/getAllSchools",
+    async () => {
+      const { data } = await axios<SchoolType>(`/school/get/all`);
+      console.log(data);
+      return data;
+  
+    });

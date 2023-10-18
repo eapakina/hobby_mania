@@ -12,24 +12,24 @@ export function SigninPage(): JSX.Element {
 
   const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    // const formData = Object.fromEntries(new FormData(e.currentTarget));
-    const formData = new FormData();
-    const target = e.target as typeof e.target & {
-      schoolName: { value: string };
-      adress: { value: string };
-      phone: { value: string };
-      info: { value: string };
-      email: { value: string };
-      password: { value: string };
-      file: { files: File[] };
-    };
-    formData.append('schoolName', target.schoolName.value);
-    formData.append('adress', target.adress.value);
-    formData.append('phone', target.phone.value);
-    formData.append('info', target.info.value);
-    formData.append('file', target.file.files[0]);
-    formData.append('email', target.email.value);
-    formData.append('password', target.password.value);
+    const formData = Object.fromEntries(new FormData(e.currentTarget));
+    // const formData = new FormData();
+    // const target = e.target as typeof e.target & {
+    //   schoolName: { value: string };
+    //   adress: { value: string };
+    //   phone: { value: string };
+    //   info: { value: string };
+    //   email: { value: string };
+    //   password: { value: string };
+    //   file: { files: File[] };
+    // };
+    // formData.append('schoolName', target.schoolName.value);
+    // formData.append('adress', target.adress.value);
+    // formData.append('phone', target.phone.value);
+    // formData.append('info', target.info.value);
+    // formData.append('file', target.file.files[0]);
+    // formData.append('email', target.email.value);
+    // formData.append('password', target.password.value);
     e.target.reset();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions

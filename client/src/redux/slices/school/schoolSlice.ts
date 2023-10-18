@@ -4,6 +4,7 @@ import {
   checkSchoolThunk,
   deleteSchoolThunk,
   editSchoolThunk,
+  getAllSchoolsThunk,
   getSchoolThunk,
   loginSchoolThunk,
   logoutSchoolThunk,
@@ -62,6 +63,12 @@ const schoolSlice = createSlice({
       // const index = state.findIndex((el) => el.id === action.payload.id);
       // state[index] = action.payload;
     });
+    builder.addCase(getAllSchoolsThunk.fulfilled, (state, action) => {
+      state.data = action.payload;
+      // const index = state.findIndex((el) => el.id === action.payload.id);
+      // state[index] = action.payload;
+    });
+
   },
 });
 
