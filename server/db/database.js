@@ -13,6 +13,7 @@ module.exports = {
     //   },
     // },
     dialect: 'postgres',
+    logging: false,
   },
   test: {
     username: 'root',

@@ -146,7 +146,7 @@ classesRouter.get("/all/categorys", async (req, res) => {
 classesRouter.post("/:id/add", async (req, res) => {
   const {
     className,
-    desription,
+    description,
     category,
     day,
     time,
@@ -161,7 +161,7 @@ classesRouter.post("/:id/add", async (req, res) => {
 
   const newClass = await Class.create({
     className,
-    desription,
+    description,
     categoryId: Number(categoryId.id),
     dayId: Number(dayId.id),
     timeId: Number(timeId.id),
@@ -194,7 +194,7 @@ classesRouter.delete("/:id/delete", async (req, res) => {
 classesRouter.patch("/:id/edit", async (req, res) => {
   const {
     className,
-    desription,
+    description,
     category,
     day,
     time,
@@ -208,7 +208,7 @@ classesRouter.patch("/:id/edit", async (req, res) => {
   const newClass = await Class.update(
     {
       className,
-      desription,
+      description,
       categoryId: Number(categoryId.id),
       dayId: Number(dayId.id),
       timeId: Number(timeId.id),

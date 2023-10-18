@@ -1,3 +1,6 @@
+const bcrypt = require('bcrypt');
+
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -7,7 +10,7 @@ module.exports = {
         adress: 'Москва,1-я Владимирская, 33/1, м. Перово',
         phone: 2222,
         email: 'milgradinfo@gmail.com',
-        password: '123',
+        password: await bcrypt.hash('123', 10),
         info: 'Мы - очень классный центр',
         imgSchool: '//static.tildacdn.com/tild3233-6365-4532-b166-643233396232/10.jpg',
         districtId: 1,
@@ -21,7 +24,7 @@ module.exports = {
         adress: 'Москва,1-я Владимирская, 33/1, м. Перово',
         phone: 2222,
         email: 'milgradinfo@gmail.com',
-        password: '123',
+        password: await bcrypt.hash('123', 10),
         info: 'Мы - очень классный центр',
         imgSchool: '//static.tildacdn.com/tild3233-6365-4532-b166-643233396232/10.jpg',
         districtId: 1,

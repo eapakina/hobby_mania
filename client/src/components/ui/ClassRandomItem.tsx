@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { IconButton } from "@mui/material";
+import EmailIcon from "@mui/icons-material/Email";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import type { ClassType } from "../../types/classTypes";
@@ -15,15 +16,6 @@ import {
   addFavoriteThunk,
   removeFavoriteThunk,
 } from "../../redux/slices/favorites/favoriteThunks";
-
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
 
 type ClassRandomItemProps = {
   isLiked: boolean;
@@ -49,20 +41,21 @@ export default function ClassRandomItem({
       void dispatch(addFavoriteThunk(item.id));
     }
   };
+  console.log(item);
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ width: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           <a href={`/school/${item.schoolId}`}> {item.School?.schoolName} </a>
         </Typography>
         <Typography variant="h5" component="div">
-        {item.className}{" "}
+          {item.className}{" "}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {item.Day?.day}{" "}
         </Typography>
         <Typography variant="body2">
-          {item.desription} <br />
+          {item.description} <br />
         </Typography>
       </CardContent>
       <CardActions>
@@ -74,7 +67,18 @@ export default function ClassRandomItem({
           {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
 
-        <Button size="small">Связаться </Button>
+        <a href={`mailto:${item.School?.email}`}>
+        <IconButton
+          color="secondary"
+          aria-label="add an alarm"
+          onClick={clickHandler}
+        >
+          <EmailIcon />
+          </IconButton>
+
+        </a>
+
+        {/* <a href={`mailto:${item.School?.email}`}>Связаться</a> */}
       </CardActions>
     </Card>
   );

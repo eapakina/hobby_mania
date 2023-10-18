@@ -11,6 +11,17 @@ const schoolRouter = express.Router();
 
 const jwtSecretKey = 'your-secret-key';
 
+
+schoolRouter.get('/get', async (req, res) => {
+  try {
+    const allSchools = req.session.schoolId;
+    res.json(allSchools);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+})
+
 schoolRouter.post('/signup', upload.single('file'), async (req, res) => {
   console.log('2222222', req.body);
   console.log(req.file, 'wwwwwwwwwwwww');
@@ -65,7 +76,6 @@ schoolRouter.post('/signup', upload.single('file'), async (req, res) => {
 
 schoolRouter.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log('7777777777777777', req.body);
   if (email && password) {
     try {
       const school = await School.findOne({
@@ -77,7 +87,7 @@ schoolRouter.post('/login', async (req, res) => {
 
       req.session.schoolId = school.id;
 
-      const token = jwt.sign({ schoolName: school.schoolName }, jwtSecretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ schoolName: school.schoolName, schoolId: school.id }, jwtSecretKey, { expiresIn: '1h' });
 
       return res.json({ token });
     } catch (e) {
@@ -89,7 +99,9 @@ schoolRouter.post('/login', async (req, res) => {
 });
 
 schoolRouter.get('/check', (req, res) => {
-  const token = req.headers.authorization;
+  const token = req.headers.authorization.split(' ')[1];
+
+  console.log('------------', token)
 
   if (!token) {
     return res.sendStatus(401);
@@ -99,7 +111,9 @@ schoolRouter.get('/check', (req, res) => {
     if (err) {
       return res.sendStatus(401);
     }
-    return res.json({ schoolName: decoded.schoolName });
+    console.log(decoded)
+
+    return res.json({ schoolName: decoded.schoolName, schoolId: decoded.schoolId });
   });
 });
 
@@ -168,6 +182,15 @@ schoolRouter
       console.error('Error editing school', error);
       return res.sendStatus(500); // Ошибка сервера
     }
+  });
+
+  schoolRouter
+  // .route('/:id/')
+  .get('/get/all/', async (req, res) => {
+    console.log('-------- get all---------');
+    const schools = await School.findAll({
+      include: District, // Включение модели District должно быть частью объекта options
+    }); res.json(schools);
   });
 
 

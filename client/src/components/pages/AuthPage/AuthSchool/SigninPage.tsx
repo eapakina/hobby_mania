@@ -1,8 +1,12 @@
+
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Box, Button, Grid, Input, InputLabel, TextField, Typography } from '@mui/material';
+import { ThemeContext } from '@emotion/react';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { loginSchoolThunk} from '../../../../redux/slices/school/schoolThunk';
+import type { SchoolLoginFormtype, SchoolSingUpFormType } from '../../../../types/schoolTypes';
+import { loginSchoolThunk, signUpSchoolThunk } from '../../../../redux/slices/school/schoolThunk';
+
 import { authTextFieldStyle, buttonStyle, postFormGridStyles } from '../../../styles';
 
 
@@ -12,13 +16,16 @@ export function SigninPage(): JSX.Element {
   const navigate = useNavigate();
 
 
+
   const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.currentTarget));
+
     e.target.reset();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     void dispatch(loginSchoolThunk(formData)).then(()=>navigate('/'));
+
   };
 
   return (

@@ -4,6 +4,7 @@ import {
   checkSchoolThunk,
   deleteSchoolThunk,
   editSchoolThunk,
+  getAllSchoolsThunk,
   getSchoolThunk,
   loginSchoolThunk,
   logoutSchoolThunk,
@@ -15,7 +16,7 @@ type SchoolSliceType = {
 };
 
 const initialState: SchoolSliceType = {
-  data: null,
+  data: { status: "loading"},
 };
 
 const schoolSlice = createSlice({
@@ -27,6 +28,7 @@ const schoolSlice = createSlice({
     builder.addCase(checkSchoolThunk.fulfilled, (state, { payload }) => {
       state.data = {
         ...payload,
+        status: "logged",
       };
     });
 
@@ -34,6 +36,7 @@ const schoolSlice = createSlice({
     builder.addCase(signUpSchoolThunk.fulfilled, (state, { payload }) => {
       state.data = {
         ...payload,
+        status: "logged",
       };
     });
 
@@ -41,12 +44,13 @@ const schoolSlice = createSlice({
     builder.addCase(loginSchoolThunk.fulfilled, (state, { payload }) => {
       state.data = {
         ...payload,
+        status: "logged",
       };
     });
 
     // logoutSchoolThunk
     builder.addCase(logoutSchoolThunk.fulfilled, (state) => {
-      if (state.data) state.data = null;
+      state.data = { status: "guest" };
     });
     builder.addCase(logoutSchoolThunk.rejected, (state) => state);
     builder.addCase(getSchoolThunk.fulfilled, (state, action) => {
@@ -62,6 +66,12 @@ const schoolSlice = createSlice({
       // const index = state.findIndex((el) => el.id === action.payload.id);
       // state[index] = action.payload;
     });
+    builder.addCase(getAllSchoolsThunk.fulfilled, (state, action) => {
+      state.data = action.payload;
+      // const index = state.findIndex((el) => el.id === action.payload.id);
+      // state[index] = action.payload;
+    });
+
   },
 
 });

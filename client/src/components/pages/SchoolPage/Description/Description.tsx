@@ -5,15 +5,19 @@ import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { getSchoolThunk } from '../../../../redux/slices/school/schoolThunk';
 import DeleteSchoolConfirmModal from '../../../ui/DeleteSchoolConfirmModal';
 import EditSchoolModalForm from '../../../ui/EditSchoolModalForm';
+import axios from 'axios';
 
 export function Description({ id }: { id: number }): JSX.Element {
   const school = useAppSelector((store) => store.school);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-
+  const [checkSchool, setCheckSchool] = useState({});
   useEffect(() => {
     void dispatch(getSchoolThunk(id));
+    void axios('/school/check').then((res) => {
+      setCheckSchool(res.data);
+    })
   }, []);
 
   return (
@@ -35,6 +39,8 @@ export function Description({ id }: { id: number }): JSX.Element {
       <Typography variant="body2" color="text.secondary">
         Описание: {school.data?.info}{' '}
       </Typography>
+      { checkSchool.schoolId === school.data.id && (
+        <> 
       <Button
         onClick={() => {
           setOpen(true);
@@ -52,7 +58,9 @@ export function Description({ id }: { id: number }): JSX.Element {
       {open && <DeleteSchoolConfirmModal id={id} open={open} setOpen={setOpen} />}
       {openEdit && (
         <EditSchoolModalForm id={id} school={school.data!} openEdit={openEdit} setOpenEdit={setOpenEdit} />
-      )}{' '}
+      )}{' '} 
+      </>)
+  }
     </Box>
   );
 }

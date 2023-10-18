@@ -7,18 +7,24 @@ import LogoutConfirmDialog from '../LogoutConfirmDialog';
 
 export function Navbar(): JSX.Element {
   const user = useAppSelector((store) => store.user);
+  const school = useAppSelector((store) => store.school);
   const [open, setOpen] = useState(false);
 
   const handleOpen = (): void => {
     setOpen(true);
   };
 
+  console.log(!!school.data)
+  console.log(school)
+
   const links =
-    user.data.status === 'logged'
+    (user.data.status === 'logged' || school.data.status === 'logged')
       ? [
           { to: '/', name: 'Главная' },
           { to: '/favorite', name: 'Избранное' },
           { to: '/search', name: 'Поиск' },
+          { to: '/allschools', name: 'Центры' },
+
 
         ]
       : [
@@ -31,7 +37,7 @@ export function Navbar(): JSX.Element {
       <AppBar
         position="static"
         sx={{
-          background: '#2E3B55',
+          background: '#EAB595',
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
         }}
@@ -51,7 +57,7 @@ export function Navbar(): JSX.Element {
               {link.name}
             </Link>
           ))}
-          {user.data.status === 'logged' && (
+          {user.data.status === 'logged' || school.data.status === "logged"  && (
             <Button color="inherit" onClick={() => handleOpen()}>
               Выход
             </Button>
