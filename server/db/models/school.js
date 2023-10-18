@@ -1,19 +1,21 @@
-const { Model } = require("sequelize");
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class School extends Model {
-    static associate({ District, Class, Blog,Comment}) {
-      this.belongsTo(District, { foreignKey: "districtId" });
-      this.hasMany(Class, { foreignKey: "schoolId" });
-      this.hasMany(Blog, { foreignKey: "schoolId" });
-      this.hasMany(Comment, { foreignKey: "schoolId" });
+    static associate({
+      District, Class, Blog, Comment,
+    }) {
+      this.belongsTo(District, { foreignKey: 'districtId' });
+      this.hasMany(Class, { foreignKey: 'schoolId' });
+      this.hasMany(Blog, { foreignKey: 'schoolId' });
+      this.hasMany(Comment, { foreignKey: 'schoolId' });
     }
   }
   School.init(
     {
       schoolName: DataTypes.STRING,
       adress: DataTypes.STRING,
-      phone: DataTypes.INTEGER,
+      phone: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       info: DataTypes.TEXT,
@@ -22,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "School",
-    }
+      modelName: 'School',
+    },
   );
   return School;
 };

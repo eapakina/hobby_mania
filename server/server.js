@@ -5,7 +5,11 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const userRouter = require('./routes/userRouter');
 const schoolRouter = require('./routes/schoolRouter');
-const postsRouter = require('./routes/postsRouter');
+const newsRouter = require('./routes/newsRouter');
+const classesRouter = require('./routes/classesRouter');
+const favoriteRouter = require('./routes/favoriteRouter');
+const commentsRouter = require('./routes/commentsRouter');
+const randomRouter = require('./routes/randomRouter');
 
 require('dotenv').config();
 
@@ -28,14 +32,22 @@ app.use(
       maxAge: 1000 * 60 * 60 * 12,
       httpOnly: true,
     },
-  }),
+  })
 );
 
-app.use('/api/classes', postsRouter);
+//Пользователь
 app.use('/api/user', userRouter);
-
+// Школа
 app.use('/api/school', schoolRouter);
-
-app.use('/api/blog', postsRouter);
+// Класс
+app.use('/api/classes', classesRouter);
+// Случайные классы
+app.use('/api/random', randomRouter);
+// Избранное
+app.use('/api/favorite', favoriteRouter);
+// Новости
+app.use('/api/news', newsRouter);
+// Комментарии
+app.use('/api/comments', commentsRouter);
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));

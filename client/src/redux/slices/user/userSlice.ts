@@ -1,6 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { UserType } from '../../../types/userTypes';
-import { checkUserThunk, loginUserThunk, logoutUserThunk, signUpUserThunk } from './userThunks';
+import { createSlice } from "@reduxjs/toolkit";
+import type { UserType } from "../../../types/userTypes";
+import {
+  checkUserThunk,
+  getUserId,
+  loginUserThunk,
+  logoutUserThunk,
+  signUpUserThunk,
+} from "./userThunks";
 
 type UserSliceType = {
   data: UserType;
@@ -10,15 +16,14 @@ type UserSliceType = {
 };
 
 const initialState: UserSliceType = {
-  data: { status: 'loading' },
+  data: { status: "loading" },
   error: null,
   logoutDialogOpened: false,
   token: null,
-
 };
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     setToken: (state, action: { payload: string }) => {
@@ -30,46 +35,47 @@ const userSlice = createSlice({
     builder.addCase(checkUserThunk.fulfilled, (state, { payload }) => {
       state.data = {
         ...payload,
-        status: 'logged',
+        status: "logged",
       };
     });
     builder.addCase(checkUserThunk.pending, (state) => {
-      state.data = { status: 'loading' };
+      state.data = { status: "loading" };
     });
     builder.addCase(checkUserThunk.rejected, (state) => {
-      state.data = { status: 'guest' };
+      state.data = { status: "guest" };
     });
 
     // signUpUserThunk
     builder.addCase(signUpUserThunk.fulfilled, (state, { payload }) => {
       state.data = {
         ...payload,
-        status: 'logged',
+        status: "logged",
       };
       state.token = payload.token;
     });
     builder.addCase(signUpUserThunk.rejected, (state) => {
-      state.data = { status: 'guest' };
+      state.data = { status: "guest" };
     });
 
     // loginUserThunk
     builder.addCase(loginUserThunk.fulfilled, (state, { payload }) => {
       state.data = {
         ...payload,
-        status: 'logged',
+        status: "logged",
       };
       state.token = payload.token;
     });
     builder.addCase(loginUserThunk.rejected, (state) => {
-      state.data = { status: 'guest' };
+      state.data = { status: "guest" };
     });
 
     // logoutUserThunk
     builder.addCase(logoutUserThunk.fulfilled, (state) => {
-      state.data = { status: 'guest' };
+      state.data = { status: "guest" };
       state.token = null;
     });
     builder.addCase(logoutUserThunk.rejected, (state) => state);
+    builder.addCase(getUserId.fulfilled, (state) => state);
   },
 });
 

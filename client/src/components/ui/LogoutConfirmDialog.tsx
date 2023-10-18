@@ -6,30 +6,30 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useAppDispatch } from '../../redux/hooks';
 import { logoutUserThunk } from '../../redux/slices/user/userThunks';
 
-
 type ModalExitType = {
   open: boolean;
-  setOpen:() =>void;
+  setOpen: () => void;
 };
-export default function LogoutConfirmDialog({open,setOpen}:ModalExitType): JSX.Element {
+export default function LogoutConfirmDialog({ open, setOpen }: ModalExitType): JSX.Element {
   const dispatch = useAppDispatch();
   const handleClose = (): void => {
-setOpen(false)
+    setOpen(false);
   };
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title-logout"
-    >
-      <DialogTitle id="alert-dialog-title-logout">Log out from the account?</DialogTitle>
+    <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title-logout">
+      <DialogTitle id="alert-dialog-title-logout">Вы точно хотите выйти?</DialogTitle>
       <DialogActions>
         <Button onClick={handleClose} autoFocus>
           No
         </Button>
-        <Button onClick={()=>{handleClose();
-        void dispatch(logoutUserThunk())
-        }}>Logout</Button>
+        <Button
+          onClick={() => {
+            handleClose();
+            void dispatch(logoutUserThunk());
+          }}
+        >
+          Logout
+        </Button>
       </DialogActions>
     </Dialog>
   );
