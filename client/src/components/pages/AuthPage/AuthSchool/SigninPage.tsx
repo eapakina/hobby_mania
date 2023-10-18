@@ -1,40 +1,26 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Box, Button, Grid, Input, InputLabel, TextField, Typography } from '@mui/material';
-import { useAppDispatch } from '../../../../redux/hooks';
-import { loginSchoolThunk, signUpSchoolThunk } from '../../../../redux/slices/school/schoolThunk';
-import type { SchoolLoginFormtype, SchoolSingUpFormType } from '../../../../types/schoolTypes';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { loginSchoolThunk} from '../../../../redux/slices/school/schoolThunk';
 import { authTextFieldStyle, buttonStyle, postFormGridStyles } from '../../../styles';
 
+
 export function SigninPage(): JSX.Element {
-  const { auth } = useParams();
+  // const { auth } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
 
   const submitHandler: React.ChangeEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    // const formData = Object.fromEntries(new FormData(e.currentTarget));
-    const formData = new FormData();
-    const target = e.target as typeof e.target & {
-      schoolName: { value: string };
-      adress: { value: string };
-      phone: { value: string };
-      info: { value: string };
-      email: { value: string };
-      password: { value: string };
-      file: { files: File[] };
-    };
-    formData.append('schoolName', target.schoolName.value);
-    formData.append('adress', target.adress.value);
-    formData.append('phone', target.phone.value);
-    formData.append('info', target.info.value);
-    formData.append('file', target.file.files[0]);
-    formData.append('email', target.email.value);
-    formData.append('password', target.password.value);
+    const formData = Object.fromEntries(new FormData(e.currentTarget));
     e.target.reset();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    void dispatch(loginSchoolThunk(formData));
+    void dispatch(loginSchoolThunk(formData)).then(()=>navigate('/'));
   };
+
   return (
     <Grid container direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh', justifyContent: 'center' }}>
       <Typography variant="h2" textAlign="center">
@@ -52,6 +38,7 @@ export function SigninPage(): JSX.Element {
         >
           <TextField variant="outlined" name="email" label="Email" type="email" sx={authTextFieldStyle} />
           <TextField variant="outlined" name="password" label="Password" type="password" sx={authTextFieldStyle} />
+
 
           <Button variant="outlined" type="submit" sx={buttonStyle}>
             Войти

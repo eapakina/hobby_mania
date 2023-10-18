@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { UserType } from "../../../types/userTypes";
+import type { UserModelType, UserType } from "../../../types/userTypes";
 import {
   checkUserThunk,
   getUserId,

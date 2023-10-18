@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link as NavLink } from 'react-router-dom';
-import { Link, AppBar, Box, Toolbar, Typography, Button } from '@mui/material';
+import { Link, AppBar, Box, Toolbar, Typography, Button, IconButton, Avatar } from '@mui/material';
 import { useAppSelector } from '../../../redux/hooks';
 import { linkStyle } from '../../styles';
 import LogoutConfirmDialog from '../LogoutConfirmDialog';
@@ -37,9 +37,15 @@ export function Navbar(): JSX.Element {
         }}
       >
         <Toolbar>
+        <IconButton  >
+          
+          <Avatar alt="" src={`http://localhost:3001/imgUser/${user.data.img}`} />
+        
+                      </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             HoBBy
           </Typography>
+
           {links.map((link) => (
             <Link component={NavLink} key={link.name} to={link.to} sx={linkStyle}>
               {link.name}

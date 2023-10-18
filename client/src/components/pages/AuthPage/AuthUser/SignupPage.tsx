@@ -49,9 +49,24 @@ export function SignupPage(): JSX.Element {
           py={5}
           onSubmit={submitHandler}
         >
+            <InputLabel htmlFor="file" style={{
+  display: 'inline-block',
+  padding: '10px 15px',
+  border: '2px solid #ccc',
+  borderRadius: '5px',
+  background: 'lightgray',
+  cursor: 'pointer'
+}}>
+  Загрузить фото
+</InputLabel>
+  <Input
+    type="file"
+    id="file"
+    name="file"
+    style = {{display:'none'}}
+    sx={authTextFieldStyle}
+  />
           <TextField variant="outlined" name="userName" label="Имя" sx={authTextFieldStyle} />
-          <InputLabel htmlFor="file">Фото</InputLabel>
-          <Input type="file" id="file" name="file" sx={authTextFieldStyle} />
           <TextField variant="outlined" name="email" label="Email" type="email" sx={authTextFieldStyle} />
           <TextField variant="outlined" name="password" label="Пароль" type="password" sx={authTextFieldStyle} />
           <Button variant="outlined" type="submit" sx={buttonStyle}>

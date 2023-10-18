@@ -63,7 +63,10 @@ const schoolSlice = createSlice({
       // state[index] = action.payload;
     });
   },
+
 });
+
+
 
 // export const { setToken } = schoolSlice.actions;
 export default schoolSlice.reducer;

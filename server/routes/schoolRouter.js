@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 const sharp = require('sharp');
 const fs = require('fs/promises');
 const { School, District } = require('../db/models');
-
 const upload = require('../middleware/multer');
+
 
 const schoolRouter = express.Router();
 
@@ -25,9 +25,12 @@ schoolRouter.post('/signup', upload.single('file'), async (req, res) => {
 
     await fs.writeFile(`./public/imgUser/${name}`, outputBuffer);
 
-    const { schoolName, adress, phone, info, email, password } = req.body;
+    const { schoolName, adress, phone, info, email, password, district } = req.body;
 
-    if (schoolName && adress && phone && info && email && password) {
+
+    const distrId = await District.findOne({where:{district:req.body.district}})
+
+    if (schoolName && adress && phone && info && email && password && distrId) {
       try {
         const [school, created] = await School.findOrCreate({
           where: { email },
@@ -37,6 +40,7 @@ schoolRouter.post('/signup', upload.single('file'), async (req, res) => {
             phone,
             info,
             imgSchool: name,
+            districtId:distrId.id,
             password: await bcrypt.hash(password, 10),
           },
         });
@@ -61,6 +65,7 @@ schoolRouter.post('/signup', upload.single('file'), async (req, res) => {
 
 schoolRouter.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log('7777777777777777', req.body);
   if (email && password) {
     try {
       const school = await School.findOne({
@@ -70,7 +75,7 @@ schoolRouter.post('/login', async (req, res) => {
         return res.sendStatus(401);
       }
 
-      req.session.userId = school.id;
+      req.session.schoolId = school.id;
 
       const token = jwt.sign({ schoolName: school.schoolName }, jwtSecretKey, { expiresIn: '1h' });
 
@@ -83,25 +88,36 @@ schoolRouter.post('/login', async (req, res) => {
   return res.sendStatus(500);
 });
 
-// schoolRouter.get('/check', (req, res) => {
-//   const token = req.headers.authorization;
+schoolRouter.get('/check', (req, res) => {
+  const token = req.headers.authorization;
 
-//   if (!token) {
-//     return res.sendStatus(401);
-//   }
+  if (!token) {
+    return res.sendStatus(401);
+  }
 
-//   jwt.verify(token, jwtSecretKey, (err, decoded) => {
-//     if (err) {
-//       return res.sendStatus(401);
-//     }
-//     return res.json({ schoolName: decoded.schoolName });
-//   });
-// });
+  jwt.verify(token, jwtSecretKey, (err, decoded) => {
+    if (err) {
+      return res.sendStatus(401);
+    }
+    return res.json({ schoolName: decoded.schoolName });
+  });
+});
 
 // schoolRouter.get('/logout', (req, res) => {
 //   req.session.destroy();
 //   res.clearCookie('sid').sendStatus(200);
 // });
+
+//all districs
+schoolRouter.get('/allDistr', async(req,res)=>{
+  try{
+    const allDistr= await District.findAll();
+    res.json(allDistr)
+  }catch(error){
+    console.error(error);
+    res.sendStatus(500)
+  }
+})
 
 schoolRouter.get('/:id/', async (req, res) => {
   console.log('-------- get ---------');
@@ -153,5 +169,6 @@ schoolRouter
       return res.sendStatus(500); // Ошибка сервера
     }
   });
+
 
 module.exports = schoolRouter;

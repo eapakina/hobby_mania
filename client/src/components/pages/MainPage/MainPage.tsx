@@ -29,6 +29,7 @@ export function MainPage(): JSX.Element {
       void dispatch(getFavoriteClassThunk());
     }
   }, [user]);
+console.log('qqqqqqqqqqqqqqqqqqqq',school);
 
   // console.log(classes);
   console.log('userFavorites', userFavorites);
