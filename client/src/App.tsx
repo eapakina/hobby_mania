@@ -46,7 +46,7 @@ function App(): JSX.Element {
         main: "#AE6378",
       },
       secondary: {
-        main: "#79616F",
+        main: "#AE6378",
       },
     },
   });

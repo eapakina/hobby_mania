@@ -9,15 +9,18 @@ import type { NewsType } from '../../../../../types/newsTypes';
 import { cardStyle } from '../../../../styles';
 import { useAppDispatch } from '../../../../../redux/hooks';
 import { deleteNewsThunk } from '../../../../../redux/slices/news/newsThunks';
+import { Box } from '@mui/material';
 
 type NewsItemProps = {
   news: NewsType;
 };
 
-export function NewsItem({ news }: NewsItemProps): JSX.Element {
+export function NewsItem({ news }: NewsItemProps): JSX.Element {  
   const dispatch = useAppDispatch();
   // todo
   return (
+    <Box style={{ display: "flex",justifyContent: "space-between", padding: '20px' }}>
+
     <Card sx={cardStyle}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -37,6 +40,7 @@ export function NewsItem({ news }: NewsItemProps): JSX.Element {
         </Button>
       </CardActions>
     </Card>
+    </Box>
   );
 }
 

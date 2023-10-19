@@ -46,10 +46,8 @@ export const authTextFieldStyle = {
   minWidth: 280,
 };
 export const cardStyle = {
-  minWidth: 263,
-  maxWidth: 355,
-  minHeight: 280,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
+  width: 300, height: 300, display: "flex", 
+    flexDirection: "column",  
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.5)",
+    backgroundImage:`url('https://instapik.ru/wp-content/uploads/2020/07/crumpled-white-paper.jpg')`
 };

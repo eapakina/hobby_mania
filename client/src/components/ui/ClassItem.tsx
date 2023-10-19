@@ -26,7 +26,7 @@ const bull = (
     component="span"
     sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
   >
-    •
+    
   </Box>
 );
 
@@ -63,7 +63,14 @@ export default function ClassItem({
   }, [isLiked]);
 
   return (
-    <Card>
+    <Box style={{ display: "flex",justifyContent: "space-between" }}>
+
+    <Card sx={{ width: 300, height: 300, display: "flex", 
+    flexDirection: "column",  
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.5)",
+    backgroundImage:`url('https://instapik.ru/wp-content/uploads/2020/07/crumpled-white-paper.jpg')`,
+   
+    }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           <a href={`/school/${item.schoolId}`}> {item.School?.schoolName} </a>
@@ -122,5 +129,6 @@ export default function ClassItem({
         {/* {school?.id === item.schoolId ? null : <div>ghbdtn</div>} */}
       </CardActions>
     </Card>
+    </Box>
   );
 }

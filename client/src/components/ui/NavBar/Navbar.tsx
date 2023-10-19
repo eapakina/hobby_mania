@@ -59,7 +59,7 @@ export function Navbar(): JSX.Element {
           ))}
           {user.data.status === 'logged' 
           ||
-           school.data.status === "logged" 
+           school.data.status === "logged"
             && (
             <Button color="inherit" onClick={() => handleOpen()}>
               Выход
