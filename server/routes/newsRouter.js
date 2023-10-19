@@ -18,8 +18,9 @@ newsRouter
     }
   })
   .post(async (req, res) => {
+    console.log(req.body)
     try {
-      if (!req.body.title || !req.body.content) {
+      if (!req.body.title || !req.body.body) {
         return res.status(400).json({ error: 'Необходимы заголовок и содержание.' });
       }
       const newBook = await Blog.create(req.body);
@@ -30,7 +31,7 @@ newsRouter
     }
   });
 
-newsRouter.route('/:id').delete(async (req, res) => {
+newsRouter.route('/school/:id').delete(async (req, res) => {
   try {
     const post = await Blog.findOne({ where: { id: req.params.id } });
     if (!post) {

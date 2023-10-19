@@ -1,24 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getAllSchoolsThunk } from "../../redux/slices/school/schoolThunk";
+import axios from "axios";
 
 export default function AllSchools(): JSX.Element {
   const dispatch = useAppDispatch();
   const schools = useAppSelector((store) => store.school.data);
+  const [schola, setSchola] = useState();
 
   useEffect(() => {
-    void dispatch(getAllSchoolsThunk());
+    void axios('/school/get/all').then((res) => setSchola(res.data));
   }, []);
-  console.log(schools);
+//   console.log(schola, schola[0].schoolName);
   return (
     <List>
-      {schools?.map((school) => (
+      {schola?.map((school) => (
         <ListItem disablePadding>
           <ListItemIcon color="secondary">
-            <SchoolIcon color="secondary"/>
+            <SchoolIcon />
           </ListItemIcon>
 
           <ListItemText>

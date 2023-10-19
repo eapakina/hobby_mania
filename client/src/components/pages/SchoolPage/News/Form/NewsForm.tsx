@@ -54,6 +54,7 @@ export function NewsForm({ id }): JSX.Element {
             sx={buttonStyle}
             onClick={() => {
               void dispatch(addNewsThunk(input));
+              console.log(input)
               setInput({ schoolId: id, title: '', body: '', img: '' });
             }}
           >

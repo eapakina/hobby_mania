@@ -7,11 +7,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { IconButton } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import EmailIcon from "@mui/icons-material/Email";
-
 
 import { deleteClassThunk } from "../../redux/slices/class/classesThunks";
 import type { SchoolType } from "../../types/schoolTypes";
@@ -35,7 +34,7 @@ type ClassItemProps = {
   school: SchoolType;
   item: ClassType;
   // dispatch: () => void;
-  setOpen: (open: boolean) => void;
+  setOpen: (item: ClassType) => void;
   setIdClass: React.Dispatch<React.SetStateAction<number>>;
   isLiked: boolean;
 };
@@ -64,7 +63,7 @@ export default function ClassItem({
   }, [isLiked]);
 
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           <a href={`/school/${item.schoolId}`}> {item.School?.schoolName} </a>
@@ -88,34 +87,31 @@ export default function ClassItem({
           {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
         <a href={`mailto:${item.School?.email}`}>
-        <IconButton
-          color="secondary"
-          aria-label="add an alarm"
-          onClick={clickHandler}
-        >
-          <EmailIcon />
+          <IconButton
+            color="secondary"
+            aria-label="add an alarm"
+            onClick={clickHandler}
+          >
+            <EmailIcon />
           </IconButton>
-
         </a>
         <IconButton
-        color="secondary"
-        onClick={() => {
-          setIdClass(item.id);
-          setOpen(true);
-        }}
+          color="secondary"
+          onClick={() => {
+            setIdClass(item.id);
+            setOpen(item);
+          }}
         >
-          <ModeEditIcon/>
+          <ModeEditIcon />
         </IconButton>
         <IconButton
-                  size="small"
-                  color="secondary"
-
-                  onClick={() => dispatch(deleteClassThunk({ id: item.id }))}
-        
+          size="small"
+          color="secondary"
+          onClick={() => dispatch(deleteClassThunk({ id: item.id }))}
         >
-          <DeleteIcon/>
+          <DeleteIcon />
         </IconButton>
-     
+
         {/* <Button
           size="small"
        

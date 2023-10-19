@@ -38,7 +38,7 @@ function App(): JSX.Element {
     void dispatch(checkSchoolThunk())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(user);
+  console.log(school);
 
   const theme = createTheme({
     palette: {

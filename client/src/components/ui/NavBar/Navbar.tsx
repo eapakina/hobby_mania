@@ -57,7 +57,10 @@ export function Navbar(): JSX.Element {
               {link.name}
             </Link>
           ))}
-          {user.data.status === 'logged' || school.data.status === "logged"  && (
+          {user.data.status === 'logged' 
+          ||
+           school.data.status === "logged" 
+            && (
             <Button color="inherit" onClick={() => handleOpen()}>
               Выход
             </Button>

@@ -190,7 +190,9 @@ schoolRouter
     console.log('-------- get all---------');
     const schools = await School.findAll({
       include: District, // Включение модели District должно быть частью объекта options
-    }); res.json(schools);
+    }); 
+    console.log(schools)
+    res.json(schools);
   });
 
 

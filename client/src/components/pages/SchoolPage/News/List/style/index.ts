@@ -1,5 +1,5 @@
 export const newsListPaperStyles = {
-  backgroundColor: '#2E3B55',
+  backgroundColor: '#EAB595',
   minHeight: '80vh',
   borderRadius: 5,
 };

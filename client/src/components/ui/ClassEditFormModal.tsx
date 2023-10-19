@@ -21,7 +21,7 @@ export default function ClassEditFormModal({
   const [formdata, setFormdata] = useState({});
 
   useEffect(() => {
-    setFormdata((prev) => inputs);
+    setFormdata(inputs);
   }, [inputs]);
 
   console.log("imputs in modal", formdata);

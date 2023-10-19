@@ -19,7 +19,7 @@ userRouter.post("/signup", upload.single("file"), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "File not found" });
     }
-    req.session.userId = user.id;
+    // req.session.userId = user.id;
     const name = `${Date.now()}.webp`;
 
     const outputBuffer = await sharp(req.file.buffer).webp().toBuffer();

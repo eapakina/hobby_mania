@@ -19,10 +19,15 @@ export const CommentSlice = createSlice({
     });
 
     builder.addCase(addCommentThunks.fulfilled, (state, action) => {
+
       state.push(action.payload);
     });
     builder.addCase(deleteCommentThunks.fulfilled, (state, action) =>
-      state.filter((el) => el.id !== action.payload)
+    {
+      console.log(action.payload);
+      
+      return state.filter((el) => el.id !== action.payload)
+    }
     );
   },
 });
