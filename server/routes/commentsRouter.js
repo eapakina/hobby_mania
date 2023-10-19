@@ -6,7 +6,7 @@ const commentsRouter = express.Router();
 commentsRouter.get("/:id/all", async (req, res) => {
   try {
     const reviews = await Comment.findAll({
-      where: { userId: req.params.id },
+      where: { schoolId: req.params.id },
     });
     res.json(reviews);
   } catch (err) {
@@ -17,8 +17,8 @@ commentsRouter.get("/:id/all", async (req, res) => {
 
 commentsRouter.post("/:id/add", async (req, res) => {
   console.log("----------- post ------------");
-  console.log(req.body);
   console.log(req.session);
+  console.log(req.session.userId);
   try {
     const newComment = await Comment.create({
       ...req.body,
