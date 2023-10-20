@@ -1,12 +1,13 @@
-import { Box } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ClassItem from '../../../ui/ClassItem';
-import ClassFormModal from '../../../ui/ClassFormModal';
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { getClassesThunk } from '../../../../redux/slices/class/classesThunks';
-import ClassEditFormModal from '../../../ui/ClassEditFormModal';
-import { getFavoriteClassThunk } from '../../../../redux/slices/favorites/favoriteThunks';
+import { Box, Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import ClassItem from "../../../ui/ClassItem";
+import ClassFormModal from "../../../ui/ClassFormModal";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { getClassesThunk } from "../../../../redux/slices/class/classesThunks";
+import ClassEditFormModal from "../../../ui/ClassEditFormModal";
+import { getFavoriteClassThunk } from "../../../../redux/slices/favorites/favoriteThunks";
+import type { ClassType } from "../../../../types/classTypes";
 
 export default function Classes(): JSX.Element {
   const [open, setOpen] = useState(false);
@@ -24,31 +25,54 @@ export default function Classes(): JSX.Element {
   const { id } = useParams();
   useEffect(() => {
     void dispatch(getClassesThunk(id));
-    if (user.status === 'logged') {
+    if (user.status === "logged") {
       void dispatch(getFavoriteClassThunk(user.id));
     }
   }, [user]);
 
-  console.log(classes);
-  return (
-    <Box display="flex" flexWrap="wrap">
-      {classes?.map((item) => (
-                  <div style={{ margin: "10px" }}>
+  const [inputs, setInputs] = useState<ClassType | null>(null);
+  const handleOpen = (item: ClassType): void => {
+    setOpen(true);
+    setInputs(item);
+  };
 
-        <ClassItem
-          key={item.id}
-          item={item}
-          school={school}
-          // dispatch={dispatch}
+  console.log({ inputs });
+  return (
+    <>
+      <Grid
+        container
+        justifyContent="space-around"
+        columnGap={1}
+        rowGap={2}
+        marginTop={4}
+        flex="flex"
+      >
+        {classes?.map((item) => (
+          <Grid item xs={3.5}>
+            <ClassItem
+              key={item.id}
+              item={item}
+              school={school}
+              // dispatch={dispatch}
+              setOpen={handleOpen}
+              setIdClass={setIdClass}
+              isLiked={
+                userFavorites.includes(item.id)
+                // setInputs(item)
+              }
+            />
+          </Grid>
+        ))}
+      </Grid>
+      <ClassFormModal school={school}/>
+      {inputs && (
+        <ClassEditFormModal
+          open={open}
           setOpen={setOpen}
-          setIdClass={setIdClass}
-          isLiked={userFavorites.includes(item.id)}
-        
+          idClass={idClass}
+          inputs={inputs}
         />
-        </div>
-      ))}
-      <ClassFormModal />
-      <ClassEditFormModal open={open} setOpen={setOpen} idClass={idClass} />
-    </Box>
+      )}
+    </>
   );
 }

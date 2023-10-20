@@ -5,6 +5,7 @@ import {
   deleteCommentThunks,
   updateCommentThunks,
 } from "../../../../../redux/slices/comments/commentThunks";
+import { useAppSelector } from "../../../../../redux/hooks";
 
 type CommentItemProps = {
   review: {
@@ -18,6 +19,10 @@ type CommentItemProps = {
 
 export function CommentItem({ review }: CommentItemProps): JSX.Element {
   const dispatch = useDispatch();
+  const school = useAppSelector((store) => store.school.data);
+  const user = useAppSelector((store) => store.user.data)
+
+  console.log(user)
 
   const handleUpdate = (): void => {
     dispatch(updateCommentThunks(review.id));
@@ -28,15 +33,15 @@ export function CommentItem({ review }: CommentItemProps): JSX.Element {
   };
 
   return (
-    <ListItem>
-      <Typography variant="subtitle1">{review.title}</Typography>
-      <ListItemText primary={review.userId} secondary={review.body} />
-      <Button size="small" onClick={handleUpdate}>
-        Редактировать
-      </Button>
-      <Button size="small" onClick={handleDelete}>
+    <ListItem style={{display: 'flex', flexDirection: 'column'}}>
+      <Typography variant="subtitle1">{review.title} {` `}</Typography>
+      <br/>
+      <ListItemText 
+      // primary={review.userId}
+      secondary={review.body} />
+      {review.userId == user.userId && <Button size="small" onClick={handleDelete}>
         Удалить
-      </Button>
+      </Button>}
     </ListItem>
   );
 }

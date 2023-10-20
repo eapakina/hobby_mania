@@ -7,11 +7,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { IconButton } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import EmailIcon from "@mui/icons-material/Email";
-
 
 import { deleteClassThunk } from "../../redux/slices/class/classesThunks";
 import type { SchoolType } from "../../types/schoolTypes";
@@ -27,7 +26,7 @@ const bull = (
     component="span"
     sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
   >
-    •
+    
   </Box>
 );
 
@@ -35,7 +34,7 @@ type ClassItemProps = {
   school: SchoolType;
   item: ClassType;
   // dispatch: () => void;
-  setOpen: (open: boolean) => void;
+  setOpen: (item: ClassType) => void;
   setIdClass: React.Dispatch<React.SetStateAction<number>>;
   isLiked: boolean;
 };
@@ -64,8 +63,15 @@ export default function ClassItem({
   }, [isLiked]);
 
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <CardContent>
+    <Box style={{ display: "flex",justifyContent: "space-between" }}>
+
+    <Card sx={{ width: 300, height: 300, display: "flex", 
+    flexDirection: "column",  
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.5)",
+    backgroundImage:`url('https://instapik.ru/wp-content/uploads/2020/07/crumpled-white-paper.jpg')`,
+   
+    }}>
+      <CardContent style={{flex: "1 0 auto"}}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           <a href={`/school/${item.schoolId}`}> {item.School?.schoolName} </a>
         </Typography>
@@ -88,34 +94,31 @@ export default function ClassItem({
           {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
         <a href={`mailto:${item.School?.email}`}>
-        <IconButton
-          color="secondary"
-          aria-label="add an alarm"
-          onClick={clickHandler}
-        >
-          <EmailIcon />
+          <IconButton
+            color="secondary"
+            aria-label="add an alarm"
+            onClick={clickHandler}
+          >
+            <EmailIcon />
           </IconButton>
-
         </a>
         <IconButton
-        color="secondary"
-        onClick={() => {
-          setIdClass(item.id);
-          setOpen(true);
-        }}
+          color="secondary"
+          onClick={() => {
+            setIdClass(item.id);
+            setOpen(item);
+          }}
         >
-          <ModeEditIcon/>
+          <ModeEditIcon />
         </IconButton>
         <IconButton
-                  size="small"
-                  color="secondary"
-
-                  onClick={() => dispatch(deleteClassThunk({ id: item.id }))}
-        
+          size="small"
+          color="secondary"
+          onClick={() => dispatch(deleteClassThunk({ id: item.id }))}
         >
-          <DeleteIcon/>
+          <DeleteIcon />
         </IconButton>
-     
+
         {/* <Button
           size="small"
        
@@ -126,5 +129,6 @@ export default function ClassItem({
         {/* {school?.id === item.schoolId ? null : <div>ghbdtn</div>} */}
       </CardActions>
     </Card>
+    </Box>
   );
 }

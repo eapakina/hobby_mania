@@ -9,7 +9,7 @@ export default function Footer(): JSX.Element {
         <div className="wave" id="wave3" />
         <div className="wave" id="wave4" />
       </div>
-      <ul className="social-icon">
+      {/* <ul className="social-icon">
         <li className="social-icon__item">
           <a className="social-icon__link" href="#">
             <ion-icon name="logo-facebook" />
@@ -30,8 +30,8 @@ export default function Footer(): JSX.Element {
             <ion-icon name="logo-instagram" />
           </a>
         </li>
-      </ul>
-      <ul className="menu">
+      </ul> */}
+      {/* <ul className="menu">
         <li className="menu__item">
           <a className="menu__link" href="#">
             Home
@@ -57,7 +57,7 @@ export default function Footer(): JSX.Element {
             Contact
           </a>
         </li>
-      </ul>
+      </ul> */}
       <p>&copy;2023 Studio Honny Elbrus | All Rights Reserved</p>
     </footer>
   );

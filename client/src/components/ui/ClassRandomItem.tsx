@@ -41,12 +41,17 @@ export default function ClassRandomItem({
       void dispatch(addFavoriteThunk(item.id));
     }
   };
-  console.log(item);
   return (
-    <Card sx={{ width: 275 }}>
-      <CardContent>
+    <Box style={{ display: "flex",justifyContent: "space-between", marginBottom: '20px' }}>
+    <Card sx={{ width: 300, height: 300, display: "flex", 
+    flexDirection: "column",  
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.5)",
+    backgroundImage:`url('https://instapik.ru/wp-content/uploads/2020/07/crumpled-white-paper.jpg')`,
+   
+    }}>
+      <CardContent style={{ flex: "1 0 auto" }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          <a href={`/school/${item.schoolId}`}> {item.School?.schoolName} </a>
+          <a href={`/school/${item.schoolId}`} style={{ textDecoration: 'none', color: 'red' }}> {item.School?.schoolName} </a>
         </Typography>
         <Typography variant="h5" component="div">
           {item.className}{" "}
@@ -81,5 +86,6 @@ export default function ClassRandomItem({
         {/* <a href={`mailto:${item.School?.email}`}>Связаться</a> */}
       </CardActions>
     </Card>
+    </Box>
   );
 }

@@ -22,7 +22,7 @@ export default function SearchClasses({ classes }): JSX.Element {
 
   console.log(classes);
   return (
-    <Box display="flex" flexWrap="wrap">
+    <Box display="flex" flexWrap="wrap" sx={{padding: '20px', justifyContent: "space-between"}}>
       {classes?.map((item) => (
         <ClassRandomItem key={item.id} item={item} isLiked={userFavorites.includes(item.id)} />
       ))}

@@ -53,21 +53,21 @@ const schoolSlice = createSlice({
       state.data = { status: "guest" };
     });
     builder.addCase(logoutSchoolThunk.rejected, (state) => state);
-    builder.addCase(getSchoolThunk.fulfilled, (state, action) => {
-      state.data = action.payload;
+    builder.addCase(getSchoolThunk.fulfilled, (state, { payload }) => {
+      state.data = {...state.data, ...payload};
     });
     builder.addCase(deleteSchoolThunk.fulfilled, (state, action) => {
       if (state.data?.id !== action.payload) state.data = null;
       // state.data? !== action.payload
       // state.data.filter((el) => el.id !== action.payload)
     });
-    builder.addCase(editSchoolThunk.fulfilled, (state, action) => {
-      state.data = action.payload;
+    builder.addCase(editSchoolThunk.fulfilled, (state, { payload }) => {
+      state.data = {...state.data, ...payload};
       // const index = state.findIndex((el) => el.id === action.payload.id);
       // state[index] = action.payload;
     });
-    builder.addCase(getAllSchoolsThunk.fulfilled, (state, action) => {
-      state.data = action.payload;
+    builder.addCase(getAllSchoolsThunk.fulfilled, (state, { payload }) => {
+      state.data = {...state.data, ...payload};
       // const index = state.findIndex((el) => el.id === action.payload.id);
       // state[index] = action.payload;
     });

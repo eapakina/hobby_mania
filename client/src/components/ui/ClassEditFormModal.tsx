@@ -15,13 +15,13 @@ export default function ClassEditFormModal({
   open,
   setOpen,
   idClass,
-  inputs,
+  inputs
 }): JSX.Element {
   const [categorys, setCategorys] = useState([]);
   const [formdata, setFormdata] = useState({});
 
   useEffect(() => {
-    setFormdata((prev) => inputs);
+    setFormdata(inputs);
   }, [inputs]);
 
   console.log("imputs in modal", formdata);

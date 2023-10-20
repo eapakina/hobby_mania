@@ -19,7 +19,7 @@ userRouter.post("/signup", upload.single("file"), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "File not found" });
     }
-    req.session.userId = user.id;
+    // req.session.userId = user.id;
     const name = `${Date.now()}.webp`;
 
     const outputBuffer = await sharp(req.file.buffer).webp().toBuffer();
@@ -77,7 +77,7 @@ userRouter.post("/login", async (req, res) => {
         return res.sendStatus(401);
       }
       req.session.userId = user.id;
-      const token = jwt.sign({ userName: user.userName }, jwtSecretKey, {
+      const token = jwt.sign({ userName: user.userName, userId: user.id }, jwtSecretKey, {
         expiresIn: "1h",
       });
 
@@ -129,7 +129,7 @@ userRouter.get("/check", (req, res) => {
       return res.sendStatus(401);
     }
 
-    return res.json({ userName: decoded.userName });
+    return res.json({ userName: decoded.userName, userId: decoded.userId });
   });
 });
 

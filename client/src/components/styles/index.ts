@@ -26,9 +26,11 @@ export const postListPaperStyles = {
   borderRadius: 5,
 };
 export const postFormGridStyles = {
-  backgroundColor: '#eaebee',
-  borderBottomLeftRadius: 20,
-  borderBottomRightRadius: 20,
+  backgroundImage:`url('https://instapik.ru/wp-content/uploads/2020/07/crumpled-white-paper.jpg')`,
+borderRadius: 10,
+  // backgroundColor: '#eaebee',
+  // borderBottomLeftRadius: 20,
+  // borderBottomRightRadius: 20,
 };
 export const authTextFieldStyle = {
   '& label.Mui-focused': {
@@ -46,10 +48,8 @@ export const authTextFieldStyle = {
   minWidth: 280,
 };
 export const cardStyle = {
-  minWidth: 263,
-  maxWidth: 355,
-  minHeight: 280,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
+  width: 300, height: 300, display: "flex", 
+    flexDirection: "column",  
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.5)",
+    backgroundImage:`url('https://instapik.ru/wp-content/uploads/2020/07/crumpled-white-paper.jpg')`
 };

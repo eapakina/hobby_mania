@@ -14,7 +14,8 @@ export const getNewsThunk = createAsyncThunk<NewsType, NewsType["id"]>(
 export const addNewsThunk = createAsyncThunk<NewsType, NewsFormType>(
   "News/addNews",
   async (formData) => {
-    const { data } = await axios.post<NewsType>("/news/school/${id}", formData);
+    console.log(formData)
+    const { data } = await axios.post<NewsType>(`/news/school/${formData.schoolId}`, formData);
     return data;
   }
 );

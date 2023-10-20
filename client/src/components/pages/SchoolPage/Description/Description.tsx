@@ -22,21 +22,21 @@ export function Description({ id }: { id: number }): JSX.Element {
 
   return (
     <Box>
-      <CardMedia sx={{ height: 400 }} component="img" image={school.data?.imgSchool} title="school photo" />
-      <Typography>{school.data?.schoolName}</Typography>
-      <Typography variant="body2" color="text.secondary">
+      <CardMedia sx={{ height: 400, borderRadius: '40px', marginBottom: '20px' }} component="img" image={school.data?.imgSchool} title="school photo" />
+      <Typography sx={{ fontSize: '30px', marginBottom: '5px'}}>{school.data?.schoolName}</Typography>
+      <Typography sx={{ fontSize: '20px', marginBottom: '5px'}} variant="body2" color="text.secondary">
         Округ: {school.data?.District?.district}{' '}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography sx={{ fontSize: '20px', marginBottom: '5px'}} variant="body2" color="text.secondary">
         Адрес: {school.data?.adress}{' '}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography sx={{ fontSize: '20px', marginBottom: '5px'}} variant="body2" color="text.secondary">
         Телефон: {school.data?.phone}{' '}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography sx={{ fontSize: '20px', marginBottom: '5px'}} variant="body2" color="text.secondary">
         email: {school.data?.email}{' '}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography sx={{ fontSize: '20px', marginBottom: '5px'}} variant="body2" color="text.secondary">
         Описание: {school.data?.info}{' '}
       </Typography>
       { checkSchool.schoolId === school.data.id && (

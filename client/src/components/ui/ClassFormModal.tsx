@@ -9,10 +9,11 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Box } from "@mui/material";
 import { useAppDispatch } from "../../redux/hooks";
 import { addClassThunk } from "../../redux/slices/class/classesThunks";
 
-export default function ClassFormModal(): JSX.Element {
+export default function ClassFormModal({ school }): JSX.Element {
   const [open, setOpen] = useState(false);
   const [categorys, setCategorys] = useState([]);
   const [formdata, setFormdata] = useState({
@@ -55,10 +56,19 @@ export default function ClassFormModal(): JSX.Element {
       setCategorys(res.data);
     });
   }, []);
+  console.log(school, id);
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>Добавить занятие</Button>
+      {school?.data.schoolId == id && (
+        <Box
+          sx={{ display: "flex", justifyContent: "center", paddingTop: "50px" }}
+        >
+          <Button variant="contained" onClick={handleOpen}>
+            Добавить занятие
+          </Button>
+        </Box>
+      )}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Class Form</DialogTitle>
         <DialogContent

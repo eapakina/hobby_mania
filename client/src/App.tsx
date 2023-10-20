@@ -38,7 +38,7 @@ function App(): JSX.Element {
     void dispatch(checkSchoolThunk())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(user);
+  console.log(school);
 
   const theme = createTheme({
     palette: {
@@ -46,7 +46,7 @@ function App(): JSX.Element {
         main: "#AE6378",
       },
       secondary: {
-        main: "#79616F",
+        main: "#AE6378",
       },
     },
   });

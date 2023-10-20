@@ -33,8 +33,9 @@ commentsRouter.post("/:id/add", async (req, res) => {
 
 commentsRouter.delete("/:id", async (req, res) => {
   try {
-    await Comment.destroy({ where: { id: req.params.id } });
-    res.sendStatus(200);
+    const {id} = req.params
+    await Comment.destroy({ where: { id } });
+    res.json(id);
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
