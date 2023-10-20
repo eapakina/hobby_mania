@@ -35,8 +35,11 @@ export function SignupPage(): JSX.Element {
   };
 
   return (
-    <Grid container direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh', justifyContent: 'center' }}>
-      <Typography variant="h2" textAlign="center">
+    <Grid container 
+    direction="row" sx={{ ...postFormGridStyles, minHeight: '80vh', justifyContent: 'center' }}>
+             <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
+
+     <Typography variant="h2" textAlign="center">
         Регистрация
       </Typography>
       <Grid item xs={6}>
@@ -74,6 +77,7 @@ export function SignupPage(): JSX.Element {
           </Button>
         </Box>
       </Grid>
+      </Box>
     </Grid>
   );
 }

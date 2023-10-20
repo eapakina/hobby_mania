@@ -71,7 +71,7 @@ export default function ClassItem({
     backgroundImage:`url('https://instapik.ru/wp-content/uploads/2020/07/crumpled-white-paper.jpg')`,
    
     }}>
-      <CardContent>
+      <CardContent style={{flex: "1 0 auto"}}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           <a href={`/school/${item.schoolId}`}> {item.School?.schoolName} </a>
         </Typography>

@@ -42,7 +42,7 @@ export default function ClassRandomItem({
     }
   };
   return (
-    <Box style={{ display: "flex",justifyContent: "space-between" }}>
+    <Box style={{ display: "flex",justifyContent: "space-between", marginBottom: '20px' }}>
     <Card sx={{ width: 300, height: 300, display: "flex", 
     flexDirection: "column",  
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.5)",

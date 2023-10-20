@@ -15,7 +15,7 @@ export default function ClassEditFormModal({
   open,
   setOpen,
   idClass,
-  inputs,
+  inputs
 }): JSX.Element {
   const [categorys, setCategorys] = useState([]);
   const [formdata, setFormdata] = useState({});

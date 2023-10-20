@@ -26,6 +26,7 @@ export const deleteCommentThunks = createAsyncThunk<
   CommentType["id"]
 >("Comment/deleteComment", async (deleteId) => {
   //const { id } = deleteId;
+  console.log(deleteId)
   await axios.delete(`/comments/${deleteId}`);
   return deleteId;
 });

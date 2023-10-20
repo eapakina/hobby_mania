@@ -1,7 +1,7 @@
 import { Box, Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { buttonStyle, postFormGridStyles } from '../../../../styles';
-import { useAppDispatch } from '../../../../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks';
 import { addCommentThunks } from '../../../../../redux/slices/comments/commentThunks';
 
 type CommentFormProps = {
@@ -15,6 +15,8 @@ export function CommentForm({ id }: CommentFormProps): JSX.Element {
     body: '',
   });
   const dispatch = useAppDispatch();
+  const user = useAppSelector((store) => store.user.data);
+  console.log(user);
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e): void => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -24,6 +26,8 @@ export function CommentForm({ id }: CommentFormProps): JSX.Element {
 
   return (
     <Grid container direction="row" sx={postFormGridStyles}>
+          {user.status === 'logged' &&
+          <>
       <Grid item xs={3} />
       <Grid item xs={6}>
         <Box py={5} display="flex" flexDirection="column" alignItems="left" justifyContent="space-around">
@@ -59,6 +63,7 @@ export function CommentForm({ id }: CommentFormProps): JSX.Element {
           </Button>
         </Box>
       </Grid>
+      </>}
     </Grid>
   );
 }

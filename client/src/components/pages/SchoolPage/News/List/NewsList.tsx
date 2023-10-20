@@ -17,7 +17,7 @@ export function NewsList({ id }: { id: number }): JSX.Element {
   return (
     <Paper elevation={0} sx={newsListPaperStyles}>
       <Box mt={1} py={2} px={2} display="flex" flexDirection="row" flexWrap="wrap">
-        <Box p={1} display="flex" flexWrap="wrap" sx={{padding: '20px', justifyContent: "space-between"}}>{news?.map((el: NewsType) => <NewsItem key={el.id} news={el} />)}</Box>
+        <Box p={2} display="flex" flexWrap="wrap" sx={{padding: '20px', justifyContent: "space-between"}}>{news?.map((el: NewsType) => <NewsItem key={el.id} news={el} />)}</Box>
       </Box>
     </Paper>
   );

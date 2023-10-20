@@ -13,7 +13,7 @@ module.exports = {
           password: await bcrypt.hash('123', 10),
           info: "Мы - очень классный центр",
           imgSchool:
-            "//static.tildacdn.com/tild3233-6365-4532-b166-643233396232/10.jpg",
+            "/10.jpg",
           districtId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),

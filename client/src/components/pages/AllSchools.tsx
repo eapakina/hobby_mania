@@ -16,7 +16,7 @@ export default function AllSchools(): JSX.Element {
   }, []);
 //   console.log(schola, schola[0].schoolName);
   return (
-    <List>
+    <List style={{ marginRight: '500px', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', width: '100%'}}>
       {schola?.map((school) => (
         <ListItem disablePadding>
           <ListItemIcon color="secondary">
@@ -25,7 +25,7 @@ export default function AllSchools(): JSX.Element {
 
           <ListItemText>
             {" "}
-            <a href={`/school/${school.id}`}>{school.schoolName} </a>{" "}
+            <a style={{ textDecoration: 'none'}} href={`/school/${school.id}`}>{school.schoolName} </a>{" "}
           </ListItemText>
         </ListItem>
       ))}

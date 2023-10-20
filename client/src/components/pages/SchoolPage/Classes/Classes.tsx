@@ -64,7 +64,7 @@ export default function Classes(): JSX.Element {
           </Grid>
         ))}
       </Grid>
-      <ClassFormModal />
+      <ClassFormModal school={school}/>
       {inputs && (
         <ClassEditFormModal
           open={open}

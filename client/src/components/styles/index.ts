@@ -26,9 +26,11 @@ export const postListPaperStyles = {
   borderRadius: 5,
 };
 export const postFormGridStyles = {
-  backgroundColor: '#eaebee',
-  borderBottomLeftRadius: 20,
-  borderBottomRightRadius: 20,
+  backgroundImage:`url('https://instapik.ru/wp-content/uploads/2020/07/crumpled-white-paper.jpg')`,
+borderRadius: 10,
+  // backgroundColor: '#eaebee',
+  // borderBottomLeftRadius: 20,
+  // borderBottomRightRadius: 20,
 };
 export const authTextFieldStyle = {
   '& label.Mui-focused': {
